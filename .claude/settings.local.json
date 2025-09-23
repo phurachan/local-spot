@@ -28,7 +28,15 @@
       "Bash(kill:*)",
       "Bash(chmod:*)",
       "Bash(npm run build:*)",
-      "Bash(xargs kill:*)"
+      "Bash(xargs kill:*)",
+      "Bash(for:*)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(done)",
+      "Bash(while read file)",
+      "Bash(do echo \"Processing: $file\")",
+      "Bash(do echo \"Updating: $file\")",
+      "Bash(npm:*)",
+      "Bash(npx nuxt:*)"
     ],
     "deny": [],
     "ask": []

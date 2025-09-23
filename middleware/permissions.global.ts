@@ -8,8 +8,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // Debug logging can be enabled when needed
   // console.log('MIDDLEWARE: Running for route:', to.path)
   
-  // Skip middleware for login page and API routes
-  if (to.path === '/login' || to.path.startsWith('/api/')) {
+  // Skip middleware for home page, local-spot homepage, login page and API routes
+  if (to.path === '/' || to.path === '/local-spot' || to.path === '/local-spot/login' || to.path.startsWith('/api/')) {
     return
   }
   
@@ -20,7 +20,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   
   // Check if user is authenticated after initialization
   if (!authStore.isAuthenticated) {
-    return navigateTo(`/login?redirect=${encodeURIComponent(to.fullPath)}`)
+    return navigateTo(`/local-spot/login?redirect=${encodeURIComponent(to.fullPath)}`)
   }
   
   // If user is authenticated but user data isn't loaded yet, allow access
@@ -30,10 +30,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   
   // Define route permissions mapping
   const routePermissions: Record<string, string[]> = {
-    '/admin': ['dashboard.access'],
-    '/admin/components': ['components.access'],
-    '/admin/demo': ['demo.access'],
-    '/admin/user_management': ['user_management.access'],
+    '/local-spot/admin': ['dashboard.access'],
+    '/local-spot/admin/components': ['components.access'],
+    '/local-spot/admin/demo': ['demo.access'],
+    '/local-spot/admin/user_management': ['user_management.access'],
   }
   
   // Get the base path (without query parameters)
@@ -55,17 +55,17 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     
     if (!hasRequiredPermission) {
       // Redirect to dashboard if user doesn't have permission
-      if (basePath !== '/admin') {
-        return navigateTo('/admin')
+      if (basePath !== '/local-spot/admin') {
+        return navigateTo('/local-spot/admin')
       } else {
         // If user can't access dashboard, redirect to login
-        return navigateTo(`/login?redirect=${encodeURIComponent(to.fullPath)}`)
+        return navigateTo(`/local-spot/login?redirect=${encodeURIComponent(to.fullPath)}`)
       }
     }
   }
   
   // For dynamic routes, check module access
-  if (basePath.startsWith('/admin/user_management/') && !canAccessModule('user_management')) {
-    return navigateTo('/admin')
+  if (basePath.startsWith('/local-spot/admin/user_management/') && !canAccessModule('user_management')) {
+    return navigateTo('/local-spot/admin')
   }
 })
