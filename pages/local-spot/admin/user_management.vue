@@ -7,7 +7,7 @@
         code="USER-001"
         description="จัดการบทบาท สิทธิ์ และการเข้าถึงของผู้ใช้"
         :breadcrumbs="[
-          { label: 'Admin', to: '/admin', icon: 'home' },
+          { label: 'Admin', to: '/local-spot/admin', icon: 'home' },
           { label: 'จัดการผู้ใช้', icon: 'user-group' }
         ]"
       />

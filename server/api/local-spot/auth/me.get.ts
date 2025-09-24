@@ -1,7 +1,7 @@
 import User from '~/server/local-spot/models/User'
 import { extractTokenFromHeader, verifyToken } from '~/server/local-spot/utils/jwt'
 import { connectMongoDB } from '~/server/local-spot/utils/mongodb'
-import { API_RESPONSE_CODES, createPredefinedError } from '~/server/local-spot/utils/responseHandler'
+import { API_RESPONSE_CODES, createPredefinedError, createSuccessResponse } from '~/server/local-spot/utils/responseHandler'
 
 export default defineEventHandler(async (event) => {
   await connectMongoDB()

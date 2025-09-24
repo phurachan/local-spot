@@ -303,7 +303,7 @@ const fetchUsers = async () => {
     // Handle authentication errors
     if (error.status === 401) {
       console.warn('Authentication required - redirecting to login')
-      // The useHttpClient already handles 401 redirects to /login
+      // The useHttpClient already handles 401 redirects to /local-spot/login
       return
     }
   }

@@ -107,7 +107,7 @@
           </div>
 
           <div class="card-actions justify-end mt-4">
-            <NuxtLink to="/admin/components" class="btn btn-primary">
+            <NuxtLink to="/local-spot/admin/components" class="btn btn-primary">
               View All Components
             </NuxtLink>
           </div>
@@ -158,7 +158,7 @@
           </div>
 
           <div class="card-actions justify-end mt-4">
-            <NuxtLink to="/admin/demo" class="btn btn-success">
+            <NuxtLink to="/local-spot/admin/demo" class="btn btn-success">
               <BaseIcon name="play" size="sm" />
               Try Demo
             </NuxtLink>
@@ -222,7 +222,7 @@ definePageMeta({
 const breadcrumbItems = [
   {
     label: 'Admin',
-    to: '/admin',
+    to: '/local-spot/admin',
     icon: 'home'
   },
   {

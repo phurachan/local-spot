@@ -62,7 +62,7 @@ composables/
 
 components/
 ├── GlobalAlert.vue      # Global alert component
-└── LanguageSwitcher.vue # Language switcher component
+└── BaseLanguageSwitcher.vue # Language switcher component
 ```
 
 ## การใช้งาน i18n
@@ -100,7 +100,7 @@ const message = $i18n.t('common.success')
 ### 3. Language Switcher
 ```vue
 <template>
-  <LanguageSwitcher />
+  <BaseLanguageSwitcher />
 </template>
 ```
 
@@ -273,7 +273,7 @@ const saveUser = async (userData) => {
 
 ## การทดสอบ
 
-1. เปิดหน้า `/admin/i18n-test` เพื่อทดสอบระบบ
+1. เปิดหน้า `/local-spot/admin/i18n-test` เพื่อทดสอบระบบ
 2. ทดสอบการเปลี่ยนภาษาผ่าน Language Switcher
 3. ทดสอบ Alert แต่ละประเภท
 4. ทดสอบ API Error และ Validation Error
@@ -299,7 +299,7 @@ const saveUser = async (userData) => {
 
 1. เพิ่ม locale ใหม่ใน `nuxt.config.ts`
 2. เพิ่ม translations ใน `i18n.config.ts`
-3. เพิ่มตัวเลือกใน `LanguageSwitcher.vue`
+3. เพิ่มตัวเลือกใน `BaseLanguageSwitcher.vue`
 4. อัพเดท server response ให้รองรับภาษาใหม่
 
 ## แก้ไข Build Error

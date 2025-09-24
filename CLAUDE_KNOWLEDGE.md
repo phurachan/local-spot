@@ -164,7 +164,7 @@ export default defineNuxtPlugin(nuxtApp => {
 1. Create component in `/components/base/` using DaisyUI patterns
 2. Use TypeScript interfaces from `/composables/component_models/`
 3. Follow existing patterns and conventions
-4. **Critical**: After user confirms component is complete, add documentation to `/pages/admin/components.vue`
+4. **Critical**: After user confirms component is complete, add documentation to `/pages/local-spot/admin/components.vue`
 
 ### Page Creation Rules
 - **Default Layout**: All new pages use `admin` layout unless user specifies otherwise
@@ -208,7 +208,7 @@ export default defineNuxtPlugin(nuxtApp => {
 ### Vue Template Issues Fixed
 - **Double Curly Braces**: `{{ }}` in code examples interpreted as Vue expressions
 - **Solution**: Use single `{ }` in mockup-code examples to show object syntax
-- **Context**: Documentation code examples in `/pages/admin/components.vue`
+- **Context**: Documentation code examples in `/pages/local-spot/admin/components.vue`
 
 ### TypeScript Integration
 - **Issue**: Vue compiler couldn't resolve imported types
@@ -399,7 +399,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
 ## Complete CRUD Demo Implementation
 
-### Demo Page (`/pages/admin/demo.vue`)
+### Demo Page (`/pages/local-spot/admin/demo.vue`)
 **Features**:
 - JSONPlaceholder API integration for real REST operations
 - Complete CRUD operations: Create, Read, Update, Delete
@@ -432,13 +432,13 @@ export default defineNuxtPlugin(nuxtApp => {
 [
   {
     title: "Dashboard",
-    items: [{ path: "/admin", label: "Overview", icon: "home" }]
+    items: [{ path: "/local-spot/admin", label: "Overview", icon: "home" }]
   },
   {
     title: "Examples", 
     items: [
-      { path: "/admin/demo", label: "Demo", badge: { text: "New", variant: "success" }},
-      { path: "/admin/components", label: "Components", badge: { text: "UI", variant: "info" }}
+      { path: "/local-spot/admin/demo", label: "Demo", badge: { text: "New", variant: "success" }},
+      { path: "/local-spot/admin/components", label: "Components", badge: { text: "UI", variant: "info" }}
     ]
   }
 ]
@@ -458,7 +458,7 @@ export default defineNuxtPlugin(nuxtApp => {
 - Focus on working functionality over future plans
 
 ### Dashboard Page Enhancement
-**Location**: `/pages/admin/index.vue`
+**Location**: `/pages/local-spot/admin/index.vue`
 - Stats cards showing project metrics
 - Component showcase with status badges
 - Quick start guide for new users
@@ -737,7 +737,7 @@ The User Management system is now complete and ready for:
 ## Component Showcase Tab System Fix (September 2025)
 
 ### **Issue Resolution**
-Fixed Vue warning: `[Vue warn]: Failed to resolve component: BaseComponentsTab` in `/pages/admin/components.vue`
+Fixed Vue warning: `[Vue warn]: Failed to resolve component: BaseComponentsTab` in `/pages/local-spot/admin/components.vue`
 
 ### **Root Cause**
 The components showcase page was trying to import tab components using incorrect naming:
@@ -747,7 +747,7 @@ The components showcase page was trying to import tab components using incorrect
 - `UtilityComponentsTab` → Should be `ShowcaseUtilityComponentsTab`
 
 ### **Solution Applied**
-Updated `/pages/admin/components.vue` to use correct component names matching the actual files in `/components/showcase/`:
+Updated `/pages/local-spot/admin/components.vue` to use correct component names matching the actual files in `/components/showcase/`:
 - **Location**: All tab components are in `/components/showcase/` directory
 - **Naming**: Components follow `Showcase[Category]ComponentsTab.vue` pattern
 - **Auto-import**: Nuxt auto-imports them with the `Showcase` prefix
@@ -791,7 +791,7 @@ Each tab contains comprehensive documentation for:
 Fixed Nuxt layout error: `Invalid layout 'admin' selected` and hydration mismatch in components showcase page.
 
 ### **Root Cause**
-The `/pages/admin/components.vue` file was configured to use `layout: 'admin'` but the `layouts/admin.vue` file did not exist in the project structure.
+The `/pages/local-spot/admin/components.vue` file was configured to use `layout: 'admin'` but the `layouts/admin.vue` file did not exist in the project structure.
 
 ### **Available Layouts**
 Current project only has these layout files:
@@ -799,7 +799,7 @@ Current project only has these layout files:
 - `layouts/auth.vue` - Authentication layout
 
 ### **Solution Applied**
-Updated `/pages/admin/components.vue` to use the correct layout:
+Updated `/pages/local-spot/admin/components.vue` to use the correct layout:
 ```javascript
 // Before (causing error)
 definePageMeta({
@@ -816,10 +816,10 @@ definePageMeta({
 
 ### **Layout Consistency Check**
 Verified all admin pages now use consistent layout configuration:
-- `/pages/admin/index.vue` → `layout: 'default'`
-- `/pages/admin/demo.vue` → `layout: 'default'` 
-- `/pages/admin/user_management.vue` → `layout: 'default'`
-- `/pages/admin/components.vue` → `layout: 'default'` ✅ **Fixed**
+- `/pages/local-spot/admin/index.vue` → `layout: 'default'`
+- `/pages/local-spot/admin/demo.vue` → `layout: 'default'` 
+- `/pages/local-spot/admin/user_management.vue` → `layout: 'default'`
+- `/pages/local-spot/admin/components.vue` → `layout: 'default'` ✅ **Fixed**
 
 ### **Error Types Resolved**
 ✅ **Layout Error**: `Invalid layout 'admin' selected`  
@@ -835,7 +835,7 @@ Verified all admin pages now use consistent layout configuration:
 ### **Layout Architecture Notes**
 - **Current Setup**: Single `default` layout for all admin pages
 - **No Admin Layout**: The project does not have a dedicated admin layout file
-- **Consistency**: All pages in `/pages/admin/` directory use `layout: 'default'`
+- **Consistency**: All pages in `/pages/local-spot/admin/` directory use `layout: 'default'`
 - **Future**: If admin layout is needed, create `/layouts/admin.vue` and update all admin pages
 
 **Fix Status**: Complete - All layout configuration issues resolved and documented.
@@ -1010,7 +1010,7 @@ interface Props {
 ├── components/base/
 │   └── ThemeToggle.vue            # Theme toggle component
 ├── tailwind.config.js             # DaisyUI theme configuration
-└── pages/admin/components.vue     # Theme toggle integration
+└── pages/local-spot/admin/components.vue     # Theme toggle integration
 ```
 
 ### **Automatic Theme Features**
@@ -1209,9 +1209,9 @@ const router = useRouter()
 // ✅ ดีสำหรับ side effects หรือ complex logic
 watch(() => authStore.isAuthenticated, (newVal) => {
   if (newVal) {
-    router.push('/dashboard')
+    router.push('/local-spot/dashboard')
   } else {
-    router.push('/login')
+    router.push('/local-spot/login')
   }
 }, { immediate: true })
 
@@ -1298,9 +1298,9 @@ const user = computed(() => useAuthStore().user)
 <script setup>
 watch(() => authStore.isAuthenticated, (authenticated) => {
   if (authenticated) {
-    router.push('/dashboard')
+    router.push('/local-spot/dashboard')
   } else {
-    router.push('/login')
+    router.push('/local-spot/login')
   }
 })
 </script>
@@ -1381,7 +1381,7 @@ Removed all console.log statements from:
 
 ### **Authentication Flow Testing Results**
 ✅ **Cookie Persistence**: Cookies now save correctly in development  
-✅ **Page Refresh**: /admin/components stays on page after refresh (no redirect to login)  
+✅ **Page Refresh**: /local-spot/admin/components stays on page after refresh (no redirect to login)  
 ✅ **API Integration**: Response structure properly handled with `response?.data?.` pattern  
 ✅ **Clean Console**: No debug logs cluttering development console  
 ✅ **Production Ready**: Secure cookies enabled only in production environment  
@@ -1525,7 +1525,7 @@ error('Failed to save user. Please try again.')
 </script>
 ```
 
-**Integration**: Added `<ToastContainer />` to default layout for global display.
+**Integration**: Added `<BaseToastContainer />` to default layout for global display.
 
 ### **Authentication Cookie Fix**
 **Issue**: Login wasn't saving cookies, causing authentication failures

@@ -61,10 +61,10 @@
             <pre data-prefix="3"><code>// Result: "User Management"</code></pre>
             <pre data-prefix="4"><code></code></pre>
             <pre data-prefix="5"><code>// Set custom label for a path</code></pre>
-            <pre data-prefix="6"><code>setCustomLabel('/admin/user_management', 'System Settings')</code></pre>
+            <pre data-prefix="6"><code>setCustomLabel('/local-spot/admin/user_management', 'System Settings')</code></pre>
             <pre data-prefix="7"><code></code></pre>
             <pre data-prefix="8"><code>// Get mapping for breadcrumb generation</code></pre>
-            <pre data-prefix="9"><code>const mapping = getPathMapping('/admin/users')</code></pre>
+            <pre data-prefix="9"><code>const mapping = getPathMapping('/local-spot/admin/users')</code></pre>
             <pre data-prefix="10"><code>// Result: { label: "Users", children: {...} }</code></pre>
           </div>
         </div>

@@ -200,7 +200,7 @@ const authStore = useAuthStore()
 
 // Check authentication
 if (!authStore.isAuthenticated) {
-  return navigateTo('/login')
+  return navigateTo('/local-spot/login')
 }
 
 // Check permissions

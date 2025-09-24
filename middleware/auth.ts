@@ -29,7 +29,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   
   // If not authenticated, redirect to login with current path
   if (!authStore.isAuthenticated) {
-    const redirectUrl = `/login?redirect=${encodeURIComponent(to.fullPath)}`
+    const redirectUrl = `/local-spot/login?redirect=${encodeURIComponent(to.fullPath)}`
     return navigateTo(redirectUrl)
   }
 })

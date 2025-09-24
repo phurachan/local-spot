@@ -6,7 +6,7 @@
       code="COMP-001"
       description="Collection of reusable base components for consistent UI development"
       :breadcrumbs="[
-        { label: 'Admin', to: '/admin', icon: 'home' },
+        { label: 'Admin', to: '/local-spot/admin', icon: 'home' },
         { label: 'Components', icon: 'puzzle-piece' }
       ]"
     >
@@ -227,7 +227,7 @@
                       <p><strong>ใช้เมื่อ:</strong> ต้องทำ action เมื่อ state เปลี่ยน</p>
                       <div class="mockup-code text-xs">
                         <pre><code>watch(() => auth.isAuthenticated, (isAuth) => {
-  if (!isAuth) navigateTo('/login')
+  if (!isAuth) navigateTo('/local-spot/login')
 })</code></pre>
                       </div>
                     </div>
