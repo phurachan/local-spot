@@ -31,8 +31,10 @@ definePageMeta({
   middleware: 'guest'
 })
 
-const authStore = useAuthStore()
 const router = useRouter()
+
+// Initialize store safely with ref
+const authStore = ref<any>(null)
 
 const form = ref({
   email: '',
@@ -77,13 +79,17 @@ const handleLogin = async () => {
   loading.value = true
 
   try {
+    if (!authStore.value) {
+      throw new Error('Auth store not available')
+    }
+
     const payload: BaseRequestData<AuthLoginRequest> = {
       body: {
         email: form.value.email,
         password: form.value.password,
       }
     }
-    await authStore.login(payload)
+    await authStore.value.login(payload)
 
     // Check for redirect parameter in URL
     const redirect = router.currentRoute.value.query.redirect as string
@@ -103,21 +109,29 @@ const handleLogin = async () => {
   // Don't reset loading here for successful login - let the navigation handle it
 }
 
-// Handle redirect when already authenticated
+// Initialize auth store only on client side after mount
 onMounted(async () => {
+  // Initialize the store only on client side
+  if (process.client) {
+    try {
+      authStore.value = useAuthStore()
 
-  // Wait a bit for any pending auth initialization
-  await nextTick()
+      // Wait a bit for any pending auth initialization
+      await nextTick()
 
-  if (authStore.isAuthenticated) {
-    const redirect = router.currentRoute.value.query.redirect as string
-    const targetPath = redirect ? decodeURIComponent(redirect) : '/admin'
-    await navigateTo(targetPath, { replace: true })
+      if (authStore.value.isAuthenticated) {
+        const redirect = router.currentRoute.value.query.redirect as string
+        const targetPath = redirect ? decodeURIComponent(redirect) : '/admin'
+        await navigateTo(targetPath, { replace: true })
+      }
+    } catch (error) {
+      console.warn('Failed to initialize auth store on mount:', error)
+    }
   }
 })
 
 // Also watch for auth state changes in case auth completes after mount
-watch(() => authStore.isAuthenticated, async (isAuthenticated, oldValue) => {
+watch(() => authStore.value?.isAuthenticated, async (isAuthenticated, oldValue) => {
   if (isAuthenticated && !oldValue) {
     const redirect = router.currentRoute.value.query.redirect as string
     const targetPath = redirect ? decodeURIComponent(redirect) : '/admin'
