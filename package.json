@@ -5,9 +5,13 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "npm run clean && nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "clean": "rm -rf .output .nuxt dist node_modules/.cache",
+    "fresh-install": "npm run clean && rm -rf node_modules package-lock.json && npm install",
+    "dev:clean": "npm run clean && nuxt dev",
+    "build:clean": "npm run clean && nuxt build"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",

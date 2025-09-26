@@ -29,10 +29,21 @@ export default defineNuxtConfig({
     defaultLocale: 'th',
     strategy: 'prefix_except_default',
     langDir: 'locales/',
+    lazy: false,
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      redirectOn: 'root'
+      redirectOn: 'root',
+      fallbackLocale: 'th'
+    },
+    experimental: {
+      jsTsFormatResource: true
+    }
+  },
+
+  nitro: {
+    experimental: {
+      wasm: true
     }
   },
   
