@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     await connectMongoDB()
 
     // Verify authentication
-    const token = getCookie(event, 'auth-token') || getHeader(event, 'authorization')?.replace('Bearer ', '')
+    const token = getCookie(event, 'token') || getHeader(event, 'authorization')?.replace('Bearer ', '')
 
     if (!token) {
       throw createPredefinedError(API_RESPONSE_CODES.AUTHENTICATION_REQUIRED)

@@ -1,5 +1,4 @@
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
+import { put } from '@vercel/blob'
 import sharp from 'sharp'
 import { ImageGalleryContent } from '~/server/local-spot/models/CMS'
 import { createSuccessResponse, createPredefinedError, API_RESPONSE_CODES } from '~/server/local-spot/utils/responseHandler'
@@ -40,33 +39,34 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // สร้างโฟลเดอร์ uploads ถ้ายังไม่มี
-    const uploadDir = join(process.cwd(), 'public', 'uploads', 'images')
-    await mkdir(uploadDir, { recursive: true })
-
     // สร้างชื่อไฟล์ unique
     const timestamp = Date.now()
     const originalName = file.filename || 'image.jpg'
     const ext = originalName.split('.').pop()
     const filename = `${timestamp}-${Math.random().toString(36).substring(7)}.${ext}`
 
-    // Save original image
-    const filepath = join(uploadDir, filename)
-    await writeFile(filepath, file.data)
+    // Get image metadata
+    const metadata = await sharp(file.data).metadata()
 
-    // Create thumbnail using sharp
-    const thumbnailFilename = `thumb-${filename}`
-    const thumbnailPath = join(uploadDir, thumbnailFilename)
+    // Upload original image to Vercel Blob
+    const { url: imageUrl } = await put(`images/${filename}`, file.data, {
+      access: 'public',
+      contentType: file.type || 'image/jpeg'
+    })
 
-    await sharp(file.data)
+    // Create and upload thumbnail
+    const thumbnailBuffer = await sharp(file.data)
       .resize(400, 400, {
         fit: 'cover',
         position: 'center'
       })
-      .toFile(thumbnailPath)
+      .toBuffer()
 
-    // Get image metadata
-    const metadata = await sharp(file.data).metadata()
+    const thumbnailFilename = `thumb-${filename}`
+    const { url: thumbnailUrl } = await put(`images/${thumbnailFilename}`, thumbnailBuffer, {
+      access: 'public',
+      contentType: file.type || 'image/jpeg'
+    })
 
     // Create image record in database
     const imageData = {
@@ -75,8 +75,8 @@ export default defineEventHandler(async (event) => {
       category: form.find(item => item.name === 'category')?.data?.toString() || 'general',
       altText: form.find(item => item.name === 'altText')?.data?.toString() || originalName,
       caption: form.find(item => item.name === 'caption')?.data?.toString(),
-      imageUrl: `/uploads/images/${filename}`,
-      thumbnailUrl: `/uploads/images/${thumbnailFilename}`,
+      imageUrl,
+      thumbnailUrl,
       dimensions: {
         width: metadata.width || 0,
         height: metadata.height || 0

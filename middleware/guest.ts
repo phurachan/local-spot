@@ -12,7 +12,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     // If both token and user exist, consider user authenticated
     if (tokenCookie.value && userCookie.value) {
       const redirect = to.query.redirect as string
-      const targetPath = redirect ? decodeURIComponent(redirect) : '/local-spot/admin'
+      const targetPath = redirect ? decodeURIComponent(redirect) : '/local-spot/manage-cms'
       return navigateTo(targetPath)
     }
   } catch (error) {

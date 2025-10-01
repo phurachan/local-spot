@@ -1,6 +1,10 @@
 export default defineNuxtRouteMiddleware(async (to) => {
-  // Skip middleware for home page, local-spot homepage, login page and API routes
-  if (to.path === '/' || to.path === '/local-spot' || to.path === '/local-spot/login' || to.path.startsWith('/api/')) {
+  // Only check auth for admin and manage-cms routes
+  const isAdminRoute = to.path.startsWith('/local-spot/admin')
+  const isManageCmsRoute = to.path.startsWith('/local-spot/manage-cms')
+
+  // Skip middleware for all routes except admin and manage-cms
+  if (!isAdminRoute && !isManageCmsRoute) {
     return
   }
 

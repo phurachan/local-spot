@@ -93,7 +93,7 @@ const handleLogin = async () => {
 
     // Check for redirect parameter in URL
     const redirect = router.currentRoute.value.query.redirect as string
-    const targetPath = redirect ? decodeURIComponent(redirect) : '/local-spot/admin'
+    const targetPath = redirect ? decodeURIComponent(redirect) : '/local-spot/manage-cms'
 
     // Force navigation and wait for it to complete
     await navigateTo(targetPath, { replace: true, external: false })
@@ -121,7 +121,7 @@ onMounted(async () => {
 
       if (authStore.value.isAuthenticated) {
         const redirect = router.currentRoute.value.query.redirect as string
-        const targetPath = redirect ? decodeURIComponent(redirect) : '/local-spot/admin'
+        const targetPath = redirect ? decodeURIComponent(redirect) : '/local-spot/manage-cms'
         await navigateTo(targetPath, { replace: true })
       }
     } catch (error) {
@@ -134,7 +134,7 @@ onMounted(async () => {
 watch(() => authStore.value?.isAuthenticated, async (isAuthenticated, oldValue) => {
   if (isAuthenticated && !oldValue) {
     const redirect = router.currentRoute.value.query.redirect as string
-    const targetPath = redirect ? decodeURIComponent(redirect) : '/local-spot/admin'
+    const targetPath = redirect ? decodeURIComponent(redirect) : '/local-spot/manage-cms'
     await navigateTo(targetPath, { replace: true })
   }
 })
