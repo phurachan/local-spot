@@ -26,11 +26,11 @@
           </div>
 
           <!-- Center title for mobile -->
-          <div class="navbar-center lg:hidden">
+          <!-- <div class="navbar-center lg:hidden">
             <h1 class="text-xl font-bold text-primary flex items-center gap-2">
               Admin Panel
             </h1>
-          </div>
+          </div> -->
 
           <!-- Right side actions -->
           <div class="navbar-end gap-2">
@@ -305,7 +305,61 @@ const menuSections = ref([
     ]
   },
   {
-    title: "Settings",
+    title: "Content Management",
+    icon: "document-text",
+    items: [
+      {
+        path: "/local-spot/manage-cms",
+        label: "CMS Dashboard",
+        icon: "squares-2x2",
+        activeWhen: ["/local-spot/manage-cms"]
+      },
+      {
+        path: "/local-spot/manage-cms/hotels",
+        label: "โรงแรม",
+        icon: "building-office",
+        activeWhen: ["/local-spot/manage-cms/hotels"]
+      },
+      {
+        path: "/local-spot/manage-cms/restaurants",
+        label: "ร้านอาหาร",
+        icon: "building-storefront",
+        activeWhen: ["/local-spot/manage-cms/restaurants"]
+      },
+      {
+        path: "/local-spot/manage-cms/travel-services",
+        label: "บริการท่องเที่ยว",
+        icon: "map",
+        activeWhen: ["/local-spot/manage-cms/travel-services"]
+      },
+      {
+        path: "/local-spot/manage-cms/local-products",
+        label: "ผลิตภัณฑ์ท้องถิ่น",
+        icon: "gift",
+        activeWhen: ["/local-spot/manage-cms/local-products"]
+      },
+      {
+        path: "/local-spot/manage-cms/events",
+        label: "กิจกรรม",
+        icon: "calendar",
+        activeWhen: ["/local-spot/manage-cms/events"]
+      },
+      {
+        path: "/local-spot/manage-cms/images",
+        label: "คลังรูปภาพ",
+        icon: "photo",
+        activeWhen: ["/local-spot/manage-cms/images"]
+      },
+      {
+        path: "/local-spot/manage-cms/seo",
+        label: "SEO & Meta",
+        icon: "magnifying-glass",
+        activeWhen: ["/local-spot/manage-cms/seo"]
+      }
+    ]
+  },
+  {
+    title: "User Management",
     icon: "users",
     items: [
       {

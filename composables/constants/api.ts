@@ -88,6 +88,68 @@ export const API_ENDPOINTS = {
     SECURITY: '/settings/security',
     NOTIFICATIONS: '/settings/notifications',
     UPDATE: '/settings'
+  },
+
+  // CMS - Content Management
+  CMS: {
+    // Hotels
+    HOTELS: {
+      LIST: '/cms/hotels',
+      SHOW: (id: string) => `/cms/hotels/${id}`,
+      CREATE: '/cms/hotels',
+      UPDATE: (id: string) => `/cms/hotels/${id}`,
+      DELETE: (id: string) => `/cms/hotels/${id}`
+    },
+    // Restaurants
+    RESTAURANTS: {
+      LIST: '/cms/restaurants',
+      SHOW: (id: string) => `/cms/restaurants/${id}`,
+      CREATE: '/cms/restaurants',
+      UPDATE: (id: string) => `/cms/restaurants/${id}`,
+      DELETE: (id: string) => `/cms/restaurants/${id}`
+    },
+    // Travel Services
+    TRAVEL_SERVICES: {
+      LIST: '/cms/travel-services',
+      SHOW: (id: string) => `/cms/travel-services/${id}`,
+      CREATE: '/cms/travel-services',
+      UPDATE: (id: string) => `/cms/travel-services/${id}`,
+      DELETE: (id: string) => `/cms/travel-services/${id}`
+    },
+    // Local Products
+    LOCAL_PRODUCTS: {
+      LIST: '/cms/local-products',
+      SHOW: (id: string) => `/cms/local-products/${id}`,
+      CREATE: '/cms/local-products',
+      UPDATE: (id: string) => `/cms/local-products/${id}`,
+      DELETE: (id: string) => `/cms/local-products/${id}`
+    },
+    // Events
+    EVENTS: {
+      LIST: '/cms/events',
+      SHOW: (id: string) => `/cms/events/${id}`,
+      CREATE: '/cms/events',
+      UPDATE: (id: string) => `/cms/events/${id}`,
+      DELETE: (id: string) => `/cms/events/${id}`
+    },
+    // Image Gallery
+    IMAGES: {
+      LIST: '/cms/images',
+      SHOW: (id: string) => `/cms/images/${id}`,
+      CREATE: '/cms/images',
+      UPDATE: (id: string) => `/cms/images/${id}`,
+      DELETE: (id: string) => `/cms/images/${id}`,
+      UPLOAD: '/cms/images/upload'
+    },
+    // SEO & Meta
+    SEO: {
+      LIST: '/cms/seo',
+      SHOW: (id: string) => `/cms/seo/${id}`,
+      CREATE: '/cms/seo',
+      UPDATE: (id: string) => `/cms/seo/${id}`,
+      DELETE: (id: string) => `/cms/seo/${id}`,
+      BY_URL: (url: string) => `/cms/seo/by-url?url=${encodeURIComponent(url)}`
+    }
   }
 } as const
 

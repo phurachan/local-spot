@@ -67,6 +67,10 @@ export const API_RESPONSE_MESSAGES = {
     th: 'จำเป็นต้องเข้าสู่ระบบ',
     en: 'Authentication required'
   },
+  AUTHENTICATION_REQUIRED: {
+    th: 'จำเป็นต้องเข้าสู่ระบบ',
+    en: 'Authentication required'
+  },
   FORBIDDEN: {
     th: 'การเข้าถึงถูกปฏิเสธ ไม่มีสิทธิ์เพียงพอ',
     en: 'Access denied. Insufficient permissions'
@@ -93,6 +97,10 @@ export const API_RESPONSE_MESSAGES = {
     th: 'ข้อมูลที่ป้อนไม่ถูกต้อง',
     en: 'Invalid input provided'
   },
+  INVALID_ID_FORMAT: {
+    th: 'รูปแบบ ID ไม่ถูกต้อง',
+    en: 'Invalid ID format'
+  },
 
   // Resource Management
   NOT_FOUND: {
@@ -116,7 +124,7 @@ export const API_RESPONSE_MESSAGES = {
 
   // Success Messages
   SUCCESS: {
-    th: 'เสำเร็จ',
+    th: 'สำเร็จ',
     en: 'successful'
   },
   LOGIN_SUCCESS: {
@@ -130,6 +138,28 @@ export const API_RESPONSE_MESSAGES = {
   REGISTER_SUCCESS: {
     th: 'ลงทะเบียนสำเร็จ',
     en: 'Registration successful'
+  },
+
+  // Common CRUD Operations
+  CREATED: {
+    th: 'บันทึกข้อมูลสำเร็จ',
+    en: 'Created successfully'
+  },
+  UPDATED: {
+    th: 'อัปเดตข้อมูลสำเร็จ',
+    en: 'Updated successfully'
+  },
+  DELETED: {
+    th: 'ลบข้อมูลสำเร็จ',
+    en: 'Deleted successfully'
+  },
+  RETRIEVED: {
+    th: 'ดึงข้อมูลสำเร็จ',
+    en: 'Retrieved successfully'
+  },
+  LIST_RETRIEVED: {
+    th: 'ดึงรายการข้อมูลสำเร็จ',
+    en: 'List retrieved successfully'
   },
 
   // User Management
@@ -218,6 +248,22 @@ export const VALIDATION_DETAILS = {
   FIELD_RESOURCE_REQUIRED: 'FIELD_RESOURCE_REQUIRED',
   FIELD_DESCRIPTION_REQUIRED: 'FIELD_DESCRIPTION_REQUIRED',
   FIELD_PERMISSIONS_REQUIRED: 'FIELD_PERMISSIONS_REQUIRED',
+  FIELD_TITLE_REQUIRED: 'FIELD_TITLE_REQUIRED',
+  FIELD_CATEGORY_REQUIRED: 'FIELD_CATEGORY_REQUIRED',
+  FIELD_ADDRESS_REQUIRED: 'FIELD_ADDRESS_REQUIRED',
+  FIELD_DISTRICT_REQUIRED: 'FIELD_DISTRICT_REQUIRED',
+  FIELD_PROVINCE_REQUIRED: 'FIELD_PROVINCE_REQUIRED',
+  FIELD_SERVICE_TYPE_REQUIRED: 'FIELD_SERVICE_TYPE_REQUIRED',
+  FIELD_SERVICE_AREA_REQUIRED: 'FIELD_SERVICE_AREA_REQUIRED',
+  FIELD_PRICING_TYPE_REQUIRED: 'FIELD_PRICING_TYPE_REQUIRED',
+  FIELD_PRICING_AMOUNT_REQUIRED: 'FIELD_PRICING_AMOUNT_REQUIRED',
+  FIELD_VENDOR_NAME_REQUIRED: 'FIELD_VENDOR_NAME_REQUIRED',
+  FIELD_PRICING_PRICE_REQUIRED: 'FIELD_PRICING_PRICE_REQUIRED',
+  FIELD_START_DATE_REQUIRED: 'FIELD_START_DATE_REQUIRED',
+  FIELD_END_DATE_REQUIRED: 'FIELD_END_DATE_REQUIRED',
+  FIELD_VENUE_REQUIRED: 'FIELD_VENUE_REQUIRED',
+  FIELD_ORGANIZER_NAME_REQUIRED: 'FIELD_ORGANIZER_NAME_REQUIRED',
+  END_DATE_BEFORE_START_DATE: 'END_DATE_BEFORE_START_DATE',
 
   // Field Validation
   PASSWORD_MIN_6: 'PASSWORD_MIN_6',
@@ -261,10 +307,18 @@ export const API_RESPONSE_CODES = {
   LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
   REGISTER_SUCCESS: 'REGISTER_SUCCESS',
 
+  // Common CRUD Operations
+  CREATED: 'CREATED',
+  UPDATED: 'UPDATED',
+  DELETED: 'DELETED',
+  RETRIEVED: 'RETRIEVED',
+  LIST_RETRIEVED: 'LIST_RETRIEVED',
+
   // Authentication & Authorization
   INVALID_OR_EXPIRED_TOKEN: 'INVALID_OR_EXPIRED_TOKEN',
   INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
   UNAUTHORIZED: 'UNAUTHORIZED',
+  AUTHENTICATION_REQUIRED: 'AUTHENTICATION_REQUIRED',
   FORBIDDEN: 'FORBIDDEN',
   TOKEN_EXPIRED: 'TOKEN_EXPIRED',
 
@@ -273,6 +327,7 @@ export const API_RESPONSE_CODES = {
   VALIDATION_ERROR: 'VALIDATION_ERROR',
   MISSING_REQUIRED_FIELDS: 'MISSING_REQUIRED_FIELDS',
   INVALID_INPUT: 'INVALID_INPUT',
+  INVALID_ID_FORMAT: 'INVALID_ID_FORMAT',
 
   // Resource Management
   NOT_FOUND: 'NOT_FOUND',
@@ -329,6 +384,39 @@ export const API_RESPONSE = {
     messages: API_RESPONSE_MESSAGES.REGISTER_SUCCESS,
     message: API_RESPONSE_MESSAGES.REGISTER_SUCCESS.en,
   },
+
+  // Common CRUD Operations
+  CREATED: {
+    statusCode: HTTP_STATUS.CREATED,
+    statusMessage: 'CREATED',
+    messages: API_RESPONSE_MESSAGES.CREATED,
+    message: API_RESPONSE_MESSAGES.CREATED.en,
+  },
+  UPDATED: {
+    statusCode: HTTP_STATUS.OK,
+    statusMessage: 'SUCCESS',
+    messages: API_RESPONSE_MESSAGES.UPDATED,
+    message: API_RESPONSE_MESSAGES.UPDATED.en,
+  },
+  DELETED: {
+    statusCode: HTTP_STATUS.OK,
+    statusMessage: 'SUCCESS',
+    messages: API_RESPONSE_MESSAGES.DELETED,
+    message: API_RESPONSE_MESSAGES.DELETED.en,
+  },
+  RETRIEVED: {
+    statusCode: HTTP_STATUS.OK,
+    statusMessage: 'SUCCESS',
+    messages: API_RESPONSE_MESSAGES.RETRIEVED,
+    message: API_RESPONSE_MESSAGES.RETRIEVED.en,
+  },
+  LIST_RETRIEVED: {
+    statusCode: HTTP_STATUS.OK,
+    statusMessage: 'SUCCESS',
+    messages: API_RESPONSE_MESSAGES.LIST_RETRIEVED,
+    message: API_RESPONSE_MESSAGES.LIST_RETRIEVED.en,
+  },
+
   // Authentication & Authorization
   INVALID_CREDENTIALS: {
     statusCode: HTTP_STATUS.UNAUTHORIZED,
@@ -342,6 +430,12 @@ export const API_RESPONSE = {
     messages: API_RESPONSE_MESSAGES.UNAUTHORIZED,
     message: API_RESPONSE_MESSAGES.UNAUTHORIZED.en,
   },
+  AUTHENTICATION_REQUIRED: {
+    statusCode: HTTP_STATUS.UNAUTHORIZED,
+    statusMessage: 'AUTHENTICATION_REQUIRED',
+    messages: API_RESPONSE_MESSAGES.AUTHENTICATION_REQUIRED,
+    message: API_RESPONSE_MESSAGES.AUTHENTICATION_REQUIRED.en,
+  },
   FORBIDDEN: {
     statusCode: HTTP_STATUS.FORBIDDEN,
     statusMessage: 'ACCESS_DENIED_INSUFFICIENT_PERMISSIONS',
@@ -349,6 +443,12 @@ export const API_RESPONSE = {
     message: API_RESPONSE_MESSAGES.FORBIDDEN.en,
   },
   TOKEN_EXPIRED: {
+    statusCode: HTTP_STATUS.UNAUTHORIZED,
+    statusMessage: 'TOKEN_EXPIRED',
+    messages: API_RESPONSE_MESSAGES.TOKEN_EXPIRED,
+    message: API_RESPONSE_MESSAGES.TOKEN_EXPIRED.en,
+  },
+  INVALID_OR_EXPIRED_TOKEN: {
     statusCode: HTTP_STATUS.UNAUTHORIZED,
     statusMessage: 'TOKEN_EXPIRED',
     messages: API_RESPONSE_MESSAGES.TOKEN_EXPIRED,
@@ -370,9 +470,15 @@ export const API_RESPONSE = {
   },
   INVALID_INPUT: {
     statusCode: HTTP_STATUS.BAD_REQUEST,
-    statusMessage: 'INVALID_INPUT_PROVIDED',
+    statusMessage: 'INVALID_INPUT',
     messages: API_RESPONSE_MESSAGES.INVALID_INPUT,
     message: API_RESPONSE_MESSAGES.INVALID_INPUT.en,
+  },
+  INVALID_ID_FORMAT: {
+    statusCode: HTTP_STATUS.BAD_REQUEST,
+    statusMessage: 'INVALID_ID_FORMAT',
+    messages: API_RESPONSE_MESSAGES.INVALID_ID_FORMAT,
+    message: API_RESPONSE_MESSAGES.INVALID_ID_FORMAT.en,
   },
 
   // Resource Management
@@ -659,4 +765,64 @@ export function createPaginatedResponse<T>(
   }
 
   return response
+}
+
+/**
+ * Handle and format error responses
+ */
+export function handleError(error: any, defaultMessage: string = 'An error occurred'): any {
+  console.error('API Error:', error)
+
+  // If it's already a formatted error, return it
+  if (error.statusCode && error.statusMessage) {
+    return error
+  }
+
+  // If it's a Mongoose validation error
+  if (error.name === 'ValidationError') {
+    return createValidationError(error.message)
+  }
+
+  // If it's a MongoDB duplicate key error
+  if (error.code === 11000) {
+    return createAPIError({
+      statusCode: HTTP_STATUS.CONFLICT,
+      statusMessage: 'DUPLICATE_ENTRY',
+      message: 'Resource already exists'
+    })
+  }
+
+  // If it's a Cast error (invalid ObjectId)
+  if (error.name === 'CastError') {
+    return createAPIError({
+      statusCode: HTTP_STATUS.BAD_REQUEST,
+      statusMessage: 'INVALID_ID',
+      message: 'Invalid ID format'
+    })
+  }
+
+  // Generic error
+  return createAPIError({
+    statusCode: HTTP_STATUS.INTERNAL_SERVER_ERROR,
+    statusMessage: 'INTERNAL_ERROR',
+    message: defaultMessage,
+    data: process.env.NODE_ENV === 'development' ? { originalError: error.message } : undefined
+  })
+}
+
+/**
+ * Create simple success response (compatible with CMS API usage)
+ */
+export function createSimpleSuccessResponse<T>(
+  data: T,
+  message: string = 'Success',
+  statusCode: number = 200
+): any {
+  return {
+    success: true,
+    statusCode,
+    statusMessage: 'SUCCESS',
+    message,
+    data
+  }
 }

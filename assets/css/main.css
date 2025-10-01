@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Override z-index for alerts to appear above modals */
+@layer utilities {
+  .alert-above-modal {
+    z-index: 99999 !important;
+  }
+}

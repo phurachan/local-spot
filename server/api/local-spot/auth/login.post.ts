@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
     })
 
     // Set cookies server-side
-    setCookie(event, 'token', token, {
+    setCookie(event, 'auth-token', token, {
       secure: false,
       httpOnly: false,
       maxAge: 60 * 60 * 24 * 7, // 7 days

@@ -2,7 +2,7 @@
   <!-- Backdrop for confirm/modal alerts -->
   <div
     v-if="visible && (type === 'confirm' || position === 'center')"
-    class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+    class="fixed inset-0 bg-black/50 alert-above-modal flex items-center justify-center p-4"
     @click.self="handleBackdropClick"
   >
     <!-- Modal Alert -->
@@ -161,9 +161,9 @@ const alertClasses = computed(() => {
   
   // Position classes
   if (props.position === 'top') {
-    classes.push('fixed', 'top-4', 'left-1/2', 'transform', '-translate-x-1/2', 'z-50', 'w-auto', 'max-w-md')
+    classes.push('fixed', 'top-4', 'left-1/2', 'transform', '-translate-x-1/2', 'alert-above-modal', 'w-auto', 'max-w-md')
   } else if (props.position === 'bottom') {
-    classes.push('fixed', 'bottom-4', 'left-1/2', 'transform', '-translate-x-1/2', 'z-50', 'w-auto', 'max-w-md')
+    classes.push('fixed', 'bottom-4', 'left-1/2', 'transform', '-translate-x-1/2', 'alert-above-modal', 'w-auto', 'max-w-md')
   }
   
   return classes.join(' ')

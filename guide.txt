@@ -1,0 +1,36 @@
+--------------------------------------------------------------------------------
+Phase 1: CMS Management System (/manage-cms)
+  สร้างระบบจัดการเนื้อหาแยกจาก /admin:
+  - Hotels content management
+  - Restaurants/food venues management
+  - Travel services management
+  - Local products management
+  - Events & activities management
+  - Image gallery management
+  - SEO & meta management
+
+Phase 2: Customer Website Enhancement (pages/local-spot/index.vue)
+  เพิ่ม sections ที่ขาดในหน้าลูกค้า:
+  - Hero section with local attractions
+  - Hotels showcase section
+  - Local restaurants/food section
+  - Travel services section
+  - Local products section
+  - Events & activities section
+  - Contact & location info
+
+Phase 3: LINE OA Helper System
+  สร้าง helper สำหรับจัดการ LINE OA:
+  - LINE webhook handler
+  - Message template management
+  - Customer inquiry routing
+  - Basic bot responses
+  - Integration with CMS data
+
+Phase 4: Data Models & APIs
+  Backend support สำหรับ CMS:
+  - Hotel/accommodation models
+  - Restaurant/food models
+  - Service provider models
+  - Product catalog models
+  - Event management models

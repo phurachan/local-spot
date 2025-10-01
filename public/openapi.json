@@ -11,11 +11,11 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/api",
+      "url": "http://localhost:3000/api/local-spot",
       "description": "Development server"
     },
     {
-      "url": "https://web-admin-base.vercel.app/api",
+      "url": "https://local-spot-inky.vercel.app/api/local-spot",
       "description": "Production server"
     }
   ],
@@ -434,6 +434,1475 @@
               "type": "string"
             },
             "example": ["64f123456789abcd12345679"]
+          }
+        }
+      },
+      "HotelContent": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f1234567890abcdef12345"
+          },
+          "type": {
+            "type": "string",
+            "example": "hotel"
+          },
+          "title": {
+            "type": "string",
+            "example": "บ้านไทยรีสอร์ท"
+          },
+          "description": {
+            "type": "string",
+            "example": "รีสอร์ทสไตล์ล้านนา ท่ามกลางธรรมชาติที่สวยงาม"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["hotel", "resort", "hostel", "guesthouse", "villa"],
+            "example": "resort"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["/images/hotels/hotel1.jpg"]
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "featured": {
+            "type": "boolean",
+            "example": true
+          },
+          "order": {
+            "type": "number",
+            "example": 1
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["รีสอร์ท", "ธรรมชาติ", "ล้านนา"]
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "contactInfo": {
+            "$ref": "#/components/schemas/ContactInfo"
+          },
+          "amenities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["WiFi ฟรี", "สระว่ายน้ำ", "สปา", "ร้านอาหาร"]
+          },
+          "roomTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoomType"
+            }
+          },
+          "checkInOut": {
+            "type": "object",
+            "properties": {
+              "checkIn": {
+                "type": "string",
+                "example": "14:00"
+              },
+              "checkOut": {
+                "type": "string",
+                "example": "12:00"
+              }
+            }
+          },
+          "policies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ห้ามสูบบุหรี่", "ห้ามนำสัตว์เลี้ยง"]
+          },
+          "nearbyAttractions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ดอยสุเทพ", "ตลาดวันเสาร์", "ม่อนแจ่ม"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-20T10:30:00Z"
+          }
+        }
+      },
+      "RestaurantContent": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f1234567890abcdef12346"
+          },
+          "type": {
+            "type": "string",
+            "example": "restaurant"
+          },
+          "title": {
+            "type": "string",
+            "example": "ร้านข้าวซอยแม่ดำ"
+          },
+          "description": {
+            "type": "string",
+            "example": "ร้านข้าวซอยแท้ๆ สูตรดั้งเดิม รสชาติเข้มข้น"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["restaurant", "cafe", "street_food", "local_cuisine", "international"],
+            "example": "local_cuisine"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["/images/restaurants/khao-soi.jpg"]
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "featured": {
+            "type": "boolean",
+            "example": true
+          },
+          "order": {
+            "type": "number",
+            "example": 1
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ข้าวซอย", "อาหารเหนือ", "ดั้งเดิม"]
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "contactInfo": {
+            "$ref": "#/components/schemas/ContactInfo"
+          },
+          "cuisine": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ไทย", "เหนือ"]
+          },
+          "priceRange": {
+            "type": "string",
+            "enum": ["budget", "mid_range", "fine_dining"],
+            "example": "budget"
+          },
+          "operatingHours": {
+            "$ref": "#/components/schemas/OperatingHours"
+          },
+          "specialties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ข้าวซอยไก่", "ข้าวซอยเนื้อ", "ลาบหมู"]
+          },
+          "dietaryOptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ไม่มีหมู"]
+          },
+          "delivery": {
+            "type": "object",
+            "properties": {
+              "available": {
+                "type": "boolean",
+                "example": true
+              },
+              "platforms": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["Grab Food", "Food Panda"]
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-01-20T10:30:00Z"
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "example": "123 หมู่ 5 ตำบลแม่ริม"
+          },
+          "district": {
+            "type": "string",
+            "example": "แม่ริม"
+          },
+          "province": {
+            "type": "string",
+            "example": "เชียงใหม่"
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "lat": {
+                "type": "number",
+                "example": 18.8845
+              },
+              "lng": {
+                "type": "number",
+                "example": 98.9934
+              }
+            }
+          }
+        }
+      },
+      "ContactInfo": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["053-123456"]
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "info@example.com"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://example.com"
+          },
+          "lineOA": {
+            "type": "string",
+            "example": "@lineoa"
+          }
+        }
+      },
+      "RoomType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "ห้องดีลักซ์"
+          },
+          "description": {
+            "type": "string",
+            "example": "ห้องพักแบบดีลักซ์ วิวสวน"
+          },
+          "maxGuests": {
+            "type": "number",
+            "example": 2
+          },
+          "priceRange": {
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "number",
+                "example": 2500
+              },
+              "max": {
+                "type": "number",
+                "example": 3500
+              }
+            }
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "OperatingHours": {
+        "type": "object",
+        "properties": {
+          "monday": {
+            "$ref": "#/components/schemas/DaySchedule"
+          },
+          "tuesday": {
+            "$ref": "#/components/schemas/DaySchedule"
+          },
+          "wednesday": {
+            "$ref": "#/components/schemas/DaySchedule"
+          },
+          "thursday": {
+            "$ref": "#/components/schemas/DaySchedule"
+          },
+          "friday": {
+            "$ref": "#/components/schemas/DaySchedule"
+          },
+          "saturday": {
+            "$ref": "#/components/schemas/DaySchedule"
+          },
+          "sunday": {
+            "$ref": "#/components/schemas/DaySchedule"
+          }
+        }
+      },
+      "DaySchedule": {
+        "type": "object",
+        "properties": {
+          "open": {
+            "type": "string",
+            "example": "08:00"
+          },
+          "close": {
+            "type": "string",
+            "example": "17:00"
+          },
+          "closed": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "CMSApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "statusCode": {
+            "type": "integer",
+            "example": 200
+          },
+          "statusMessage": {
+            "type": "string",
+            "example": "SUCCESS"
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation completed successfully"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "CMSListResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CMSApiResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "pagination": {
+                    "type": "object",
+                    "properties": {
+                      "page": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "limit": {
+                        "type": "integer",
+                        "example": 10
+                      },
+                      "total": {
+                        "type": "integer",
+                        "example": 100
+                      },
+                      "totalPages": {
+                        "type": "integer",
+                        "example": 10
+                      }
+                    }
+                  },
+                  "filters": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "TravelServiceContent": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f1234567890abcdef12347"
+          },
+          "type": {
+            "type": "string",
+            "example": "travel_service"
+          },
+          "title": {
+            "type": "string",
+            "example": "ทัวร์ดอยสุเทพ-ปุยครึ่งวัน"
+          },
+          "description": {
+            "type": "string",
+            "example": "ทัวร์เที่ยวชมวัดพระธาตุดอยสุเทพและชมวิวเมืองเชียงใหม่"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["transport", "tour", "guide", "rental", "activity"],
+            "example": "tour"
+          },
+          "serviceType": {
+            "type": "string",
+            "example": "ทัวร์แบบกลุ่ม"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "serviceArea": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["เมืองเชียงใหม่", "ดอยสุเทพ"]
+              },
+              "meetingPoint": {
+                "type": "string",
+                "example": "หน้าโรงแรมดิเอ็มเพรส"
+              },
+              "coordinates": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number",
+                    "example": 18.8045
+                  },
+                  "lng": {
+                    "type": "number",
+                    "example": 98.9695
+                  }
+                }
+              }
+            }
+          },
+          "contactInfo": {
+            "$ref": "#/components/schemas/ContactInfo"
+          },
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["per_person", "per_group", "per_hour", "per_day"],
+                "example": "per_person"
+              },
+              "amount": {
+                "type": "number",
+                "example": 500
+              },
+              "currency": {
+                "type": "string",
+                "example": "THB"
+              },
+              "includes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["รถรับ-ส่ง", "ค่าเข้าชม", "มัคคุเทศก์"]
+              },
+              "excludes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["อาหาร", "ทิป"]
+              }
+            }
+          },
+          "duration": {
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "number",
+                "example": 4
+              },
+              "max": {
+                "type": "number",
+                "example": 5
+              },
+              "unit": {
+                "type": "string",
+                "enum": ["hours", "days"],
+                "example": "hours"
+              }
+            }
+          },
+          "capacity": {
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "number",
+                "example": 2
+              },
+              "max": {
+                "type": "number",
+                "example": 15
+              }
+            }
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ใส่เสื้อผ้าสุภาพ", "ถอดรองเท้าก่อนเข้าวัด"]
+          },
+          "availability": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["จันทร์-อาทิตย์", "08:00-17:00"]
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "featured": {
+            "type": "boolean",
+            "example": true
+          },
+          "order": {
+            "type": "number",
+            "example": 1
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ทัวร์", "วัด", "วัฒนธรรม"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LocalProductContent": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f1234567890abcdef12348"
+          },
+          "type": {
+            "type": "string",
+            "example": "local_product"
+          },
+          "title": {
+            "type": "string",
+            "example": "ร่มกระดาษสา บ่อสร้าง"
+          },
+          "description": {
+            "type": "string",
+            "example": "ร่มกระดาษสาทำมือ ลวดลายล้านนาแท้"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["handicraft", "food_product", "souvenir", "textile", "art"],
+            "example": "handicraft"
+          },
+          "vendor": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "หมู่บ้านหัตถกรรมบ่อสร้าง"
+              },
+              "description": {
+                "type": "string",
+                "example": "หมู่บ้านผลิตร่มและหัตถกรรมกระดาษสา"
+              },
+              "location": {
+                "type": "string",
+                "example": "อ.สันกำแพง จ.เชียงใหม่"
+              },
+              "contactInfo": {
+                "$ref": "#/components/schemas/ContactInfo"
+              }
+            }
+          },
+          "product": {
+            "type": "object",
+            "properties": {
+              "materials": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["กระดาษสา", "ไม้ไผ่"]
+              },
+              "sizes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["S", "M", "L"]
+              },
+              "colors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["แดง", "น้ำเงิน", "เหลือง"]
+              },
+              "weight": {
+                "type": "number",
+                "example": 0.5
+              },
+              "dimensions": {
+                "type": "string",
+                "example": "60x60 ซม."
+              }
+            }
+          },
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "price": {
+                "type": "number",
+                "example": 350
+              },
+              "currency": {
+                "type": "string",
+                "example": "THB"
+              },
+              "discounts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "quantity": {
+                      "type": "number"
+                    },
+                    "discountPercent": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "example": [{"quantity": 5, "discountPercent": 10}]
+              }
+            }
+          },
+          "availability": {
+            "type": "object",
+            "properties": {
+              "inStock": {
+                "type": "boolean",
+                "example": true
+              },
+              "stockQuantity": {
+                "type": "number",
+                "example": 50
+              },
+              "seasonality": {
+                "type": "string",
+                "example": "ตลอดทั้งปี"
+              }
+            }
+          },
+          "shipping": {
+            "type": "object",
+            "properties": {
+              "available": {
+                "type": "boolean",
+                "example": true
+              },
+              "areas": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["ทั่วประเทศ"]
+              },
+              "cost": {
+                "type": "number",
+                "example": 50
+              }
+            }
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "featured": {
+            "type": "boolean",
+            "example": false
+          },
+          "order": {
+            "type": "number",
+            "example": 0
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ร่ม", "หัตถกรรม", "ล้านนา"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EventContent": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f1234567890abcdef12349"
+          },
+          "type": {
+            "type": "string",
+            "example": "event"
+          },
+          "title": {
+            "type": "string",
+            "example": "งานกาชาดจังหวัดเชียงใหม่"
+          },
+          "description": {
+            "type": "string",
+            "example": "งานกาชาดประจำปี จังหวัดเชียงใหม่"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["festival", "market", "cultural", "sports", "workshop", "seasonal"],
+            "example": "festival"
+          },
+          "schedule": {
+            "type": "object",
+            "properties": {
+              "startDate": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2025-12-01T00:00:00Z"
+              },
+              "endDate": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2025-12-15T00:00:00Z"
+              },
+              "times": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "string",
+                      "example": "10:00"
+                    },
+                    "end": {
+                      "type": "string",
+                      "example": "22:00"
+                    }
+                  }
+                }
+              },
+              "recurring": {
+                "type": "object",
+                "properties": {
+                  "pattern": {
+                    "type": "string",
+                    "enum": ["daily", "weekly", "monthly", "yearly"],
+                    "example": "yearly"
+                  },
+                  "interval": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "venue": {
+                "type": "string",
+                "example": "บริเวณสนามกีฬากลางจังหวัด"
+              },
+              "address": {
+                "type": "string",
+                "example": "สนามกีฬากลาง"
+              },
+              "district": {
+                "type": "string",
+                "example": "เมือง"
+              },
+              "province": {
+                "type": "string",
+                "example": "เชียงใหม่"
+              },
+              "coordinates": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lng": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "organizer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "สภากาชาดจังหวัดเชียงใหม่"
+              },
+              "contactInfo": {
+                "$ref": "#/components/schemas/ContactInfo"
+              }
+            }
+          },
+          "ticketing": {
+            "type": "object",
+            "properties": {
+              "required": {
+                "type": "boolean",
+                "example": false
+              },
+              "price": {
+                "type": "number",
+                "example": 0
+              },
+              "currency": {
+                "type": "string",
+                "example": "THB"
+              },
+              "bookingUrl": {
+                "type": "string",
+                "example": ""
+              },
+              "freeEntry": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          },
+          "capacity": {
+            "type": "number",
+            "example": 10000
+          },
+          "targetAudience": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ทุกเพศทุกวัย"]
+          },
+          "activities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ชมการแสดง", "ชิมอาหาร", "ช้อปปิ้ง"]
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "featured": {
+            "type": "boolean",
+            "example": true
+          },
+          "order": {
+            "type": "number",
+            "example": 1
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["งานกาชาด", "เทศกาล", "เชียงใหม่"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TravelServiceCreateRequest": {
+        "type": "object",
+        "required": ["title", "description", "category", "serviceType"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "ทัวร์ดอยสุเทพ-ปุยครึ่งวัน"
+          },
+          "description": {
+            "type": "string",
+            "example": "ทัวร์เที่ยวชมวัดพระธาตุดอยสุเทพและชมวิวเมืองเชียงใหม่"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["transport", "tour", "guide", "rental", "activity"],
+            "example": "tour"
+          },
+          "serviceType": {
+            "type": "string",
+            "example": "ทัวร์แบบกลุ่ม"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "serviceArea": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["เมืองเชียงใหม่", "ดอยสุเทพ"]
+              },
+              "meetingPoint": {
+                "type": "string",
+                "example": "หน้าโรงแรมดิเอ็มเพรส"
+              },
+              "coordinates": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number",
+                    "example": 18.8045
+                  },
+                  "lng": {
+                    "type": "number",
+                    "example": 98.9695
+                  }
+                }
+              }
+            }
+          },
+          "contactInfo": {
+            "$ref": "#/components/schemas/ContactInfo"
+          },
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["per_person", "per_group", "per_hour", "per_day"],
+                "example": "per_person"
+              },
+              "amount": {
+                "type": "number",
+                "example": 500
+              },
+              "currency": {
+                "type": "string",
+                "example": "THB"
+              },
+              "includes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["รถรับ-ส่ง", "ค่าเข้าชม", "มัคคุเทศก์"]
+              },
+              "excludes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["อาหาร", "ทิป"]
+              }
+            }
+          },
+          "duration": {
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "number",
+                "example": 4
+              },
+              "max": {
+                "type": "number",
+                "example": 5
+              },
+              "unit": {
+                "type": "string",
+                "enum": ["hours", "days"],
+                "example": "hours"
+              }
+            }
+          },
+          "capacity": {
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "number",
+                "example": 2
+              },
+              "max": {
+                "type": "number",
+                "example": 15
+              }
+            }
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ใส่เสื้อผ้าสุภาพ", "ถอดรองเท้าก่อนเข้าวัด"]
+          },
+          "availability": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["จันทร์-อาทิตย์", "08:00-17:00"]
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isActive": {
+            "type": "boolean",
+            "default": true
+          },
+          "featured": {
+            "type": "boolean",
+            "default": false
+          },
+          "order": {
+            "type": "number",
+            "default": 0
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ทัวร์", "วัด", "วัฒนธรรม"]
+          }
+        }
+      },
+      "LocalProductCreateRequest": {
+        "type": "object",
+        "required": ["title", "description", "category", "vendor", "pricing"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "ร่มกระดาษสา บ่อสร้าง"
+          },
+          "description": {
+            "type": "string",
+            "example": "ร่มกระดาษสาทำมือ ลวดลายล้านนาแท้"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["handicraft", "food_product", "souvenir", "textile", "art"],
+            "example": "handicraft"
+          },
+          "vendor": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "หมู่บ้านหัตถกรรมบ่อสร้าง"
+              },
+              "description": {
+                "type": "string",
+                "example": "หมู่บ้านผลิตร่มและหัตถกรรมกระดาษสา"
+              },
+              "location": {
+                "type": "string",
+                "example": "อ.สันกำแพง จ.เชียงใหม่"
+              },
+              "contactInfo": {
+                "$ref": "#/components/schemas/ContactInfo"
+              }
+            }
+          },
+          "product": {
+            "type": "object",
+            "properties": {
+              "materials": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["กระดาษสา", "ไม้ไผ่"]
+              },
+              "sizes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["S", "M", "L"]
+              },
+              "colors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["แดง", "น้ำเงิน", "เหลือง"]
+              },
+              "weight": {
+                "type": "number",
+                "example": 0.5
+              },
+              "dimensions": {
+                "type": "string",
+                "example": "60x60 ซม."
+              }
+            }
+          },
+          "pricing": {
+            "type": "object",
+            "required": ["price"],
+            "properties": {
+              "price": {
+                "type": "number",
+                "example": 350
+              },
+              "currency": {
+                "type": "string",
+                "example": "THB"
+              },
+              "discounts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "quantity": {
+                      "type": "number"
+                    },
+                    "discountPercent": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "example": [{"quantity": 5, "discountPercent": 10}]
+              }
+            }
+          },
+          "availability": {
+            "type": "object",
+            "properties": {
+              "inStock": {
+                "type": "boolean",
+                "example": true
+              },
+              "stockQuantity": {
+                "type": "number",
+                "example": 50
+              },
+              "seasonality": {
+                "type": "string",
+                "example": "ตลอดทั้งปี"
+              }
+            }
+          },
+          "shipping": {
+            "type": "object",
+            "properties": {
+              "available": {
+                "type": "boolean",
+                "example": true
+              },
+              "areas": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "example": ["ทั่วประเทศ"]
+              },
+              "cost": {
+                "type": "number",
+                "example": 50
+              }
+            }
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isActive": {
+            "type": "boolean",
+            "default": true
+          },
+          "featured": {
+            "type": "boolean",
+            "default": false
+          },
+          "order": {
+            "type": "number",
+            "default": 0
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ร่ม", "หัตถกรรม", "ล้านนา"]
+          }
+        }
+      },
+      "EventCreateRequest": {
+        "type": "object",
+        "required": ["title", "description", "category", "schedule", "location", "organizer"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "งานกาชาดจังหวัดเชียงใหม่"
+          },
+          "description": {
+            "type": "string",
+            "example": "งานกาชาดประจำปี จังหวัดเชียงใหม่"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["festival", "market", "cultural", "sports", "workshop", "seasonal"],
+            "example": "festival"
+          },
+          "schedule": {
+            "type": "object",
+            "required": ["startDate", "endDate"],
+            "properties": {
+              "startDate": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2025-12-01T00:00:00Z"
+              },
+              "endDate": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2025-12-15T00:00:00Z"
+              },
+              "times": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "string",
+                      "example": "10:00"
+                    },
+                    "end": {
+                      "type": "string",
+                      "example": "22:00"
+                    }
+                  }
+                }
+              },
+              "recurring": {
+                "type": "object",
+                "properties": {
+                  "pattern": {
+                    "type": "string",
+                    "enum": ["daily", "weekly", "monthly", "yearly"],
+                    "example": "yearly"
+                  },
+                  "interval": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          },
+          "location": {
+            "type": "object",
+            "required": ["venue", "address", "district", "province"],
+            "properties": {
+              "venue": {
+                "type": "string",
+                "example": "บริเวณสนามกีฬากลางจังหวัด"
+              },
+              "address": {
+                "type": "string",
+                "example": "สนามกีฬากลาง"
+              },
+              "district": {
+                "type": "string",
+                "example": "เมือง"
+              },
+              "province": {
+                "type": "string",
+                "example": "เชียงใหม่"
+              },
+              "coordinates": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lng": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "organizer": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "สภากาชาดจังหวัดเชียงใหม่"
+              },
+              "contactInfo": {
+                "$ref": "#/components/schemas/ContactInfo"
+              }
+            }
+          },
+          "ticketing": {
+            "type": "object",
+            "properties": {
+              "required": {
+                "type": "boolean",
+                "example": false
+              },
+              "price": {
+                "type": "number",
+                "example": 0
+              },
+              "currency": {
+                "type": "string",
+                "example": "THB"
+              },
+              "bookingUrl": {
+                "type": "string",
+                "example": ""
+              },
+              "freeEntry": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          },
+          "capacity": {
+            "type": "number",
+            "example": 10000
+          },
+          "targetAudience": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ทุกเพศทุกวัย"]
+          },
+          "activities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["ชมการแสดง", "ชิมอาหาร", "ช้อปปิ้ง"]
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isActive": {
+            "type": "boolean",
+            "default": true
+          },
+          "featured": {
+            "type": "boolean",
+            "default": false
+          },
+          "order": {
+            "type": "number",
+            "default": 0
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["งานกาชาด", "เทศกาล", "เชียงใหม่"]
           }
         }
       }
@@ -1674,6 +3143,1901 @@
           }
         }
       }
+    },
+    "/cms/hotels": {
+      "get": {
+        "tags": ["CMS - Hotels"],
+        "summary": "Get all hotels",
+        "description": "Get all hotels with filtering and pagination",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number for pagination"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of items per page"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search in title and description"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["hotel", "resort", "hostel", "guesthouse", "villa"]
+            },
+            "description": "Filter by hotel category"
+          },
+          {
+            "name": "province",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by province"
+          },
+          {
+            "name": "district",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by district"
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by active status"
+          },
+          {
+            "name": "featured",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by featured status"
+          },
+          {
+            "name": "sortField",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["title", "createdAt", "updatedAt", "order", "featured"]
+            },
+            "description": "Field to sort by"
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "desc"
+            },
+            "description": "Sort direction"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotels retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["CMS - Hotels"],
+        "summary": "Create a new hotel",
+        "description": "Create a new hotel entry",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["title", "description", "category", "location"],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "บ้านไทยรีสอร์ท"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "รีสอร์ทสไตล์ล้านนา ท่ามกลางธรรมชาติที่สวยงาม"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["hotel", "resort", "hostel", "guesthouse", "villa"],
+                    "example": "resort"
+                  },
+                  "location": {
+                    "$ref": "#/components/schemas/Location"
+                  },
+                  "contactInfo": {
+                    "$ref": "#/components/schemas/ContactInfo"
+                  },
+                  "amenities": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["WiFi ฟรี", "สระว่ายน้ำ", "สปา"]
+                  },
+                  "roomTypes": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/RoomType"
+                    }
+                  },
+                  "checkInOut": {
+                    "type": "object",
+                    "properties": {
+                      "checkIn": {
+                        "type": "string",
+                        "example": "14:00"
+                      },
+                      "checkOut": {
+                        "type": "string",
+                        "example": "12:00"
+                      }
+                    }
+                  },
+                  "policies": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["ห้ามสูบบุหรี่", "ห้ามนำสัตว์เลี้ยง"]
+                  },
+                  "nearbyAttractions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["ดอยสุเทพ", "ตลาดวันเสาร์"]
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["/images/hotels/hotel1.jpg"]
+                  },
+                  "isActive": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "featured": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "order": {
+                    "type": "number",
+                    "default": 0
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["รีสอร์ท", "ธรรมชาติ", "ล้านนา"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Hotel created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/hotels/{id}": {
+      "get": {
+        "tags": ["CMS - Hotels"],
+        "summary": "Get hotel by ID",
+        "description": "Get a specific hotel by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Hotel ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotel retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hotel not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["CMS - Hotels"],
+        "summary": "Update hotel by ID",
+        "description": "Update a specific hotel by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Hotel ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["hotel", "resort", "hostel", "guesthouse", "villa"]
+                  },
+                  "location": {
+                    "$ref": "#/components/schemas/Location"
+                  },
+                  "contactInfo": {
+                    "$ref": "#/components/schemas/ContactInfo"
+                  },
+                  "amenities": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "roomTypes": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/RoomType"
+                    }
+                  },
+                  "checkInOut": {
+                    "type": "object",
+                    "properties": {
+                      "checkIn": {
+                        "type": "string"
+                      },
+                      "checkOut": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "policies": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "nearbyAttractions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "isActive": {
+                    "type": "boolean"
+                  },
+                  "featured": {
+                    "type": "boolean"
+                  },
+                  "order": {
+                    "type": "number"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Hotel updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hotel not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CMS - Hotels"],
+        "summary": "Delete hotel by ID",
+        "description": "Delete a specific hotel by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Hotel ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotel deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Hotel not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/restaurants": {
+      "get": {
+        "tags": ["CMS - Restaurants"],
+        "summary": "Get all restaurants",
+        "description": "Get all restaurants with filtering and pagination",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number for pagination"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of items per page"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search in title and description"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["restaurant", "cafe", "street_food", "local_cuisine", "international"]
+            },
+            "description": "Filter by restaurant category"
+          },
+          {
+            "name": "cuisine",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by cuisine type"
+          },
+          {
+            "name": "priceRange",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["budget", "mid_range", "fine_dining"]
+            },
+            "description": "Filter by price range"
+          },
+          {
+            "name": "province",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by province"
+          },
+          {
+            "name": "district",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by district"
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by active status"
+          },
+          {
+            "name": "featured",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by featured status"
+          },
+          {
+            "name": "sortField",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["title", "createdAt", "updatedAt", "order", "featured"]
+            },
+            "description": "Field to sort by"
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "desc"
+            },
+            "description": "Sort direction"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restaurants retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["CMS - Restaurants"],
+        "summary": "Create a new restaurant",
+        "description": "Create a new restaurant entry",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["title", "description", "category", "location"],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "ร้านข้าวซอยแม่ดำ"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "ร้านข้าวซอยแท้ๆ สูตรดั้งเดิม รสชาติเข้มข้น"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["restaurant", "cafe", "street_food", "local_cuisine", "international"],
+                    "example": "local_cuisine"
+                  },
+                  "location": {
+                    "$ref": "#/components/schemas/Location"
+                  },
+                  "contactInfo": {
+                    "$ref": "#/components/schemas/ContactInfo"
+                  },
+                  "cuisine": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["ไทย", "เหนือ"]
+                  },
+                  "priceRange": {
+                    "type": "string",
+                    "enum": ["budget", "mid_range", "fine_dining"],
+                    "example": "budget"
+                  },
+                  "operatingHours": {
+                    "$ref": "#/components/schemas/OperatingHours"
+                  },
+                  "specialties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["ข้าวซอยไก่", "ข้าวซอยเนื้อ"]
+                  },
+                  "dietaryOptions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["ไม่มีหมู"]
+                  },
+                  "delivery": {
+                    "type": "object",
+                    "properties": {
+                      "available": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "platforms": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "example": ["Grab Food", "Food Panda"]
+                      }
+                    }
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["/images/restaurants/khao-soi.jpg"]
+                  },
+                  "isActive": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "featured": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "order": {
+                    "type": "number",
+                    "default": 0
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["ข้าวซอย", "อาหารเหนือ", "ดั้งเดิม"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Restaurant created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/restaurants/{id}": {
+      "get": {
+        "tags": ["CMS - Restaurants"],
+        "summary": "Get restaurant by ID",
+        "description": "Get a specific restaurant by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Restaurant ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restaurant retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Restaurant not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["CMS - Restaurants"],
+        "summary": "Update restaurant by ID",
+        "description": "Update a specific restaurant by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Restaurant ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["restaurant", "cafe", "street_food", "local_cuisine", "international"]
+                  },
+                  "location": {
+                    "$ref": "#/components/schemas/Location"
+                  },
+                  "contactInfo": {
+                    "$ref": "#/components/schemas/ContactInfo"
+                  },
+                  "cuisine": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "priceRange": {
+                    "type": "string",
+                    "enum": ["budget", "mid_range", "fine_dining"]
+                  },
+                  "operatingHours": {
+                    "$ref": "#/components/schemas/OperatingHours"
+                  },
+                  "specialties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "dietaryOptions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "delivery": {
+                    "type": "object",
+                    "properties": {
+                      "available": {
+                        "type": "boolean"
+                      },
+                      "platforms": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "isActive": {
+                    "type": "boolean"
+                  },
+                  "featured": {
+                    "type": "boolean"
+                  },
+                  "order": {
+                    "type": "number"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Restaurant updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Restaurant not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CMS - Restaurants"],
+        "summary": "Delete restaurant by ID",
+        "description": "Delete a specific restaurant by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Restaurant ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restaurant deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Restaurant not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/travel-services": {
+      "get": {
+        "tags": ["CMS - Travel Services"],
+        "summary": "Get all travel services",
+        "description": "Get all travel services with filtering and pagination",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["transport", "tour", "guide", "rental", "activity"]
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "featured",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Travel services retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["CMS - Travel Services"],
+        "summary": "Create a new travel service",
+        "description": "Create a new travel service entry",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TravelServiceCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Travel service created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/travel-services/{id}": {
+      "get": {
+        "tags": ["CMS - Travel Services"],
+        "summary": "Get travel service by ID",
+        "description": "Get a specific travel service by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Travel service retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Travel service not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["CMS - Travel Services"],
+        "summary": "Update travel service by ID",
+        "description": "Update a specific travel service by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TravelServiceCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Travel service updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Travel service not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CMS - Travel Services"],
+        "summary": "Delete travel service by ID",
+        "description": "Delete a specific travel service by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Travel service deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Travel service not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/local-products": {
+      "get": {
+        "tags": ["CMS - Local Products"],
+        "summary": "Get all local products",
+        "description": "Get all local products with filtering and pagination",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["handicraft", "food_product", "souvenir", "textile", "art"]
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "featured",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "inStock",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Local products retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["CMS - Local Products"],
+        "summary": "Create a new local product",
+        "description": "Create a new local product entry",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocalProductCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Local product created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/local-products/{id}": {
+      "get": {
+        "tags": ["CMS - Local Products"],
+        "summary": "Get local product by ID",
+        "description": "Get a specific local product by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Local product retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Local product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["CMS - Local Products"],
+        "summary": "Update local product by ID",
+        "description": "Update a specific local product by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocalProductCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Local product updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Local product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CMS - Local Products"],
+        "summary": "Delete local product by ID",
+        "description": "Delete a specific local product by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Local product deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Local product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/events": {
+      "get": {
+        "tags": ["CMS - Events"],
+        "summary": "Get all events",
+        "description": "Get all events with filtering and pagination",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["festival", "market", "cultural", "sports", "workshop", "seasonal"]
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Filter events starting from this date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Filter events ending before this date"
+          },
+          {
+            "name": "province",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "featured",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Events retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["CMS - Events"],
+        "summary": "Create a new event",
+        "description": "Create a new event entry",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Event created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/events/{id}": {
+      "get": {
+        "tags": ["CMS - Events"],
+        "summary": "Get event by ID",
+        "description": "Get a specific event by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["CMS - Events"],
+        "summary": "Update event by ID",
+        "description": "Update a specific event by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CMS - Events"],
+        "summary": "Delete event by ID",
+        "description": "Delete a specific event by its ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CMSApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - authentication required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "tags": [
@@ -1692,6 +5056,26 @@
     {
       "name": "Permission Management",
       "description": "Permission management and assignment"
+    },
+    {
+      "name": "CMS - Hotels",
+      "description": "Content Management System - Hotels and accommodations"
+    },
+    {
+      "name": "CMS - Restaurants",
+      "description": "Content Management System - Restaurants and food venues"
+    },
+    {
+      "name": "CMS - Travel Services",
+      "description": "Content Management System - Travel services and activities"
+    },
+    {
+      "name": "CMS - Local Products",
+      "description": "Content Management System - Local products and souvenirs"
+    },
+    {
+      "name": "CMS - Events",
+      "description": "Content Management System - Events and festivals"
     }
   ]
 }
