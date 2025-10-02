@@ -174,6 +174,84 @@
       </div>
     </div>
 
+    <!-- Related Content -->
+    <div class="card bg-base-200 mb-6">
+      <div class="card-body">
+        <h4 class="card-title text-lg mb-4">ข้อมูลที่เกี่ยวข้อง</h4>
+
+        <div v-for="(item, index) in formData.relatedContent" :key="index" class="mb-4 p-4 bg-base-100 rounded-lg">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+            <BaseSelect
+              v-model="item.contentType"
+              label="ประเภท"
+              :options="[
+                { label: 'เลือกประเภท', value: '' },
+                { label: 'โรงแรม', value: 'hotel' },
+                { label: 'ร้านอาหาร', value: 'restaurant' },
+                { label: 'บริการท่องเที่ยว', value: 'travel_service' },
+                { label: 'ผลิตภัณฑ์ท้องถิ่น', value: 'local_product' },
+                { label: 'กิจกรรม', value: 'event' }
+              ]"
+              @update:model-value="onContentTypeChange(index)"
+            />
+
+            <div class="md:col-span-2">
+              <label class="label">
+                <span class="label-text">เลือกรายการ</span>
+              </label>
+              <div class="relative">
+                <input
+                  type="text"
+                  v-model="contentSearchQueries[index]"
+                  @input="searchContent(index)"
+                  @focus="showContentDropdown[index] = true"
+                  placeholder="พิมพ์เพื่อค้นหา..."
+                  class="input input-bordered w-full"
+                />
+                <div
+                  v-if="showContentDropdown[index] && contentSearchResults[index]?.length > 0"
+                  class="absolute z-50 w-full mt-1 bg-base-100 border border-base-300 rounded-lg shadow-lg max-h-60 overflow-auto"
+                >
+                  <div
+                    v-for="content in contentSearchResults[index]"
+                    :key="content._id"
+                    @click="selectContent(index, content)"
+                    class="p-3 hover:bg-base-200 cursor-pointer border-b border-base-300 last:border-b-0"
+                  >
+                    <div class="font-medium">{{ content.title }}</div>
+                    <div class="text-sm text-gray-500">{{ content.description?.substring(0, 60) }}...</div>
+                  </div>
+                </div>
+              </div>
+              <div v-if="item.contentId" class="text-xs text-gray-500 mt-1">
+                ID: {{ item.contentId }}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <BaseButton
+              @click="removeRelatedContent(index)"
+              variant="error"
+              size="sm"
+              type="button"
+            >
+              ลบ
+            </BaseButton>
+          </div>
+        </div>
+
+        <BaseButton
+          @click="addRelatedContent"
+          variant="ghost"
+          size="sm"
+          type="button"
+        >
+          + เพิ่มข้อมูลที่เกี่ยวข้อง
+        </BaseButton>
+      </div>
+    </div>
+
     <!-- Actions -->
     <div class="flex justify-end gap-4">
       <BaseButton
@@ -235,6 +313,7 @@ const formData = ref<Partial<NewsContent>>({
   },
   tags: [],
   images: [],
+  relatedContent: [],
   isActive: true,
   featured: false,
   order: 0,
@@ -246,6 +325,13 @@ const tagsInput = ref('')
 
 // Errors
 const errors = ref<Record<string, string>>({})
+
+// Related content autocomplete
+const contentSearchQueries = ref<Record<number, string>>({})
+const contentSearchResults = ref<Record<number, any[]>>({})
+const showContentDropdown = ref<Record<number, boolean>>({})
+const { searchContentByType } = useContentSearch()
+let searchTimeout: any = null
 
 // Initialize form with existing news data
 if (props.news) {
@@ -262,6 +348,13 @@ if (props.news) {
     }
   }
   tagsInput.value = props.news.tags?.join(', ') || ''
+
+  // Initialize search queries for related content
+  if (props.news.relatedContent) {
+    props.news.relatedContent.forEach((item, index) => {
+      contentSearchQueries.value[index] = item.title || ''
+    })
+  }
 }
 
 // Methods
@@ -302,6 +395,82 @@ function validateForm(): boolean {
   return Object.keys(errors.value).length === 0
 }
 
+// Related content functions
+function addRelatedContent() {
+  if (!formData.value.relatedContent) {
+    formData.value.relatedContent = []
+  }
+  formData.value.relatedContent.push({
+    contentType: '' as any,
+    contentId: '',
+    title: ''
+  })
+}
+
+function removeRelatedContent(index: number) {
+  formData.value.relatedContent?.splice(index, 1)
+  delete contentSearchQueries.value[index]
+  delete contentSearchResults.value[index]
+  delete showContentDropdown.value[index]
+}
+
+function onContentTypeChange(index: number) {
+  const item = formData.value.relatedContent?.[index]
+  if (item) {
+    // Reset selection when type changes
+    item.contentId = ''
+    item.title = ''
+    contentSearchQueries.value[index] = ''
+    contentSearchResults.value[index] = []
+  }
+}
+
+async function searchContent(index: number) {
+  const item = formData.value.relatedContent?.[index]
+  if (!item?.contentType) return
+
+  const query = contentSearchQueries.value[index] || ''
+
+  // Clear previous timeout
+  if (searchTimeout) {
+    clearTimeout(searchTimeout)
+  }
+
+  // Debounce search
+  searchTimeout = setTimeout(async () => {
+    try {
+      const results = await searchContentByType(item.contentType, query)
+      contentSearchResults.value[index] = results
+      showContentDropdown.value[index] = true
+    } catch (error) {
+      console.error('Search error:', error)
+      contentSearchResults.value[index] = []
+    }
+  }, 300)
+}
+
+function selectContent(index: number, content: any) {
+  const item = formData.value.relatedContent?.[index]
+  if (item) {
+    item.contentId = content._id
+    item.title = content.title
+    contentSearchQueries.value[index] = content.title
+    showContentDropdown.value[index] = false
+  }
+}
+
+// Close dropdown when clicking outside
+if (typeof window !== 'undefined') {
+  window.addEventListener('click', (e: MouseEvent) => {
+    const target = e.target as HTMLElement
+    if (!target.closest('.relative')) {
+      Object.keys(showContentDropdown.value).forEach(key => {
+        showContentDropdown.value[parseInt(key)] = false
+      })
+    }
+  })
+}
+
 function handleSubmit() {
   // Update tags before submit
   updateTags()
@@ -314,6 +483,13 @@ function handleSubmit() {
   // Clean up empty location
   if (!formData.value.location?.province && !formData.value.location?.district) {
     formData.value.location = undefined
+  }
+
+  // Clean up empty related content
+  if (formData.value.relatedContent) {
+    formData.value.relatedContent = formData.value.relatedContent.filter(
+      item => item.contentType && item.contentId
+    )
   }
 
   emit('save', formData.value)

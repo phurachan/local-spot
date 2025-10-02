@@ -20,7 +20,10 @@
 
     <BaseLoading v-if="loading" class="py-20" />
 
-    <div v-else-if="news" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div v-else-if="news" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-8">
       <!-- Breadcrumb -->
       <nav class="flex mb-8 text-sm" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -154,32 +157,70 @@
         </div>
       </div>
 
-      <!-- Related Content -->
-      <div v-if="news.relatedContent && news.relatedContent.length > 0" class="mb-8">
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">เนื้อหาที่เกี่ยวข้อง</h3>
-        <div class="grid md:grid-cols-2 gap-4">
-          <NuxtLink
-            v-for="related in news.relatedContent"
-            :key="related.contentId"
-            :to="`/local-spot/${related.contentType}/${related.contentId}`"
-            class="flex items-center p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow"
-          >
-            <div class="flex-1">
-              <div class="badge badge-sm mb-1">{{ getContentTypeLabel(related.contentType) }}</div>
-              <h4 class="font-semibold text-gray-900">{{ related.title }}</h4>
-            </div>
-            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </NuxtLink>
-        </div>
-      </div>
-
       <!-- Back Button -->
-      <div class="text-center">
+      <div class="text-center mb-8">
         <NuxtLink to="/local-spot/news" class="btn btn-outline btn-primary">
           กลับไปยังรายการข่าว
         </NuxtLink>
+      </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-4">
+          <div class="sticky top-24">
+            <!-- Table of Contents -->
+            <div v-if="tableOfContents.length > 0" class="bg-white rounded-xl shadow-lg p-6 mb-6">
+              <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                </svg>
+                สารบัญ
+              </h3>
+              <nav class="space-y-2">
+                <a
+                  v-for="(item, index) in tableOfContents"
+                  :key="index"
+                  :href="`#${item.id}`"
+                  @click.prevent="scrollToHeading(item.id)"
+                  :class="[
+                    'block py-2 px-3 rounded-lg hover:bg-green-50 transition-colors',
+                    item.level === 1 ? 'text-base font-semibold text-gray-900' : 'text-sm text-gray-600 ml-4'
+                  ]"
+                >
+                  {{ item.text }}
+                </a>
+              </nav>
+            </div>
+
+            <!-- Related Content -->
+            <div v-if="news.relatedContent && news.relatedContent.length > 0" class="bg-white rounded-xl shadow-lg p-6">
+              <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+                ข้อมูลที่เกี่ยวข้อง
+              </h3>
+              <div class="space-y-3">
+                <NuxtLink
+                  v-for="related in news.relatedContent"
+                  :key="related.contentId"
+                  :to="getContentTypeUrl(related.contentType, related.contentId)"
+                  class="flex items-start p-3 bg-gray-50 rounded-lg hover:bg-green-50 transition-colors group"
+                >
+                  <div class="flex-1">
+                    <div class="badge badge-sm mb-1">{{ getContentTypeLabel(related.contentType) }}</div>
+                    <h4 class="font-medium text-gray-900 group-hover:text-green-600 transition-colors text-sm">
+                      {{ related.title || 'รายการที่เกี่ยวข้อง' }}
+                    </h4>
+                  </div>
+                  <svg class="w-4 h-4 text-gray-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </NuxtLink>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -233,6 +274,18 @@ function getContentTypeLabel(type: string) {
   return labels[type] || type
 }
 
+function getContentTypeUrl(type: string, id: string) {
+  const typeMap: Record<string, string> = {
+    hotel: 'hotels',
+    restaurant: 'restaurants',
+    travel_service: 'travel-services',
+    local_product: 'local-products',
+    event: 'events'
+  }
+  const path = typeMap[type] || type
+  return `/local-spot/${path}/${id}`
+}
+
 function formatDate(date: any) {
   if (!date) return ''
   return new Date(date).toLocaleDateString('th-TH', {
@@ -242,16 +295,70 @@ function formatDate(date: any) {
   })
 }
 
+// Table of Contents
+const tableOfContents = ref<Array<{ id: string; text: string; level: number }>>([])
+
+function generateTableOfContents() {
+  if (!news.value?.content) return
+
+  // Wait a bit for DOM to be ready
+  setTimeout(() => {
+    const contentDiv = document.querySelector('.prose')
+    if (!contentDiv) return
+
+    const headings = contentDiv.querySelectorAll('h1, h2')
+    const toc: Array<{ id: string; text: string; level: number }> = []
+
+    headings.forEach((heading, index) => {
+      const level = parseInt(heading.tagName.substring(1))
+      const text = heading.textContent || ''
+      const id = `heading-${index}`
+
+      // Add ID to the actual heading element
+      heading.id = id
+
+      toc.push({ id, text, level })
+    })
+
+    tableOfContents.value = toc
+  }, 100)
+}
+
+function scrollToHeading(id: string) {
+  const element = document.getElementById(id)
+  if (element) {
+    const offset = 100
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+    const offsetPosition = elementPosition - offset
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    })
+  }
+}
+
 onMounted(async () => {
   loading.value = true
   try {
     const id = route.params.id as string
     await newsStore.fetchNewsArticle({ body: { _id: id } })
+
+    // Generate TOC after content is loaded
+    await nextTick()
+    generateTableOfContents()
   } catch (error) {
     console.error('Failed to load news:', error)
   } finally {
     loading.value = false
   }
+})
+
+// Watch for content changes
+watch(() => news.value?.content, () => {
+  nextTick(() => {
+    generateTableOfContents()
+  })
 })
 
 // SEO
