@@ -398,6 +398,59 @@ travelServiceContentSchema.pre('save', updateTimestamp)
 localProductContentSchema.pre('save', updateTimestamp)
 eventContentSchema.pre('save', updateTimestamp)
 
+// News Content Schema
+const newsContentSchema = new mongoose.Schema({
+  ...baseContentSchema,
+  type: {
+    type: String,
+    default: 'news',
+    immutable: true
+  },
+  category: {
+    type: String,
+    enum: ['announcement', 'promotion', 'event_news', 'travel_tips', 'local_story', 'business_update'],
+    required: true
+  },
+  author: {
+    name: {
+      type: String,
+      required: true
+    },
+    email: String,
+    bio: String
+  },
+  content: {
+    type: String,
+    required: true
+  },
+  excerpt: String,
+  coverImage: String,
+  publishDate: {
+    type: Date,
+    default: Date.now
+  },
+  source: String,
+  location: {
+    province: String,
+    district: String
+  },
+  relatedContent: [{
+    contentType: {
+      type: String,
+      enum: ['hotel', 'restaurant', 'travel_service', 'local_product', 'event']
+    },
+    contentId: {
+      type: mongoose.Schema.Types.ObjectId
+    },
+    title: String
+  }],
+  viewCount: {
+    type: Number,
+    default: 0
+  },
+  readTime: Number
+})
+
 // Image Gallery Schema
 const imageGalleryContentSchema = new mongoose.Schema({
   ...baseContentSchema,
@@ -508,6 +561,7 @@ const seoMetaSchema = new mongoose.Schema({
 })
 
 // Create and export models
+export const NewsContent = mongoose.models.NewsContent || mongoose.model('NewsContent', newsContentSchema)
 export const HotelContent = mongoose.models.HotelContent || mongoose.model('HotelContent', hotelContentSchema)
 export const RestaurantContent = mongoose.models.RestaurantContent || mongoose.model('RestaurantContent', restaurantContentSchema)
 export const TravelServiceContent = mongoose.models.TravelServiceContent || mongoose.model('TravelServiceContent', travelServiceContentSchema)
@@ -518,6 +572,7 @@ export const SEOMetaContent = mongoose.models.SEOMetaContent || mongoose.model('
 
 // Export all models as a map for dynamic access
 export const CMSModels = {
+  news: NewsContent,
   hotel: HotelContent,
   restaurant: RestaurantContent,
   travel_service: TravelServiceContent,

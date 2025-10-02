@@ -219,6 +219,33 @@ export interface EventContent extends BaseContent {
   activities: string[]
 }
 
+// News Content
+export interface NewsContent extends BaseContent {
+  type: 'news'
+  category: 'announcement' | 'promotion' | 'event_news' | 'travel_tips' | 'local_story' | 'business_update'
+  author: {
+    name: string
+    email?: string
+    bio?: string
+  }
+  content: string // Full article content (HTML or Markdown)
+  excerpt?: string // Short summary for listing
+  coverImage?: string
+  publishDate: Date
+  source?: string
+  location?: {
+    province?: string
+    district?: string
+  }
+  relatedContent?: {
+    contentType: 'hotel' | 'restaurant' | 'travel_service' | 'local_product' | 'event'
+    contentId: string
+    title?: string
+  }[]
+  viewCount?: number
+  readTime?: number // in minutes
+}
+
 // Image Gallery Content
 export interface ImageGalleryContent extends BaseContent {
   type: 'image_gallery'
@@ -273,6 +300,7 @@ export interface SEOMetaContent {
 
 // Union type for all content types
 export type CMSContent =
+  | NewsContent
   | HotelContent
   | RestaurantContent
   | TravelServiceContent

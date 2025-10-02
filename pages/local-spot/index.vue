@@ -6,6 +6,7 @@
       <nav class="relative z-20 p-6 flex justify-between items-center">
         <div class="text-2xl font-bold">Local Spot</div>
         <div class="space-x-4 flex items-center">
+          <a href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
           <a href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
           <a href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
           <a href="#events" class="hover:text-green-200 transition-colors">กิจกรรม</a>
@@ -43,8 +44,66 @@
       </div>
     </section>
 
+    <!-- News Section -->
+    <section id="news" class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">ข่าวสารและบทความ</h2>
+          <p class="text-xl text-gray-600">อัพเดทข่าวสาร เคล็ดลับการท่องเที่ยว และเรื่องราวท้องถิ่น</p>
+        </div>
+
+        <div v-if="loadingNews" class="flex justify-center">
+          <BaseLoading />
+        </div>
+
+        <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <NuxtLink
+            v-for="news in latestNews"
+            :key="news._id"
+            :to="`/local-spot/news/${news._id}`"
+            class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group"
+          >
+            <div class="h-48 bg-gray-200 overflow-hidden">
+              <img
+                v-if="news.images && news.images[0]"
+                :src="news.images[0]"
+                :alt="news.title"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+              />
+              <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-400 to-pink-500">
+                <BaseIcon name="newspaper" size="xl" class="text-white" />
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex items-start justify-between mb-2">
+                <h3 class="text-xl font-semibold text-gray-900 flex-1">{{ news.title }}</h3>
+                <div class="badge badge-primary badge-sm">{{ getNewsCategoryLabel(news.category) }}</div>
+              </div>
+              <p class="text-gray-600 mb-4 line-clamp-2">{{ news.excerpt || news.description }}</p>
+              <div class="flex items-center justify-between text-sm text-gray-500">
+                <div class="flex items-center">
+                  <BaseIcon name="user" size="sm" class="mr-1" />
+                  <span>{{ news.author?.name }}</span>
+                </div>
+                <div class="flex items-center">
+                  <BaseIcon name="calendar" size="sm" class="mr-1" />
+                  <span>{{ formatNewsDate(news.publishDate) }}</span>
+                </div>
+              </div>
+            </div>
+          </NuxtLink>
+        </div>
+
+        <div class="text-center mt-12">
+          <NuxtLink to="/local-spot/news" class="btn btn-primary btn-lg">
+            ดูข่าวทั้งหมด
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
     <!-- Hotels Section -->
-    <section id="hotels" class="py-20 bg-white">
+    <section id="hotels" class="py-20 bg-gray-50">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16">
           <h2 class="text-4xl font-bold text-gray-800 mb-4">โรงแรมแนะนำ</h2>
@@ -485,6 +544,7 @@
           <div>
             <h4 class="font-semibold mb-4">หมวดหมู่</h4>
             <ul class="space-y-2 text-gray-400">
+              <li><a href="#news" class="hover:text-white transition-colors">ข่าวสาร</a></li>
               <li><a href="#hotels" class="hover:text-white transition-colors">โรงแรม</a></li>
               <li><a href="#restaurants" class="hover:text-white transition-colors">ร้านอาหาร</a></li>
               <li><a href="#events" class="hover:text-white transition-colors">กิจกรรม</a></li>
@@ -533,6 +593,7 @@
 </template>
 
 <script setup lang="ts">
+import { useNewsStore } from '~/stores/news'
 import { useHotelsStore } from '~/stores/hotels'
 import { useRestaurantsStore } from '~/stores/restaurants'
 import { useEventsStore } from '~/stores/events'
@@ -545,6 +606,7 @@ definePageMeta({
 })
 
 // Stores
+const newsStore = useNewsStore()
 const hotelsStore = useHotelsStore()
 const restaurantsStore = useRestaurantsStore()
 const eventsStore = useEventsStore()
@@ -552,6 +614,7 @@ const travelServicesStore = useTravelServicesStore()
 const localProductsStore = useLocalProductsStore()
 
 // State
+const loadingNews = ref(true)
 const loadingHotels = ref(true)
 const loadingRestaurants = ref(true)
 const loadingEvents = ref(true)
@@ -559,6 +622,7 @@ const loadingTravelServices = ref(true)
 const loadingLocalProducts = ref(true)
 
 // Computed
+const latestNews = computed(() => (newsStore.list || []).slice(0, 6))
 const featuredHotels = computed(() => (hotelsStore.list || []).slice(0, 6))
 const featuredRestaurants = computed(() => (restaurantsStore.list || []).slice(0, 6))
 const upcomingEvents = computed(() => (eventsStore.list || []).slice(0, 6))
@@ -570,6 +634,26 @@ const totalRestaurants = computed(() => restaurantsStore.pagination?.total || 0)
 const totalEvents = computed(() => eventsStore.pagination?.total || 0)
 
 // Methods
+function getNewsCategoryLabel(category: string) {
+  const labels: Record<string, string> = {
+    announcement: 'ประกาศ',
+    promotion: 'โปรโมชั่น',
+    event_news: 'ข่าวกิจกรรม',
+    travel_tips: 'เคล็ดลับ',
+    local_story: 'เรื่องราว',
+    business_update: 'อัพเดท'
+  }
+  return labels[category] || category
+}
+
+function formatNewsDate(date: any) {
+  if (!date) return ''
+  return new Date(date).toLocaleDateString('th-TH', {
+    day: 'numeric',
+    month: 'short'
+  })
+}
+
 function getCategoryLabel(category: string) {
   const labels: Record<string, string> = {
     hotel: 'โรงแรม',
@@ -614,6 +698,22 @@ function formatDate(date: any) {
 
 // Load data
 async function loadData() {
+  try {
+    // Load news
+    loadingNews.value = true
+    await newsStore.fetchNews({
+      query: {
+        isActive: true,
+        featured: true,
+        limit: 6
+      }
+    })
+  } catch (error) {
+    console.error('Failed to load news:', error)
+  } finally {
+    loadingNews.value = false
+  }
+
   try {
     // Load hotels
     loadingHotels.value = true

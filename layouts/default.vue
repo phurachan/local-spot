@@ -315,6 +315,12 @@ const menuSections = ref([
         activeWhen: ["/local-spot/manage-cms"]
       },
       {
+        path: "/local-spot/manage-cms/news",
+        label: "ข่าวสาร",
+        icon: "newspaper",
+        activeWhen: ["/local-spot/manage-cms/news"]
+      },
+      {
         path: "/local-spot/manage-cms/hotels",
         label: "โรงแรม",
         icon: "building-office",

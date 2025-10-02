@@ -82,9 +82,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "64f123456789abcd12345679"
-            ]
+            "example": ["64f123456789abcd12345679"]
           },
           "lastLogin": {
             "type": "string",
@@ -123,12 +121,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "user.create",
-              "user.read",
-              "user.update",
-              "user.delete"
-            ]
+            "example": ["user.create", "user.read", "user.update", "user.delete"]
           },
           "isActive": {
             "type": "boolean",
@@ -171,20 +164,7 @@
           },
           "action": {
             "type": "string",
-            "enum": [
-              "create",
-              "read",
-              "update",
-              "delete",
-              "access",
-              "hr_view",
-              "approve",
-              "reject",
-              "balance_manage",
-              "export",
-              "submit",
-              "reports"
-            ],
+            "enum": ["create", "read", "update", "delete", "access", "hr_view", "approve", "reject", "balance_manage", "export", "submit", "reports"],
             "example": "create"
           },
           "resource": {
@@ -193,11 +173,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "menu",
-              "action",
-              "input"
-            ],
+            "enum": ["menu", "action", "input"],
             "example": "action"
           },
           "isActive": {
@@ -299,10 +275,7 @@
                   "type": "string"
                 },
                 "description": "Array of i18n constant keys for specific validation errors",
-                "example": [
-                  "FIELD_EMAIL_REQUIRED",
-                  "FIELD_PASSWORD_REQUIRED"
-                ]
+                "example": ["FIELD_EMAIL_REQUIRED", "FIELD_PASSWORD_REQUIRED"]
               }
             }
           }
@@ -310,10 +283,7 @@
       },
       "LoginRequest": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -329,11 +299,7 @@
       },
       "RegisterRequest": {
         "type": "object",
-        "required": [
-          "name",
-          "email",
-          "password"
-        ],
+        "required": ["name", "email", "password"],
         "properties": {
           "name": {
             "type": "string",
@@ -369,11 +335,7 @@
       },
       "UserCreateRequest": {
         "type": "object",
-        "required": [
-          "name",
-          "email",
-          "password"
-        ],
+        "required": ["name", "email", "password"],
         "properties": {
           "name": {
             "type": "string",
@@ -422,9 +384,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "64f123456789abcd12345679"
-            ]
+            "example": ["64f123456789abcd12345679"]
           }
         }
       },
@@ -473,9 +433,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "64f123456789abcd12345679"
-            ]
+            "example": ["64f123456789abcd12345679"]
           }
         }
       },
@@ -500,13 +458,7 @@
           },
           "category": {
             "type": "string",
-            "enum": [
-              "hotel",
-              "resort",
-              "hostel",
-              "guesthouse",
-              "villa"
-            ],
+            "enum": ["hotel", "resort", "hostel", "guesthouse", "villa"],
             "example": "resort"
           },
           "images": {
@@ -514,9 +466,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "/images/hotels/hotel1.jpg"
-            ]
+            "example": ["/images/hotels/hotel1.jpg"]
           },
           "isActive": {
             "type": "boolean",
@@ -535,11 +485,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "รีสอร์ท",
-              "ธรรมชาติ",
-              "ล้านนา"
-            ]
+            "example": ["รีสอร์ท", "ธรรมชาติ", "ล้านนา"]
           },
           "location": {
             "$ref": "#/components/schemas/Location"
@@ -552,12 +498,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "WiFi ฟรี",
-              "สระว่ายน้ำ",
-              "สปา",
-              "ร้านอาหาร"
-            ]
+            "example": ["WiFi ฟรี", "สระว่ายน้ำ", "สปา", "ร้านอาหาร"]
           },
           "roomTypes": {
             "type": "array",
@@ -583,21 +524,14 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ห้ามสูบบุหรี่",
-              "ห้ามนำสัตว์เลี้ยง"
-            ]
+            "example": ["ห้ามสูบบุหรี่", "ห้ามนำสัตว์เลี้ยง"]
           },
           "nearbyAttractions": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "example": [
-              "ดอยสุเทพ",
-              "ตลาดวันเสาร์",
-              "ม่อนแจ่ม"
-            ]
+            "example": ["ดอยสุเทพ", "ตลาดวันเสาร์", "ม่อนแจ่ม"]
           },
           "createdAt": {
             "type": "string",
@@ -632,13 +566,7 @@
           },
           "category": {
             "type": "string",
-            "enum": [
-              "restaurant",
-              "cafe",
-              "street_food",
-              "local_cuisine",
-              "international"
-            ],
+            "enum": ["restaurant", "cafe", "street_food", "local_cuisine", "international"],
             "example": "local_cuisine"
           },
           "images": {
@@ -646,9 +574,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "/images/restaurants/khao-soi.jpg"
-            ]
+            "example": ["/images/restaurants/khao-soi.jpg"]
           },
           "isActive": {
             "type": "boolean",
@@ -667,11 +593,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ข้าวซอย",
-              "อาหารเหนือ",
-              "ดั้งเดิม"
-            ]
+            "example": ["ข้าวซอย", "อาหารเหนือ", "ดั้งเดิม"]
           },
           "location": {
             "$ref": "#/components/schemas/Location"
@@ -684,18 +606,11 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ไทย",
-              "เหนือ"
-            ]
+            "example": ["ไทย", "เหนือ"]
           },
           "priceRange": {
             "type": "string",
-            "enum": [
-              "budget",
-              "mid_range",
-              "fine_dining"
-            ],
+            "enum": ["budget", "mid_range", "fine_dining"],
             "example": "budget"
           },
           "operatingHours": {
@@ -706,20 +621,14 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ข้าวซอยไก่",
-              "ข้าวซอยเนื้อ",
-              "ลาบหมู"
-            ]
+            "example": ["ข้าวซอยไก่", "ข้าวซอยเนื้อ", "ลาบหมู"]
           },
           "dietaryOptions": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "example": [
-              "ไม่มีหมู"
-            ]
+            "example": ["ไม่มีหมู"]
           },
           "delivery": {
             "type": "object",
@@ -733,10 +642,7 @@
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "Grab Food",
-                  "Food Panda"
-                ]
+                "example": ["Grab Food", "Food Panda"]
               }
             }
           },
@@ -790,9 +696,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "053-123456"
-            ]
+            "example": ["053-123456"]
           },
           "email": {
             "type": "string",
@@ -981,13 +885,7 @@
           },
           "category": {
             "type": "string",
-            "enum": [
-              "transport",
-              "tour",
-              "guide",
-              "rental",
-              "activity"
-            ],
+            "enum": ["transport", "tour", "guide", "rental", "activity"],
             "example": "tour"
           },
           "serviceType": {
@@ -1002,10 +900,7 @@
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "เมืองเชียงใหม่",
-                  "ดอยสุเทพ"
-                ]
+                "example": ["เมืองเชียงใหม่", "ดอยสุเทพ"]
               },
               "meetingPoint": {
                 "type": "string",
@@ -1034,12 +929,7 @@
             "properties": {
               "type": {
                 "type": "string",
-                "enum": [
-                  "per_person",
-                  "per_group",
-                  "per_hour",
-                  "per_day"
-                ],
+                "enum": ["per_person", "per_group", "per_hour", "per_day"],
                 "example": "per_person"
               },
               "amount": {
@@ -1055,21 +945,14 @@
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "รถรับ-ส่ง",
-                  "ค่าเข้าชม",
-                  "มัคคุเทศก์"
-                ]
+                "example": ["รถรับ-ส่ง", "ค่าเข้าชม", "มัคคุเทศก์"]
               },
               "excludes": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "อาหาร",
-                  "ทิป"
-                ]
+                "example": ["อาหาร", "ทิป"]
               }
             }
           },
@@ -1086,10 +969,7 @@
               },
               "unit": {
                 "type": "string",
-                "enum": [
-                  "hours",
-                  "days"
-                ],
+                "enum": ["hours", "days"],
                 "example": "hours"
               }
             }
@@ -1112,20 +992,14 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ใส่เสื้อผ้าสุภาพ",
-              "ถอดรองเท้าก่อนเข้าวัด"
-            ]
+            "example": ["ใส่เสื้อผ้าสุภาพ", "ถอดรองเท้าก่อนเข้าวัด"]
           },
           "availability": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "example": [
-              "จันทร์-อาทิตย์",
-              "08:00-17:00"
-            ]
+            "example": ["จันทร์-อาทิตย์", "08:00-17:00"]
           },
           "images": {
             "type": "array",
@@ -1150,11 +1024,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ทัวร์",
-              "วัด",
-              "วัฒนธรรม"
-            ]
+            "example": ["ทัวร์", "วัด", "วัฒนธรรม"]
           },
           "createdAt": {
             "type": "string",
@@ -1187,13 +1057,7 @@
           },
           "category": {
             "type": "string",
-            "enum": [
-              "handicraft",
-              "food_product",
-              "souvenir",
-              "textile",
-              "art"
-            ],
+            "enum": ["handicraft", "food_product", "souvenir", "textile", "art"],
             "example": "handicraft"
           },
           "vendor": {
@@ -1224,32 +1088,21 @@
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "กระดาษสา",
-                  "ไม้ไผ่"
-                ]
+                "example": ["กระดาษสา", "ไม้ไผ่"]
               },
               "sizes": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "S",
-                  "M",
-                  "L"
-                ]
+                "example": ["S", "M", "L"]
               },
               "colors": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "แดง",
-                  "น้ำเงิน",
-                  "เหลือง"
-                ]
+                "example": ["แดง", "น้ำเงิน", "เหลือง"]
               },
               "weight": {
                 "type": "number",
@@ -1285,12 +1138,7 @@
                     }
                   }
                 },
-                "example": [
-                  {
-                    "quantity": 5,
-                    "discountPercent": 10
-                  }
-                ]
+                "example": [{"quantity": 5, "discountPercent": 10}]
               }
             }
           },
@@ -1323,9 +1171,7 @@
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "ทั่วประเทศ"
-                ]
+                "example": ["ทั่วประเทศ"]
               },
               "cost": {
                 "type": "number",
@@ -1356,11 +1202,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ร่ม",
-              "หัตถกรรม",
-              "ล้านนา"
-            ]
+            "example": ["ร่ม", "หัตถกรรม", "ล้านนา"]
           },
           "createdAt": {
             "type": "string",
@@ -1393,14 +1235,7 @@
           },
           "category": {
             "type": "string",
-            "enum": [
-              "festival",
-              "market",
-              "cultural",
-              "sports",
-              "workshop",
-              "seasonal"
-            ],
+            "enum": ["festival", "market", "cultural", "sports", "workshop", "seasonal"],
             "example": "festival"
           },
           "schedule": {
@@ -1437,12 +1272,7 @@
                 "properties": {
                   "pattern": {
                     "type": "string",
-                    "enum": [
-                      "daily",
-                      "weekly",
-                      "monthly",
-                      "yearly"
-                    ],
+                    "enum": ["daily", "weekly", "monthly", "yearly"],
                     "example": "yearly"
                   },
                   "interval": {
@@ -1531,20 +1361,14 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ทุกเพศทุกวัย"
-            ]
+            "example": ["ทุกเพศทุกวัย"]
           },
           "activities": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "example": [
-              "ชมการแสดง",
-              "ชิมอาหาร",
-              "ช้อปปิ้ง"
-            ]
+            "example": ["ชมการแสดง", "ชิมอาหาร", "ช้อปปิ้ง"]
           },
           "images": {
             "type": "array",
@@ -1569,11 +1393,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "งานกาชาด",
-              "เทศกาล",
-              "เชียงใหม่"
-            ]
+            "example": ["งานกาชาด", "เทศกาล", "เชียงใหม่"]
           },
           "createdAt": {
             "type": "string",
@@ -1587,12 +1407,7 @@
       },
       "TravelServiceCreateRequest": {
         "type": "object",
-        "required": [
-          "title",
-          "description",
-          "category",
-          "serviceType"
-        ],
+        "required": ["title", "description", "category", "serviceType"],
         "properties": {
           "title": {
             "type": "string",
@@ -1604,13 +1419,7 @@
           },
           "category": {
             "type": "string",
-            "enum": [
-              "transport",
-              "tour",
-              "guide",
-              "rental",
-              "activity"
-            ],
+            "enum": ["transport", "tour", "guide", "rental", "activity"],
             "example": "tour"
           },
           "serviceType": {
@@ -1625,10 +1434,7 @@
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "เมืองเชียงใหม่",
-                  "ดอยสุเทพ"
-                ]
+                "example": ["เมืองเชียงใหม่", "ดอยสุเทพ"]
               },
               "meetingPoint": {
                 "type": "string",
@@ -1657,12 +1463,7 @@
             "properties": {
               "type": {
                 "type": "string",
-                "enum": [
-                  "per_person",
-                  "per_group",
-                  "per_hour",
-                  "per_day"
-                ],
+                "enum": ["per_person", "per_group", "per_hour", "per_day"],
                 "example": "per_person"
               },
               "amount": {
@@ -1678,21 +1479,14 @@
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "รถรับ-ส่ง",
-                  "ค่าเข้าชม",
-                  "มัคคุเทศก์"
-                ]
+                "example": ["รถรับ-ส่ง", "ค่าเข้าชม", "มัคคุเทศก์"]
               },
               "excludes": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "อาหาร",
-                  "ทิป"
-                ]
+                "example": ["อาหาร", "ทิป"]
               }
             }
           },
@@ -1709,10 +1503,7 @@
               },
               "unit": {
                 "type": "string",
-                "enum": [
-                  "hours",
-                  "days"
-                ],
+                "enum": ["hours", "days"],
                 "example": "hours"
               }
             }
@@ -1735,20 +1526,14 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ใส่เสื้อผ้าสุภาพ",
-              "ถอดรองเท้าก่อนเข้าวัด"
-            ]
+            "example": ["ใส่เสื้อผ้าสุภาพ", "ถอดรองเท้าก่อนเข้าวัด"]
           },
           "availability": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "example": [
-              "จันทร์-อาทิตย์",
-              "08:00-17:00"
-            ]
+            "example": ["จันทร์-อาทิตย์", "08:00-17:00"]
           },
           "images": {
             "type": "array",
@@ -1773,23 +1558,13 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ทัวร์",
-              "วัด",
-              "วัฒนธรรม"
-            ]
+            "example": ["ทัวร์", "วัด", "วัฒนธรรม"]
           }
         }
       },
       "LocalProductCreateRequest": {
         "type": "object",
-        "required": [
-          "title",
-          "description",
-          "category",
-          "vendor",
-          "pricing"
-        ],
+        "required": ["title", "description", "category", "vendor", "pricing"],
         "properties": {
           "title": {
             "type": "string",
@@ -1801,20 +1576,12 @@
           },
           "category": {
             "type": "string",
-            "enum": [
-              "handicraft",
-              "food_product",
-              "souvenir",
-              "textile",
-              "art"
-            ],
+            "enum": ["handicraft", "food_product", "souvenir", "textile", "art"],
             "example": "handicraft"
           },
           "vendor": {
             "type": "object",
-            "required": [
-              "name"
-            ],
+            "required": ["name"],
             "properties": {
               "name": {
                 "type": "string",
@@ -1841,32 +1608,21 @@
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "กระดาษสา",
-                  "ไม้ไผ่"
-                ]
+                "example": ["กระดาษสา", "ไม้ไผ่"]
               },
               "sizes": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "S",
-                  "M",
-                  "L"
-                ]
+                "example": ["S", "M", "L"]
               },
               "colors": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "แดง",
-                  "น้ำเงิน",
-                  "เหลือง"
-                ]
+                "example": ["แดง", "น้ำเงิน", "เหลือง"]
               },
               "weight": {
                 "type": "number",
@@ -1880,9 +1636,7 @@
           },
           "pricing": {
             "type": "object",
-            "required": [
-              "price"
-            ],
+            "required": ["price"],
             "properties": {
               "price": {
                 "type": "number",
@@ -1905,12 +1659,7 @@
                     }
                   }
                 },
-                "example": [
-                  {
-                    "quantity": 5,
-                    "discountPercent": 10
-                  }
-                ]
+                "example": [{"quantity": 5, "discountPercent": 10}]
               }
             }
           },
@@ -1943,9 +1692,7 @@
                 "items": {
                   "type": "string"
                 },
-                "example": [
-                  "ทั่วประเทศ"
-                ]
+                "example": ["ทั่วประเทศ"]
               },
               "cost": {
                 "type": "number",
@@ -1976,24 +1723,13 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ร่ม",
-              "หัตถกรรม",
-              "ล้านนา"
-            ]
+            "example": ["ร่ม", "หัตถกรรม", "ล้านนา"]
           }
         }
       },
       "EventCreateRequest": {
         "type": "object",
-        "required": [
-          "title",
-          "description",
-          "category",
-          "schedule",
-          "location",
-          "organizer"
-        ],
+        "required": ["title", "description", "category", "schedule", "location", "organizer"],
         "properties": {
           "title": {
             "type": "string",
@@ -2005,22 +1741,12 @@
           },
           "category": {
             "type": "string",
-            "enum": [
-              "festival",
-              "market",
-              "cultural",
-              "sports",
-              "workshop",
-              "seasonal"
-            ],
+            "enum": ["festival", "market", "cultural", "sports", "workshop", "seasonal"],
             "example": "festival"
           },
           "schedule": {
             "type": "object",
-            "required": [
-              "startDate",
-              "endDate"
-            ],
+            "required": ["startDate", "endDate"],
             "properties": {
               "startDate": {
                 "type": "string",
@@ -2053,12 +1779,7 @@
                 "properties": {
                   "pattern": {
                     "type": "string",
-                    "enum": [
-                      "daily",
-                      "weekly",
-                      "monthly",
-                      "yearly"
-                    ],
+                    "enum": ["daily", "weekly", "monthly", "yearly"],
                     "example": "yearly"
                   },
                   "interval": {
@@ -2071,12 +1792,7 @@
           },
           "location": {
             "type": "object",
-            "required": [
-              "venue",
-              "address",
-              "district",
-              "province"
-            ],
+            "required": ["venue", "address", "district", "province"],
             "properties": {
               "venue": {
                 "type": "string",
@@ -2109,9 +1825,7 @@
           },
           "organizer": {
             "type": "object",
-            "required": [
-              "name"
-            ],
+            "required": ["name"],
             "properties": {
               "name": {
                 "type": "string",
@@ -2156,20 +1870,14 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "ทุกเพศทุกวัย"
-            ]
+            "example": ["ทุกเพศทุกวัย"]
           },
           "activities": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "example": [
-              "ชมการแสดง",
-              "ชิมอาหาร",
-              "ช้อปปิ้ง"
-            ]
+            "example": ["ชมการแสดง", "ชิมอาหาร", "ช้อปปิ้ง"]
           },
           "images": {
             "type": "array",
@@ -2194,181 +1902,7 @@
             "items": {
               "type": "string"
             },
-            "example": [
-              "งานกาชาด",
-              "เทศกาล",
-              "เชียงใหม่"
-            ]
-          }
-        }
-      },
-      "NewsContent": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string",
-            "example": "64f123456789abcd12345678"
-          },
-          "title": {
-            "type": "string",
-            "example": "เปิดตัวแพ็คเกจท่องเที่ยวใหม่ราคาพิเศษ"
-          },
-          "description": {
-            "type": "string",
-            "example": "แพ็คเกจท่องเที่ยวราคาพิเศษสำหรับช่วงปีใหม่"
-          },
-          "content": {
-            "type": "string",
-            "example": "เนื้อหาข่าวแบบเต็ม รองรับ HTML..."
-          },
-          "excerpt": {
-            "type": "string",
-            "example": "สรุปเนื้อหาสำหรับแสดงในหน้ารายการ"
-          },
-          "type": {
-            "type": "string",
-            "example": "news"
-          },
-          "category": {
-            "type": "string",
-            "enum": [
-              "announcement",
-              "promotion",
-              "event_news",
-              "travel_tips",
-              "local_story",
-              "business_update"
-            ],
-            "example": "promotion"
-          },
-          "author": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "example": "สมชาย ใจดี"
-              },
-              "email": {
-                "type": "string",
-                "example": "somchai@example.com"
-              },
-              "bio": {
-                "type": "string",
-                "example": "นักเขียนท่องเที่ยว"
-              }
-            }
-          },
-          "coverImage": {
-            "type": "string",
-            "example": "/uploads/news/cover1.jpg"
-          },
-          "publishDate": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-10-02T10:00:00Z"
-          },
-          "source": {
-            "type": "string",
-            "example": "Local Spot News"
-          },
-          "location": {
-            "type": "object",
-            "properties": {
-              "province": {
-                "type": "string",
-                "example": "เชียงใหม่"
-              },
-              "district": {
-                "type": "string",
-                "example": "เมือง"
-              }
-            }
-          },
-          "relatedContent": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "contentType": {
-                  "type": "string",
-                  "enum": [
-                    "hotel",
-                    "restaurant",
-                    "travel_service",
-                    "local_product",
-                    "event"
-                  ],
-                  "example": "hotel"
-                },
-                "contentId": {
-                  "type": "string",
-                  "example": "64f123456789abcd12345679"
-                },
-                "title": {
-                  "type": "string",
-                  "example": "บ้านไทยรีสอร์ท"
-                }
-              }
-            }
-          },
-          "viewCount": {
-            "type": "integer",
-            "example": 150
-          },
-          "readTime": {
-            "type": "integer",
-            "example": 5
-          },
-          "images": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "/uploads/news/image1.jpg",
-              "/uploads/news/image2.jpg"
-            ]
-          },
-          "isActive": {
-            "type": "boolean",
-            "example": true
-          },
-          "featured": {
-            "type": "boolean",
-            "example": false
-          },
-          "order": {
-            "type": "integer",
-            "example": 0
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "example": [
-              "ท่องเที่ยว",
-              "โปรโมชั่น",
-              "เชียงใหม่"
-            ]
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-10-02T10:00:00Z"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2025-10-02T10:00:00Z"
-          },
-          "createdBy": {
-            "type": "string",
-            "example": "64f123456789abcd12345677"
-          },
-          "updatedBy": {
-            "type": "string",
-            "example": "64f123456789abcd12345677"
+            "example": ["งานกาชาด", "เทศกาล", "เชียงใหม่"]
           }
         }
       }
@@ -2408,9 +1942,7 @@
   "paths": {
     "/auth/login": {
       "post": {
-        "tags": [
-          "Authentication"
-        ],
+        "tags": ["Authentication"],
         "summary": "User login",
         "description": "Authenticate user and return JWT token",
         "security": [],
@@ -2471,9 +2003,7 @@
     },
     "/auth/register": {
       "post": {
-        "tags": [
-          "Authentication"
-        ],
+        "tags": ["Authentication"],
         "summary": "User registration",
         "description": "Register a new user",
         "security": [],
@@ -2534,9 +2064,7 @@
     },
     "/auth/me": {
       "get": {
-        "tags": [
-          "Authentication"
-        ],
+        "tags": ["Authentication"],
         "summary": "Get current user",
         "description": "Get authenticated user profile",
         "responses": {
@@ -2582,9 +2110,7 @@
     },
     "/users": {
       "get": {
-        "tags": [
-          "User Management"
-        ],
+        "tags": ["User Management"],
         "summary": "Get users list",
         "description": "Retrieve paginated list of users with filtering and search",
         "parameters": [
@@ -2651,9 +2177,7 @@
         }
       },
       "post": {
-        "tags": [
-          "User Management"
-        ],
+        "tags": ["User Management"],
         "summary": "Create user",
         "description": "Create a new user",
         "requestBody": {
@@ -2704,9 +2228,7 @@
     },
     "/users/{id}": {
       "get": {
-        "tags": [
-          "User Management"
-        ],
+        "tags": ["User Management"],
         "summary": "Get user by ID",
         "description": "Retrieve a specific user by ID",
         "parameters": [
@@ -2756,9 +2278,7 @@
         }
       },
       "put": {
-        "tags": [
-          "User Management"
-        ],
+        "tags": ["User Management"],
         "summary": "Update user",
         "description": "Update an existing user",
         "parameters": [
@@ -2818,9 +2338,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "User Management"
-        ],
+        "tags": ["User Management"],
         "summary": "Delete user",
         "description": "Soft delete a user (set isActive to false)",
         "parameters": [
@@ -2860,9 +2378,7 @@
     },
     "/roles": {
       "get": {
-        "tags": [
-          "Role Management"
-        ],
+        "tags": ["Role Management"],
         "summary": "Get roles list",
         "description": "Retrieve paginated list of roles with filtering",
         "parameters": [
@@ -2913,9 +2429,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Role Management"
-        ],
+        "tags": ["Role Management"],
         "summary": "Create role",
         "description": "Create a new role",
         "requestBody": {
@@ -2924,9 +2438,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name"
-                ],
+                "required": ["name"],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -2941,10 +2453,7 @@
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "user.read",
-                      "report.view"
-                    ]
+                    "example": ["user.read", "report.view"]
                   },
                   "isActive": {
                     "type": "boolean",
@@ -2993,9 +2502,7 @@
     },
     "/roles/{id}": {
       "get": {
-        "tags": [
-          "Role Management"
-        ],
+        "tags": ["Role Management"],
         "summary": "Get role by ID",
         "description": "Retrieve a specific role by ID",
         "parameters": [
@@ -3045,9 +2552,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Role Management"
-        ],
+        "tags": ["Role Management"],
         "summary": "Update role",
         "description": "Update an existing role",
         "parameters": [
@@ -3081,11 +2586,7 @@
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "user.read",
-                      "report.view",
-                      "user.update"
-                    ]
+                    "example": ["user.read", "report.view", "user.update"]
                   },
                   "isActive": {
                     "type": "boolean",
@@ -3132,9 +2633,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Role Management"
-        ],
+        "tags": ["Role Management"],
         "summary": "Delete role",
         "description": "Delete a role (only if no users are assigned)",
         "parameters": [
@@ -3184,9 +2683,7 @@
     },
     "/roles/seed": {
       "post": {
-        "tags": [
-          "Role Management"
-        ],
+        "tags": ["Role Management"],
         "summary": "Seed roles",
         "description": "Seed initial Thai roles and permissions",
         "security": [],
@@ -3206,9 +2703,7 @@
     },
     "/permissions": {
       "get": {
-        "tags": [
-          "Permission Management"
-        ],
+        "tags": ["Permission Management"],
         "summary": "Get permissions list",
         "description": "Retrieve paginated list of permissions with filtering",
         "parameters": [
@@ -3235,20 +2730,7 @@
             "description": "Filter by action",
             "schema": {
               "type": "string",
-              "enum": [
-                "create",
-                "read",
-                "update",
-                "delete",
-                "access",
-                "hr_view",
-                "approve",
-                "reject",
-                "balance_manage",
-                "export",
-                "submit",
-                "reports"
-              ]
+              "enum": ["create", "read", "update", "delete", "access", "hr_view", "approve", "reject", "balance_manage", "export", "submit", "reports"]
             }
           },
           {
@@ -3257,11 +2739,7 @@
             "description": "Filter by type",
             "schema": {
               "type": "string",
-              "enum": [
-                "menu",
-                "action",
-                "input"
-              ]
+              "enum": ["menu", "action", "input"]
             }
           },
           {
@@ -3302,9 +2780,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Permission Management"
-        ],
+        "tags": ["Permission Management"],
         "summary": "Create permission",
         "description": "Create a new permission",
         "requestBody": {
@@ -3313,12 +2789,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name",
-                  "module",
-                  "action",
-                  "resource"
-                ],
+                "required": ["name", "module", "action", "resource"],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -3334,20 +2805,7 @@
                   },
                   "action": {
                     "type": "string",
-                    "enum": [
-                      "create",
-                      "read",
-                      "update",
-                      "delete",
-                      "access",
-                      "hr_view",
-                      "approve",
-                      "reject",
-                      "balance_manage",
-                      "export",
-                      "submit",
-                      "reports"
-                    ],
+                    "enum": ["create", "read", "update", "delete", "access", "hr_view", "approve", "reject", "balance_manage", "export", "submit", "reports"],
                     "example": "export"
                   },
                   "resource": {
@@ -3356,11 +2814,7 @@
                   },
                   "type": {
                     "type": "string",
-                    "enum": [
-                      "menu",
-                      "action",
-                      "input"
-                    ],
+                    "enum": ["menu", "action", "input"],
                     "example": "action"
                   },
                   "isActive": {
@@ -3410,9 +2864,7 @@
     },
     "/permissions/{id}": {
       "get": {
-        "tags": [
-          "Permission Management"
-        ],
+        "tags": ["Permission Management"],
         "summary": "Get permission by ID",
         "description": "Retrieve a specific permission by ID",
         "parameters": [
@@ -3462,9 +2914,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Permission Management"
-        ],
+        "tags": ["Permission Management"],
         "summary": "Update permission",
         "description": "Update an existing permission",
         "parameters": [
@@ -3499,20 +2949,7 @@
                   },
                   "action": {
                     "type": "string",
-                    "enum": [
-                      "create",
-                      "read",
-                      "update",
-                      "delete",
-                      "access",
-                      "hr_view",
-                      "approve",
-                      "reject",
-                      "balance_manage",
-                      "export",
-                      "submit",
-                      "reports"
-                    ],
+                    "enum": ["create", "read", "update", "delete", "access", "hr_view", "approve", "reject", "balance_manage", "export", "submit", "reports"],
                     "example": "export"
                   },
                   "resource": {
@@ -3521,11 +2958,7 @@
                   },
                   "type": {
                     "type": "string",
-                    "enum": [
-                      "menu",
-                      "action",
-                      "input"
-                    ],
+                    "enum": ["menu", "action", "input"],
                     "example": "action"
                   },
                   "isActive": {
@@ -3573,9 +3006,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Permission Management"
-        ],
+        "tags": ["Permission Management"],
         "summary": "Delete permission",
         "description": "Delete a permission",
         "parameters": [
@@ -3615,9 +3046,7 @@
     },
     "/permissions/seed": {
       "post": {
-        "tags": [
-          "Permission Management"
-        ],
+        "tags": ["Permission Management"],
         "summary": "Seed permissions",
         "description": "Seed comprehensive permission set with 47 initial permissions",
         "security": [],
@@ -3637,9 +3066,7 @@
     },
     "/permissions/modules": {
       "get": {
-        "tags": [
-          "Permission Management"
-        ],
+        "tags": ["Permission Management"],
         "summary": "Get distinct modules",
         "description": "Get list of distinct permission modules",
         "responses": {
@@ -3660,11 +3087,7 @@
                           "items": {
                             "type": "string"
                           },
-                          "example": [
-                            "dashboard",
-                            "user-management",
-                            "role-management"
-                          ]
+                          "example": ["dashboard", "user-management", "role-management"]
                         }
                       }
                     }
@@ -3678,9 +3101,7 @@
     },
     "/permissions/status": {
       "get": {
-        "tags": [
-          "Permission Management"
-        ],
+        "tags": ["Permission Management"],
         "summary": "Get system status",
         "description": "Get permission system status overview",
         "responses": {
@@ -3723,633 +3144,9 @@
         }
       }
     },
-    "/cms/news": {
-      "get": {
-        "tags": [
-          "CMS - News"
-        ],
-        "summary": "Get all news articles",
-        "description": "Get all news articles with filtering and pagination",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 1
-            },
-            "description": "Page number for pagination"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "default": 10
-            },
-            "description": "Number of items per page"
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Search in title, description, and content"
-          },
-          {
-            "name": "category",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "announcement",
-                "promotion",
-                "event_news",
-                "travel_tips",
-                "local_story",
-                "business_update"
-              ]
-            },
-            "description": "Filter by news category"
-          },
-          {
-            "name": "province",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filter by province"
-          },
-          {
-            "name": "district",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filter by district"
-          },
-          {
-            "name": "isActive",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "description": "Filter by active status"
-          },
-          {
-            "name": "featured",
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            },
-            "description": "Filter by featured status"
-          },
-          {
-            "name": "sortField",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "title",
-                "publishDate",
-                "createdAt",
-                "updatedAt",
-                "order",
-                "featured"
-              ]
-            },
-            "description": "Field to sort by"
-          },
-          {
-            "name": "sortDirection",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
-              "default": "desc"
-            },
-            "description": "Sort direction"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "News articles retrieved successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/NewsContent"
-                      }
-                    },
-                    "pagination": {
-                      "type": "object",
-                      "properties": {
-                        "page": {
-                          "type": "integer",
-                          "example": 1
-                        },
-                        "limit": {
-                          "type": "integer",
-                          "example": 10
-                        },
-                        "total": {
-                          "type": "integer",
-                          "example": 25
-                        },
-                        "pages": {
-                          "type": "integer",
-                          "example": 3
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "CMS - News"
-        ],
-        "summary": "Create a new news article",
-        "description": "Create a new news article",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "title",
-                  "description",
-                  "content",
-                  "category",
-                  "author"
-                ],
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "example": "เปิดตัวแพ็คเกจท่องเที่ยวใหม่ราคาพิเศษ"
-                  },
-                  "description": {
-                    "type": "string",
-                    "example": "แพ็คเกจท่องเที่ยวราคาพิเศษสำหรับช่วงปีใหม่"
-                  },
-                  "content": {
-                    "type": "string",
-                    "example": "เนื้อหาข่าวแบบเต็ม รองรับ HTML..."
-                  },
-                  "excerpt": {
-                    "type": "string",
-                    "example": "สรุปเนื้อหาสำหรับแสดงในหน้ารายการ"
-                  },
-                  "category": {
-                    "type": "string",
-                    "enum": [
-                      "announcement",
-                      "promotion",
-                      "event_news",
-                      "travel_tips",
-                      "local_story",
-                      "business_update"
-                    ],
-                    "example": "promotion"
-                  },
-                  "author": {
-                    "type": "object",
-                    "required": [
-                      "name"
-                    ],
-                    "properties": {
-                      "name": {
-                        "type": "string",
-                        "example": "สมชาย ใจดี"
-                      },
-                      "email": {
-                        "type": "string",
-                        "format": "email",
-                        "example": "somchai@example.com"
-                      },
-                      "bio": {
-                        "type": "string",
-                        "example": "นักเขียนท่องเที่ยว"
-                      }
-                    }
-                  },
-                  "coverImage": {
-                    "type": "string",
-                    "example": "/uploads/news/cover1.jpg"
-                  },
-                  "publishDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2025-10-02T10:00:00Z"
-                  },
-                  "source": {
-                    "type": "string",
-                    "example": "Local Spot News"
-                  },
-                  "location": {
-                    "type": "object",
-                    "properties": {
-                      "province": {
-                        "type": "string",
-                        "example": "เชียงใหม่"
-                      },
-                      "district": {
-                        "type": "string",
-                        "example": "เมือง"
-                      }
-                    }
-                  },
-                  "readTime": {
-                    "type": "integer",
-                    "example": 5
-                  },
-                  "tags": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "example": [
-                      "ท่องเที่ยว",
-                      "โปรโมชั่น",
-                      "เชียงใหม่"
-                    ]
-                  },
-                  "images": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "example": [
-                      "/uploads/news/image1.jpg"
-                    ]
-                  },
-                  "isActive": {
-                    "type": "boolean",
-                    "default": true
-                  },
-                  "featured": {
-                    "type": "boolean",
-                    "default": false
-                  },
-                  "order": {
-                    "type": "integer",
-                    "default": 0
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "News created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/NewsContent"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/cms/news/{id}": {
-      "get": {
-        "tags": [
-          "CMS - News"
-        ],
-        "summary": "Get a single news article",
-        "description": "Get a news article by ID (increments view count)",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "News ID",
-            "example": "64f123456789abcd12345678"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "News article retrieved successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/NewsContent"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "News not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "CMS - News"
-        ],
-        "summary": "Update a news article",
-        "description": "Update an existing news article",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "News ID",
-            "example": "64f123456789abcd12345678"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "content": {
-                    "type": "string"
-                  },
-                  "excerpt": {
-                    "type": "string"
-                  },
-                  "category": {
-                    "type": "string",
-                    "enum": [
-                      "announcement",
-                      "promotion",
-                      "event_news",
-                      "travel_tips",
-                      "local_story",
-                      "business_update"
-                    ]
-                  },
-                  "author": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "bio": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "coverImage": {
-                    "type": "string"
-                  },
-                  "publishDate": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "isActive": {
-                    "type": "boolean"
-                  },
-                  "featured": {
-                    "type": "boolean"
-                  },
-                  "tags": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "News updated successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "$ref": "#/components/schemas/NewsContent"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "News not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "CMS - News"
-        ],
-        "summary": "Delete a news article",
-        "description": "Delete a news article by ID",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "News ID",
-            "example": "64f123456789abcd12345678"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "News deleted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "example": "64f123456789abcd12345678"
-                        },
-                        "deleted": {
-                          "type": "boolean",
-                          "example": true
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "News not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/cms/hotels": {
       "get": {
-        "tags": [
-          "CMS - Hotels"
-        ],
+        "tags": ["CMS - Hotels"],
         "summary": "Get all hotels",
         "description": "Get all hotels with filtering and pagination",
         "parameters": [
@@ -4384,13 +3181,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "hotel",
-                "resort",
-                "hostel",
-                "guesthouse",
-                "villa"
-              ]
+              "enum": ["hotel", "resort", "hostel", "guesthouse", "villa"]
             },
             "description": "Filter by hotel category"
           },
@@ -4431,13 +3222,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "title",
-                "createdAt",
-                "updatedAt",
-                "order",
-                "featured"
-              ]
+              "enum": ["title", "createdAt", "updatedAt", "order", "featured"]
             },
             "description": "Field to sort by"
           },
@@ -4446,10 +3231,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "default": "desc"
             },
             "description": "Sort direction"
@@ -4479,9 +3261,7 @@
         }
       },
       "post": {
-        "tags": [
-          "CMS - Hotels"
-        ],
+        "tags": ["CMS - Hotels"],
         "summary": "Create a new hotel",
         "description": "Create a new hotel entry",
         "security": [
@@ -4495,12 +3275,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "title",
-                  "description",
-                  "category",
-                  "location"
-                ],
+                "required": ["title", "description", "category", "location"],
                 "properties": {
                   "title": {
                     "type": "string",
@@ -4512,13 +3287,7 @@
                   },
                   "category": {
                     "type": "string",
-                    "enum": [
-                      "hotel",
-                      "resort",
-                      "hostel",
-                      "guesthouse",
-                      "villa"
-                    ],
+                    "enum": ["hotel", "resort", "hostel", "guesthouse", "villa"],
                     "example": "resort"
                   },
                   "location": {
@@ -4532,11 +3301,7 @@
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "WiFi ฟรี",
-                      "สระว่ายน้ำ",
-                      "สปา"
-                    ]
+                    "example": ["WiFi ฟรี", "สระว่ายน้ำ", "สปา"]
                   },
                   "roomTypes": {
                     "type": "array",
@@ -4562,29 +3327,21 @@
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "ห้ามสูบบุหรี่",
-                      "ห้ามนำสัตว์เลี้ยง"
-                    ]
+                    "example": ["ห้ามสูบบุหรี่", "ห้ามนำสัตว์เลี้ยง"]
                   },
                   "nearbyAttractions": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "ดอยสุเทพ",
-                      "ตลาดวันเสาร์"
-                    ]
+                    "example": ["ดอยสุเทพ", "ตลาดวันเสาร์"]
                   },
                   "images": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "/images/hotels/hotel1.jpg"
-                    ]
+                    "example": ["/images/hotels/hotel1.jpg"]
                   },
                   "isActive": {
                     "type": "boolean",
@@ -4603,11 +3360,7 @@
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "รีสอร์ท",
-                      "ธรรมชาติ",
-                      "ล้านนา"
-                    ]
+                    "example": ["รีสอร์ท", "ธรรมชาติ", "ล้านนา"]
                   }
                 }
               }
@@ -4650,9 +3403,7 @@
     },
     "/cms/hotels/{id}": {
       "get": {
-        "tags": [
-          "CMS - Hotels"
-        ],
+        "tags": ["CMS - Hotels"],
         "summary": "Get hotel by ID",
         "description": "Get a specific hotel by its ID",
         "parameters": [
@@ -4690,9 +3441,7 @@
         }
       },
       "put": {
-        "tags": [
-          "CMS - Hotels"
-        ],
+        "tags": ["CMS - Hotels"],
         "summary": "Update hotel by ID",
         "description": "Update a specific hotel by its ID",
         "security": [
@@ -4726,13 +3475,7 @@
                   },
                   "category": {
                     "type": "string",
-                    "enum": [
-                      "hotel",
-                      "resort",
-                      "hostel",
-                      "guesthouse",
-                      "villa"
-                    ]
+                    "enum": ["hotel", "resort", "hostel", "guesthouse", "villa"]
                   },
                   "location": {
                     "$ref": "#/components/schemas/Location"
@@ -4845,9 +3588,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "CMS - Hotels"
-        ],
+        "tags": ["CMS - Hotels"],
         "summary": "Delete hotel by ID",
         "description": "Delete a specific hotel by its ID",
         "security": [
@@ -4902,9 +3643,7 @@
     },
     "/cms/restaurants": {
       "get": {
-        "tags": [
-          "CMS - Restaurants"
-        ],
+        "tags": ["CMS - Restaurants"],
         "summary": "Get all restaurants",
         "description": "Get all restaurants with filtering and pagination",
         "parameters": [
@@ -4939,13 +3678,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "restaurant",
-                "cafe",
-                "street_food",
-                "local_cuisine",
-                "international"
-              ]
+              "enum": ["restaurant", "cafe", "street_food", "local_cuisine", "international"]
             },
             "description": "Filter by restaurant category"
           },
@@ -4962,11 +3695,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "budget",
-                "mid_range",
-                "fine_dining"
-              ]
+              "enum": ["budget", "mid_range", "fine_dining"]
             },
             "description": "Filter by price range"
           },
@@ -5007,13 +3736,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "title",
-                "createdAt",
-                "updatedAt",
-                "order",
-                "featured"
-              ]
+              "enum": ["title", "createdAt", "updatedAt", "order", "featured"]
             },
             "description": "Field to sort by"
           },
@@ -5022,10 +3745,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "default": "desc"
             },
             "description": "Sort direction"
@@ -5055,9 +3775,7 @@
         }
       },
       "post": {
-        "tags": [
-          "CMS - Restaurants"
-        ],
+        "tags": ["CMS - Restaurants"],
         "summary": "Create a new restaurant",
         "description": "Create a new restaurant entry",
         "security": [
@@ -5071,12 +3789,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "title",
-                  "description",
-                  "category",
-                  "location"
-                ],
+                "required": ["title", "description", "category", "location"],
                 "properties": {
                   "title": {
                     "type": "string",
@@ -5088,13 +3801,7 @@
                   },
                   "category": {
                     "type": "string",
-                    "enum": [
-                      "restaurant",
-                      "cafe",
-                      "street_food",
-                      "local_cuisine",
-                      "international"
-                    ],
+                    "enum": ["restaurant", "cafe", "street_food", "local_cuisine", "international"],
                     "example": "local_cuisine"
                   },
                   "location": {
@@ -5108,18 +3815,11 @@
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "ไทย",
-                      "เหนือ"
-                    ]
+                    "example": ["ไทย", "เหนือ"]
                   },
                   "priceRange": {
                     "type": "string",
-                    "enum": [
-                      "budget",
-                      "mid_range",
-                      "fine_dining"
-                    ],
+                    "enum": ["budget", "mid_range", "fine_dining"],
                     "example": "budget"
                   },
                   "operatingHours": {
@@ -5130,19 +3830,14 @@
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "ข้าวซอยไก่",
-                      "ข้าวซอยเนื้อ"
-                    ]
+                    "example": ["ข้าวซอยไก่", "ข้าวซอยเนื้อ"]
                   },
                   "dietaryOptions": {
                     "type": "array",
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "ไม่มีหมู"
-                    ]
+                    "example": ["ไม่มีหมู"]
                   },
                   "delivery": {
                     "type": "object",
@@ -5156,10 +3851,7 @@
                         "items": {
                           "type": "string"
                         },
-                        "example": [
-                          "Grab Food",
-                          "Food Panda"
-                        ]
+                        "example": ["Grab Food", "Food Panda"]
                       }
                     }
                   },
@@ -5168,9 +3860,7 @@
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "/images/restaurants/khao-soi.jpg"
-                    ]
+                    "example": ["/images/restaurants/khao-soi.jpg"]
                   },
                   "isActive": {
                     "type": "boolean",
@@ -5189,11 +3879,7 @@
                     "items": {
                       "type": "string"
                     },
-                    "example": [
-                      "ข้าวซอย",
-                      "อาหารเหนือ",
-                      "ดั้งเดิม"
-                    ]
+                    "example": ["ข้าวซอย", "อาหารเหนือ", "ดั้งเดิม"]
                   }
                 }
               }
@@ -5236,9 +3922,7 @@
     },
     "/cms/restaurants/{id}": {
       "get": {
-        "tags": [
-          "CMS - Restaurants"
-        ],
+        "tags": ["CMS - Restaurants"],
         "summary": "Get restaurant by ID",
         "description": "Get a specific restaurant by its ID",
         "parameters": [
@@ -5276,9 +3960,7 @@
         }
       },
       "put": {
-        "tags": [
-          "CMS - Restaurants"
-        ],
+        "tags": ["CMS - Restaurants"],
         "summary": "Update restaurant by ID",
         "description": "Update a specific restaurant by its ID",
         "security": [
@@ -5312,13 +3994,7 @@
                   },
                   "category": {
                     "type": "string",
-                    "enum": [
-                      "restaurant",
-                      "cafe",
-                      "street_food",
-                      "local_cuisine",
-                      "international"
-                    ]
+                    "enum": ["restaurant", "cafe", "street_food", "local_cuisine", "international"]
                   },
                   "location": {
                     "$ref": "#/components/schemas/Location"
@@ -5334,11 +4010,7 @@
                   },
                   "priceRange": {
                     "type": "string",
-                    "enum": [
-                      "budget",
-                      "mid_range",
-                      "fine_dining"
-                    ]
+                    "enum": ["budget", "mid_range", "fine_dining"]
                   },
                   "operatingHours": {
                     "$ref": "#/components/schemas/OperatingHours"
@@ -5439,9 +4111,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "CMS - Restaurants"
-        ],
+        "tags": ["CMS - Restaurants"],
         "summary": "Delete restaurant by ID",
         "description": "Delete a specific restaurant by its ID",
         "security": [
@@ -5496,9 +4166,7 @@
     },
     "/cms/travel-services": {
       "get": {
-        "tags": [
-          "CMS - Travel Services"
-        ],
+        "tags": ["CMS - Travel Services"],
         "summary": "Get all travel services",
         "description": "Get all travel services with filtering and pagination",
         "parameters": [
@@ -5530,13 +4198,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "transport",
-                "tour",
-                "guide",
-                "rental",
-                "activity"
-              ]
+              "enum": ["transport", "tour", "guide", "rental", "activity"]
             }
           },
           {
@@ -5568,9 +4230,7 @@
         }
       },
       "post": {
-        "tags": [
-          "CMS - Travel Services"
-        ],
+        "tags": ["CMS - Travel Services"],
         "summary": "Create a new travel service",
         "description": "Create a new travel service entry",
         "security": [
@@ -5624,9 +4284,7 @@
     },
     "/cms/travel-services/{id}": {
       "get": {
-        "tags": [
-          "CMS - Travel Services"
-        ],
+        "tags": ["CMS - Travel Services"],
         "summary": "Get travel service by ID",
         "description": "Get a specific travel service by its ID",
         "parameters": [
@@ -5663,9 +4321,7 @@
         }
       },
       "put": {
-        "tags": [
-          "CMS - Travel Services"
-        ],
+        "tags": ["CMS - Travel Services"],
         "summary": "Update travel service by ID",
         "description": "Update a specific travel service by its ID",
         "security": [
@@ -5737,9 +4393,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "CMS - Travel Services"
-        ],
+        "tags": ["CMS - Travel Services"],
         "summary": "Delete travel service by ID",
         "description": "Delete a specific travel service by its ID",
         "security": [
@@ -5793,9 +4447,7 @@
     },
     "/cms/local-products": {
       "get": {
-        "tags": [
-          "CMS - Local Products"
-        ],
+        "tags": ["CMS - Local Products"],
         "summary": "Get all local products",
         "description": "Get all local products with filtering and pagination",
         "parameters": [
@@ -5827,13 +4479,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "handicraft",
-                "food_product",
-                "souvenir",
-                "textile",
-                "art"
-              ]
+              "enum": ["handicraft", "food_product", "souvenir", "textile", "art"]
             }
           },
           {
@@ -5872,9 +4518,7 @@
         }
       },
       "post": {
-        "tags": [
-          "CMS - Local Products"
-        ],
+        "tags": ["CMS - Local Products"],
         "summary": "Create a new local product",
         "description": "Create a new local product entry",
         "security": [
@@ -5928,9 +4572,7 @@
     },
     "/cms/local-products/{id}": {
       "get": {
-        "tags": [
-          "CMS - Local Products"
-        ],
+        "tags": ["CMS - Local Products"],
         "summary": "Get local product by ID",
         "description": "Get a specific local product by its ID",
         "parameters": [
@@ -5967,9 +4609,7 @@
         }
       },
       "put": {
-        "tags": [
-          "CMS - Local Products"
-        ],
+        "tags": ["CMS - Local Products"],
         "summary": "Update local product by ID",
         "description": "Update a specific local product by its ID",
         "security": [
@@ -6041,9 +4681,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "CMS - Local Products"
-        ],
+        "tags": ["CMS - Local Products"],
         "summary": "Delete local product by ID",
         "description": "Delete a specific local product by its ID",
         "security": [
@@ -6097,9 +4735,7 @@
     },
     "/cms/events": {
       "get": {
-        "tags": [
-          "CMS - Events"
-        ],
+        "tags": ["CMS - Events"],
         "summary": "Get all events",
         "description": "Get all events with filtering and pagination",
         "parameters": [
@@ -6131,14 +4767,7 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "enum": [
-                "festival",
-                "market",
-                "cultural",
-                "sports",
-                "workshop",
-                "seasonal"
-              ]
+              "enum": ["festival", "market", "cultural", "sports", "workshop", "seasonal"]
             }
           },
           {
@@ -6195,9 +4824,7 @@
         }
       },
       "post": {
-        "tags": [
-          "CMS - Events"
-        ],
+        "tags": ["CMS - Events"],
         "summary": "Create a new event",
         "description": "Create a new event entry",
         "security": [
@@ -6251,9 +4878,7 @@
     },
     "/cms/events/{id}": {
       "get": {
-        "tags": [
-          "CMS - Events"
-        ],
+        "tags": ["CMS - Events"],
         "summary": "Get event by ID",
         "description": "Get a specific event by its ID",
         "parameters": [
@@ -6290,9 +4915,7 @@
         }
       },
       "put": {
-        "tags": [
-          "CMS - Events"
-        ],
+        "tags": ["CMS - Events"],
         "summary": "Update event by ID",
         "description": "Update a specific event by its ID",
         "security": [
@@ -6364,9 +4987,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "CMS - Events"
-        ],
+        "tags": ["CMS - Events"],
         "summary": "Delete event by ID",
         "description": "Delete a specific event by its ID",
         "security": [

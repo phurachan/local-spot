@@ -8,7 +8,18 @@
     />
 
     <!-- Stats Overview -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
+      <div class="stat bg-base-100 shadow">
+        <div class="stat-figure text-purple-600">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+          </svg>
+        </div>
+        <div class="stat-title">ข่าวสาร</div>
+        <div class="stat-value text-purple-600">{{ stats.news }}</div>
+        <div class="stat-desc">บทความข่าว</div>
+      </div>
+
       <div class="stat bg-base-100 shadow">
         <div class="stat-figure text-primary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
@@ -69,7 +80,19 @@
     <!-- Quick Actions -->
     <div class="mb-8">
       <h3 class="text-lg font-semibold mb-4">การจัดการเนื้อหา</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <nuxt-link to="/local-spot/manage-cms/news" class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+          <div class="card-body items-center text-center p-6">
+            <div class="w-12 h-12 bg-purple-600/10 rounded-lg flex items-center justify-center mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 stroke-purple-600">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+              </svg>
+            </div>
+            <h4 class="font-semibold">ข่าวสาร</h4>
+            <p class="text-sm text-base-content/70">จัดการข่าวและบทความ</p>
+          </div>
+        </nuxt-link>
+
         <nuxt-link to="/local-spot/manage-cms/hotels" class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
           <div class="card-body items-center text-center p-6">
             <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-3">
@@ -169,6 +192,7 @@ const breadcrumbs = [
 
 // Mock stats data - จะเปลี่ยนเป็น API call ในภายหลัง
 const stats = ref({
+  news: 0,
   hotels: 12,
   restaurants: 28,
   travelServices: 15,

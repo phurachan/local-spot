@@ -1,0 +1,723 @@
+{
+  "newsEndpoints": {
+    "/cms/news": {
+      "get": {
+        "tags": ["CMS - News"],
+        "summary": "Get all news articles",
+        "description": "Get all news articles with filtering and pagination",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number for pagination"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of items per page"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search in title, description, and content"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["announcement", "promotion", "event_news", "travel_tips", "local_story", "business_update"]
+            },
+            "description": "Filter by news category"
+          },
+          {
+            "name": "province",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by province"
+          },
+          {
+            "name": "district",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by district"
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by active status"
+          },
+          {
+            "name": "featured",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by featured status"
+          },
+          {
+            "name": "sortField",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["title", "publishDate", "createdAt", "updatedAt", "order", "featured"]
+            },
+            "description": "Field to sort by"
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "desc"
+            },
+            "description": "Sort direction"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "News articles retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/NewsContent"
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "example": 10
+                        },
+                        "total": {
+                          "type": "integer",
+                          "example": 25
+                        },
+                        "pages": {
+                          "type": "integer",
+                          "example": 3
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["CMS - News"],
+        "summary": "Create a new news article",
+        "description": "Create a new news article",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["title", "description", "content", "category", "author"],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "เปิดตัวแพ็คเกจท่องเที่ยวใหม่ราคาพิเศษ"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "แพ็คเกจท่องเที่ยวราคาพิเศษสำหรับช่วงปีใหม่"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "เนื้อหาข่าวแบบเต็ม รองรับ HTML..."
+                  },
+                  "excerpt": {
+                    "type": "string",
+                    "example": "สรุปเนื้อหาสำหรับแสดงในหน้ารายการ"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["announcement", "promotion", "event_news", "travel_tips", "local_story", "business_update"],
+                    "example": "promotion"
+                  },
+                  "author": {
+                    "type": "object",
+                    "required": ["name"],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "สมชาย ใจดี"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "somchai@example.com"
+                      },
+                      "bio": {
+                        "type": "string",
+                        "example": "นักเขียนท่องเที่ยว"
+                      }
+                    }
+                  },
+                  "coverImage": {
+                    "type": "string",
+                    "example": "/uploads/news/cover1.jpg"
+                  },
+                  "publishDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2025-10-02T10:00:00Z"
+                  },
+                  "source": {
+                    "type": "string",
+                    "example": "Local Spot News"
+                  },
+                  "location": {
+                    "type": "object",
+                    "properties": {
+                      "province": {
+                        "type": "string",
+                        "example": "เชียงใหม่"
+                      },
+                      "district": {
+                        "type": "string",
+                        "example": "เมือง"
+                      }
+                    }
+                  },
+                  "readTime": {
+                    "type": "integer",
+                    "example": 5
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["ท่องเที่ยว", "โปรโมชั่น", "เชียงใหม่"]
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["/uploads/news/image1.jpg"]
+                  },
+                  "isActive": {
+                    "type": "boolean",
+                    "default": true
+                  },
+                  "featured": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "order": {
+                    "type": "integer",
+                    "default": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "News created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/NewsContent"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/news/{id}": {
+      "get": {
+        "tags": ["CMS - News"],
+        "summary": "Get a single news article",
+        "description": "Get a news article by ID (increments view count)",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "News ID",
+            "example": "64f123456789abcd12345678"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "News article retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/NewsContent"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["CMS - News"],
+        "summary": "Update a news article",
+        "description": "Update an existing news article",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "News ID",
+            "example": "64f123456789abcd12345678"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "excerpt": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["announcement", "promotion", "event_news", "travel_tips", "local_story", "business_update"]
+                  },
+                  "author": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "bio": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "coverImage": {
+                    "type": "string"
+                  },
+                  "publishDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "isActive": {
+                    "type": "boolean"
+                  },
+                  "featured": {
+                    "type": "boolean"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "News updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/NewsContent"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CMS - News"],
+        "summary": "Delete a news article",
+        "description": "Delete a news article by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "News ID",
+            "example": "64f123456789abcd12345678"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "News deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "64f123456789abcd12345678"
+                        },
+                        "deleted": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "newsSchema": {
+    "NewsContent": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "64f123456789abcd12345678"
+        },
+        "title": {
+          "type": "string",
+          "example": "เปิดตัวแพ็คเกจท่องเที่ยวใหม่ราคาพิเศษ"
+        },
+        "description": {
+          "type": "string",
+          "example": "แพ็คเกจท่องเที่ยวราคาพิเศษสำหรับช่วงปีใหม่"
+        },
+        "content": {
+          "type": "string",
+          "example": "เนื้อหาข่าวแบบเต็ม รองรับ HTML..."
+        },
+        "excerpt": {
+          "type": "string",
+          "example": "สรุปเนื้อหาสำหรับแสดงในหน้ารายการ"
+        },
+        "type": {
+          "type": "string",
+          "example": "news"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["announcement", "promotion", "event_news", "travel_tips", "local_story", "business_update"],
+          "example": "promotion"
+        },
+        "author": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "สมชาย ใจดี"
+            },
+            "email": {
+              "type": "string",
+              "example": "somchai@example.com"
+            },
+            "bio": {
+              "type": "string",
+              "example": "นักเขียนท่องเที่ยว"
+            }
+          }
+        },
+        "coverImage": {
+          "type": "string",
+          "example": "/uploads/news/cover1.jpg"
+        },
+        "publishDate": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-10-02T10:00:00Z"
+        },
+        "source": {
+          "type": "string",
+          "example": "Local Spot News"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "province": {
+              "type": "string",
+              "example": "เชียงใหม่"
+            },
+            "district": {
+              "type": "string",
+              "example": "เมือง"
+            }
+          }
+        },
+        "relatedContent": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "contentType": {
+                "type": "string",
+                "enum": ["hotel", "restaurant", "travel_service", "local_product", "event"],
+                "example": "hotel"
+              },
+              "contentId": {
+                "type": "string",
+                "example": "64f123456789abcd12345679"
+              },
+              "title": {
+                "type": "string",
+                "example": "บ้านไทยรีสอร์ท"
+              }
+            }
+          }
+        },
+        "viewCount": {
+          "type": "integer",
+          "example": 150
+        },
+        "readTime": {
+          "type": "integer",
+          "example": 5
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": ["/uploads/news/image1.jpg", "/uploads/news/image2.jpg"]
+        },
+        "isActive": {
+          "type": "boolean",
+          "example": true
+        },
+        "featured": {
+          "type": "boolean",
+          "example": false
+        },
+        "order": {
+          "type": "integer",
+          "example": 0
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": ["ท่องเที่ยว", "โปรโมชั่น", "เชียงใหม่"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-10-02T10:00:00Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-10-02T10:00:00Z"
+        },
+        "createdBy": {
+          "type": "string",
+          "example": "64f123456789abcd12345677"
+        },
+        "updatedBy": {
+          "type": "string",
+          "example": "64f123456789abcd12345677"
+        }
+      }
+    }
+  }
+}

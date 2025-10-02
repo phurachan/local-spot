@@ -92,6 +92,14 @@ export const API_ENDPOINTS = {
 
   // CMS - Content Management
   CMS: {
+    // News
+    NEWS: {
+      LIST: '/cms/news',
+      SHOW: (id: string) => `/cms/news/${id}`,
+      CREATE: '/cms/news',
+      UPDATE: (id: string) => `/cms/news/${id}`,
+      DELETE: (id: string) => `/cms/news/${id}`
+    },
     // Hotels
     HOTELS: {
       LIST: '/cms/hotels',
