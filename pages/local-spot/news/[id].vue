@@ -105,7 +105,7 @@
 
       <!-- Content -->
       <div class="prose prose-lg max-w-none mb-12">
-        <div v-html="news.content" class="text-gray-800 leading-relaxed whitespace-pre-wrap"></div>
+        <div v-html="news.content" class="text-gray-800 leading-relaxed"></div>
       </div>
 
       <!-- Tags -->
@@ -266,5 +266,16 @@ useHead(() => ({
 <style scoped>
 .prose {
   max-width: none;
+}
+
+.prose :deep(p.indent-paragraph) {
+  text-indent: 2em;
+}
+
+.prose :deep(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
 }
 </style>

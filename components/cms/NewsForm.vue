@@ -47,13 +47,12 @@
           :rows="3"
         />
 
-        <BaseTextarea
+        <BaseRichTextEditor
           v-model="formData.content"
           label="เนื้อหาข่าวเต็ม"
-          placeholder="เนื้อหาข่าวแบบเต็ม (รองรับ HTML)"
+          placeholder="เขียนเนื้อหาข่าว..."
           :required="true"
           :error="errors.content"
-          :rows="10"
         />
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
