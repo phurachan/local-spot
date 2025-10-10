@@ -560,6 +560,119 @@ const seoMetaSchema = new mongoose.Schema({
   }
 })
 
+// Web Settings Schema
+const webSettingsSchema = new mongoose.Schema({
+  siteName: {
+    type: String,
+    required: true,
+    default: 'Local Spot'
+  },
+  siteDescription: {
+    type: String,
+    required: true,
+    default: 'แพลตฟอร์มท่องเที่ยวท้องถิ่น'
+  },
+  siteTagline: String,
+  logo: String,
+  favicon: String,
+  colors: {
+    primary: {
+      type: String,
+      default: '#10b981'
+    },
+    secondary: {
+      type: String,
+      default: '#0d9488'
+    },
+    accent: String,
+    neutral: String
+  },
+  hero: {
+    enabled: {
+      type: Boolean,
+      default: true
+    },
+    title: {
+      type: String,
+      default: 'ค้นพบสถานที่ท่องเที่ยวท้องถิ่น'
+    },
+    description: {
+      type: String,
+      default: 'สำรวจโรงแรม ร้านอาหาร และกิจกรรมท้องถิ่นที่น่าสนใจ'
+    },
+    image: String,
+    ctaText: String,
+    ctaLink: String
+  },
+  contact: {
+    email: String,
+    phone: String,
+    address: String,
+    socialMedia: {
+      facebook: String,
+      instagram: String,
+      twitter: String,
+      line: String,
+      youtube: String
+    }
+  },
+  seo: {
+    metaTitle: String,
+    metaDescription: String,
+    keywords: [String],
+    ogImage: String
+  },
+  features: {
+    enableHotels: {
+      type: Boolean,
+      default: true
+    },
+    enableRestaurants: {
+      type: Boolean,
+      default: true
+    },
+    enableTravelServices: {
+      type: Boolean,
+      default: true
+    },
+    enableLocalProducts: {
+      type: Boolean,
+      default: true
+    },
+    enableEvents: {
+      type: Boolean,
+      default: true
+    },
+    enableNews: {
+      type: Boolean,
+      default: true
+    }
+  },
+  footer: {
+    copyrightText: String,
+    links: [{
+      label: String,
+      url: String
+    }]
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  updatedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
+})
+
 // Create and export models
 export const NewsContent = mongoose.models.NewsContent || mongoose.model('NewsContent', newsContentSchema)
 export const HotelContent = mongoose.models.HotelContent || mongoose.model('HotelContent', hotelContentSchema)
@@ -569,6 +682,7 @@ export const LocalProductContent = mongoose.models.LocalProductContent || mongoo
 export const EventContent = mongoose.models.EventContent || mongoose.model('EventContent', eventContentSchema)
 export const ImageGalleryContent = mongoose.models.ImageGalleryContent || mongoose.model('ImageGalleryContent', imageGalleryContentSchema)
 export const SEOMetaContent = mongoose.models.SEOMetaContent || mongoose.model('SEOMetaContent', seoMetaSchema)
+export const WebSettings = mongoose.models.WebSettings || mongoose.model('WebSettings', webSettingsSchema)
 
 // Export all models as a map for dynamic access
 export const CMSModels = {

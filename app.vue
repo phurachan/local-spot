@@ -19,4 +19,12 @@
 
 <script setup>
 const { isActive: isLoadingActive, getMessage: loadingMessage, getConfig: loadingConfig } = useLoading()
+
+// Apply custom colors from Web Settings
+const { initColors } = useApplyWebColors()
+
+// Initialize colors on mount
+onMounted(async () => {
+  await initColors()
+})
 </script>

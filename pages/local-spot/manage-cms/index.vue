@@ -10,13 +10,13 @@
     <!-- Stats Overview -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
       <div class="stat bg-base-100 shadow">
-        <div class="stat-figure text-purple-600">
+        <div class="stat-figure text-secondary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
           </svg>
         </div>
         <div class="stat-title">ข่าวสาร</div>
-        <div class="stat-value text-purple-600">{{ stats.news }}</div>
+        <div class="stat-value text-secondary">{{ stats.news }}</div>
         <div class="stat-desc">บทความข่าว</div>
       </div>
 
@@ -83,8 +83,8 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <nuxt-link to="/local-spot/manage-cms/news" class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
           <div class="card-body items-center text-center p-6">
-            <div class="w-12 h-12 bg-purple-600/10 rounded-lg flex items-center justify-center mb-3">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 stroke-purple-600">
+            <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 stroke-secondary">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
               </svg>
             </div>
@@ -150,6 +150,49 @@
             </div>
             <h4 class="font-semibold">กิจกรรม</h4>
             <p class="text-sm text-base-content/70">จัดการงานและกิจกรรม</p>
+          </div>
+        </nuxt-link>
+      </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold mb-4">การตั้งค่าระบบ</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <nuxt-link to="/local-spot/manage-cms/settings" class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+          <div class="card-body items-center text-center p-6">
+            <div class="w-12 h-12 bg-neutral/10 rounded-lg flex items-center justify-center mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 stroke-neutral">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h4 class="font-semibold">ตั้งค่าเว็บไซต์</h4>
+            <p class="text-sm text-base-content/70">กำหนดค่าระบบและธีม</p>
+          </div>
+        </nuxt-link>
+
+        <nuxt-link to="/local-spot/manage-cms/images" class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+          <div class="card-body items-center text-center p-6">
+            <div class="w-12 h-12 bg-info/10 rounded-lg flex items-center justify-center mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 stroke-info">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h4 class="font-semibold">คลังรูปภาพ</h4>
+            <p class="text-sm text-base-content/70">จัดการไฟล์รูปภาพ</p>
+          </div>
+        </nuxt-link>
+
+        <nuxt-link to="/local-spot/manage-cms/seo" class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+          <div class="card-body items-center text-center p-6">
+            <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 stroke-success">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <h4 class="font-semibold">SEO & Meta</h4>
+            <p class="text-sm text-base-content/70">จัดการ SEO และ Meta Tags</p>
           </div>
         </nuxt-link>
       </div>

@@ -361,6 +361,12 @@ const menuSections = ref([
         label: "SEO & Meta",
         icon: "magnifying-glass",
         activeWhen: ["/local-spot/manage-cms/seo"]
+      },
+      {
+        path: "/local-spot/manage-cms/settings",
+        label: "ตั้งค่าเว็บไซต์",
+        icon: "cog-6-tooth",
+        activeWhen: ["/local-spot/manage-cms/settings"]
       }
     ]
   },

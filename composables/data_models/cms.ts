@@ -351,3 +351,78 @@ export interface CMSContentSort {
   field: 'title' | 'createdAt' | 'updatedAt' | 'order' | 'featured'
   direction: 'asc' | 'desc'
 }
+
+// Web Settings
+export interface WebSettings {
+  _id?: string
+  // Brand & Identity
+  siteName: string
+  siteDescription: string
+  siteTagline?: string
+  logo?: string
+  favicon?: string
+
+  // Colors & Theme
+  colors: {
+    primary: string
+    secondary: string
+    accent?: string
+    neutral?: string
+  }
+
+  // Hero Section
+  hero: {
+    enabled: boolean
+    title: string
+    description: string
+    image?: string
+    ctaText?: string
+    ctaLink?: string
+  }
+
+  // Contact Information
+  contact: {
+    email?: string
+    phone?: string
+    address?: string
+    socialMedia?: {
+      facebook?: string
+      instagram?: string
+      twitter?: string
+      line?: string
+      youtube?: string
+    }
+  }
+
+  // SEO & Meta
+  seo: {
+    metaTitle?: string
+    metaDescription?: string
+    keywords?: string[]
+    ogImage?: string
+  }
+
+  // Features & Modules
+  features: {
+    enableHotels: boolean
+    enableRestaurants: boolean
+    enableTravelServices: boolean
+    enableLocalProducts: boolean
+    enableEvents: boolean
+    enableNews: boolean
+  }
+
+  // Footer
+  footer: {
+    copyrightText?: string
+    links?: Array<{
+      label: string
+      url: string
+    }>
+  }
+
+  createdAt?: Date
+  updatedAt?: Date
+  createdBy?: string
+  updatedBy?: string
+}
