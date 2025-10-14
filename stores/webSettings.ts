@@ -23,7 +23,7 @@ export const useWebSettingsStore = defineStore('webSettings', {
       this.error = null
 
       try {
-        const response = await $fetch('/api/local-spot/cms/settings', {
+        const response = await $fetch('/api/cms/settings', {
           method: 'GET'
         })
 
@@ -43,7 +43,7 @@ export const useWebSettingsStore = defineStore('webSettings', {
       this.error = null
 
       try {
-        const response = await $fetch('/api/local-spot/cms/settings', {
+        const response = await $fetch('/api/cms/settings', {
           method: 'PUT',
           body: data
         })

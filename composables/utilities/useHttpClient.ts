@@ -159,7 +159,7 @@ export const useHttpClient = (config: HttpClientConfig = {}) => {
       if (error.status === 401) {
         // Token expired, clear auth
         tokenCookie.value = null
-        await navigateTo('/local-spot/login')
+        await navigateTo('/login')
       }
       
       throw error

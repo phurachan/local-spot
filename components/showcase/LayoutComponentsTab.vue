@@ -62,7 +62,7 @@
             description="This is an example page header with title, code, and description."
             :breadcrumbs="[
               { label: 'Home', to: '/', icon: 'home' },
-              { label: 'Admin', to: '/local-spot/admin', icon: 'cog-6-tooth' },
+              { label: 'Admin', to: '/admin', icon: 'cog-6-tooth' },
               { label: 'Examples' }
             ]"
           />

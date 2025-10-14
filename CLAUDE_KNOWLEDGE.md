@@ -147,7 +147,7 @@ local-spot/
 │       └── events/
 
 ├── server/                       # 🖥️ Nitro Server (Backend)
-│   ├── api/local-spot/
+│   ├── api/
 │   │   ├── auth/                # Authentication
 │   │   │   ├── login.post.ts
 │   │   │   ├── register.post.ts
@@ -471,12 +471,12 @@ type CMSContent =
 ```
 
 ### Files
-- **Model**: `server/local-spot/models/CMS.ts:563-674`
+- **Model**: `server/models/CMS.ts:563-674`
 - **Store**: `stores/webSettings.ts`
 - **API**:
-  - `GET /api/local-spot/cms/settings` - ดึงการตั้งค่า (auto-create default)
-  - `PUT /api/local-spot/cms/settings` - อัปเดตการตั้งค่า
-- **Page**: `pages/local-spot/manage-cms/settings.vue`
+  - `GET /api/cms/settings` - ดึงการตั้งค่า (auto-create default)
+  - `PUT /api/cms/settings` - อัปเดตการตั้งค่า
+- **Page**: `pages/manage-cms/settings.vue`
 
 ---
 
@@ -532,10 +532,10 @@ type CMSContent =
 
 ### API Endpoints
 ```
-POST /api/local-spot/auth/login       # Login with email/password
-POST /api/local-spot/auth/register    # Register new user
-GET  /api/local-spot/auth/me          # Get current user
-POST /api/local-spot/auth/seed        # Seed admin user
+POST /api/auth/login       # Login with email/password
+POST /api/auth/register    # Register new user
+GET  /api/auth/me          # Get current user
+POST /api/auth/seed        # Seed admin user
 ```
 
 ---
@@ -582,11 +582,11 @@ POST /api/local-spot/auth/seed        # Seed admin user
 
 ### Standard REST Pattern
 ```
-GET    /api/local-spot/cms/{type}       # List all
-POST   /api/local-spot/cms/{type}       # Create
-GET    /api/local-spot/cms/{type}/[id]  # Get one
-PUT    /api/local-spot/cms/{type}/[id]  # Update
-DELETE /api/local-spot/cms/{type}/[id]  # Delete
+GET    /api/cms/{type}       # List all
+POST   /api/cms/{type}       # Create
+GET    /api/cms/{type}/[id]  # Get one
+PUT    /api/cms/{type}/[id]  # Update
+DELETE /api/cms/{type}/[id]  # Delete
 ```
 
 ### Response Format
@@ -713,7 +713,7 @@ composables/
 2. Define props in `/composables/component_models/`
 3. Use TypeScript `<script setup lang="ts">`
 4. Auto-import composables and interfaces
-5. Document in `/pages/local-spot/admin/components.vue`
+5. Document in `/pages/admin/components.vue`
 
 ### 3. Code Standards
 - ✅ **DaisyUI First** - Always use DaisyUI, not custom CSS
@@ -912,7 +912,7 @@ npm run fresh-install                # Full reinstall
 
 ### Main Data Models
 - `composables/data_models/cms.ts` - All CMS types ⭐
-- `server/local-spot/models/CMS.ts` - MongoDB models ⭐
+- `server/models/CMS.ts` - MongoDB models ⭐
 
 ### Main Utilities
 - `composables/utilities/useHttpClient.ts` - HTTP client ⭐
@@ -974,12 +974,12 @@ try {
 
 ### Add New Content Type
 1. Define interface in `composables/data_models/cms.ts`
-2. Create schema in `server/local-spot/models/CMS.ts`
+2. Create schema in `server/models/CMS.ts`
 3. Add to `CMSContent` union type
-4. Create API endpoints in `server/api/local-spot/cms/`
+4. Create API endpoints in `server/api/cms/`
 5. Create Pinia store in `stores/`
 6. Create Form component in `components/cms/`
-7. Create management page in `pages/local-spot/manage-cms/`
+7. Create management page in `pages/manage-cms/`
 8. Add to CMS dashboard menu
 
 ### Add New Base Component
@@ -990,7 +990,7 @@ try {
 5. Document usage
 
 ### Add New API Endpoint
-1. Create in `server/api/local-spot/`
+1. Create in `server/api/`
 2. Use response handler
 3. Add authentication if needed
 4. Update store to use endpoint

@@ -273,7 +273,7 @@ const saveUser = async (userData) => {
 
 ## การทดสอบ
 
-1. เปิดหน้า `/local-spot/admin/i18n-test` เพื่อทดสอบระบบ
+1. เปิดหน้า `/admin/i18n-test` เพื่อทดสอบระบบ
 2. ทดสอบการเปลี่ยนภาษาผ่าน Language Switcher
 3. ทดสอบ Alert แต่ละประเภท
 4. ทดสอบ API Error และ Validation Error

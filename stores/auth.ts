@@ -36,7 +36,7 @@ export const useAuthStore = defineStore('auth', {
 
         
         // Navigate to admin after successful login
-        await navigateTo('/local-spot/admin')
+        await navigateTo('/admin')
         
         this.responseData = { ...(response || {}) };
         return response
@@ -59,7 +59,7 @@ export const useAuthStore = defineStore('auth', {
       this.user = null
       this.isAuthenticated = false
 
-      await navigateTo('/local-spot/login')
+      await navigateTo('/login')
     },
 
     async register(requestData: BaseRequestData<AuthRegisterRequest> = {}) {

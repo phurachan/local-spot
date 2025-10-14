@@ -315,58 +315,58 @@ const menuSections = ref([
         activeWhen: ["/local-spot/manage-cms"]
       },
       {
-        path: "/local-spot/manage-cms/news",
+        path: "/manage-cms/news",
         label: "ข่าวสาร",
         icon: "newspaper",
-        activeWhen: ["/local-spot/manage-cms/news"]
+        activeWhen: ["/manage-cms/news"]
       },
       {
-        path: "/local-spot/manage-cms/hotels",
+        path: "/manage-cms/hotels",
         label: "โรงแรม",
         icon: "building-office",
-        activeWhen: ["/local-spot/manage-cms/hotels"]
+        activeWhen: ["/manage-cms/hotels"]
       },
       {
-        path: "/local-spot/manage-cms/restaurants",
+        path: "/manage-cms/restaurants",
         label: "ร้านอาหาร",
         icon: "building-storefront",
-        activeWhen: ["/local-spot/manage-cms/restaurants"]
+        activeWhen: ["/manage-cms/restaurants"]
       },
       {
-        path: "/local-spot/manage-cms/travel-services",
+        path: "/manage-cms/travel-services",
         label: "บริการท่องเที่ยว",
         icon: "map",
-        activeWhen: ["/local-spot/manage-cms/travel-services"]
+        activeWhen: ["/manage-cms/travel-services"]
       },
       {
-        path: "/local-spot/manage-cms/local-products",
+        path: "/manage-cms/local-products",
         label: "ผลิตภัณฑ์ท้องถิ่น",
         icon: "gift",
-        activeWhen: ["/local-spot/manage-cms/local-products"]
+        activeWhen: ["/manage-cms/local-products"]
       },
       {
-        path: "/local-spot/manage-cms/events",
+        path: "/manage-cms/events",
         label: "กิจกรรม",
         icon: "calendar",
-        activeWhen: ["/local-spot/manage-cms/events"]
+        activeWhen: ["/manage-cms/events"]
       },
       {
-        path: "/local-spot/manage-cms/images",
+        path: "/manage-cms/images",
         label: "คลังรูปภาพ",
         icon: "photo",
-        activeWhen: ["/local-spot/manage-cms/images"]
+        activeWhen: ["/manage-cms/images"]
       },
       {
-        path: "/local-spot/manage-cms/seo",
+        path: "/manage-cms/seo",
         label: "SEO & Meta",
         icon: "magnifying-glass",
-        activeWhen: ["/local-spot/manage-cms/seo"]
+        activeWhen: ["/manage-cms/seo"]
       },
       {
-        path: "/local-spot/manage-cms/settings",
+        path: "/manage-cms/settings",
         label: "ตั้งค่าเว็บไซต์",
         icon: "cog-6-tooth",
-        activeWhen: ["/local-spot/manage-cms/settings"]
+        activeWhen: ["/manage-cms/settings"]
       }
     ]
   },

@@ -8,7 +8,7 @@
         <BaseInput
           v-model="formData.pageUrl"
           label="URL หน้าเว็บ"
-          placeholder="/local-spot/hotels"
+          placeholder="/hotels"
           :required="true"
           :error="errors.pageUrl"
         />

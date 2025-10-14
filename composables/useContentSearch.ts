@@ -1,7 +1,7 @@
 export const useContentSearch = () => {
   const searchHotels = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/local-spot/cms/hotels', {
+      const response = await $fetch('/api/cms/hotels', {
         method: 'GET',
         query: {
           search: query,
@@ -18,7 +18,7 @@ export const useContentSearch = () => {
 
   const searchRestaurants = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/local-spot/cms/restaurants', {
+      const response = await $fetch('/api/cms/restaurants', {
         method: 'GET',
         query: {
           search: query,
@@ -35,7 +35,7 @@ export const useContentSearch = () => {
 
   const searchTravelServices = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/local-spot/cms/travel-services', {
+      const response = await $fetch('/api/cms/travel-services', {
         method: 'GET',
         query: {
           search: query,
@@ -52,7 +52,7 @@ export const useContentSearch = () => {
 
   const searchLocalProducts = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/local-spot/cms/local-products', {
+      const response = await $fetch('/api/cms/local-products', {
         method: 'GET',
         query: {
           search: query,
@@ -69,7 +69,7 @@ export const useContentSearch = () => {
 
   const searchEvents = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/local-spot/cms/events', {
+      const response = await $fetch('/api/cms/events', {
         method: 'GET',
         query: {
           search: query,

@@ -1,0 +1,469 @@
+<template>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center justify-between">
+          <NuxtLink to="/" class="text-2xl font-bold text-green-600">
+            Local Spot
+          </NuxtLink>
+          <nav class="flex items-center space-x-6">
+            <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
+            <NuxtLink to="/hotels" class="text-gray-600 hover:text-green-600">โรงแรม</NuxtLink>
+            <NuxtLink to="/restaurants" class="text-gray-600 hover:text-green-600">ร้านอาหาร</NuxtLink>
+            <NuxtLink to="/events" class="text-green-600 font-semibold">กิจกรรม</NuxtLink>
+            <NuxtLink to="/travel-services" class="text-gray-600 hover:text-green-600">บริการท่องเที่ยว</NuxtLink>
+            <NuxtLink to="/local-products" class="text-gray-600 hover:text-green-600">สินค้าท้องถิ่น</NuxtLink>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <BaseLoading v-if="loading" class="py-20" />
+
+    <div v-else-if="event" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Breadcrumb -->
+      <nav class="flex mb-6 text-sm">
+        <NuxtLink to="/" class="text-gray-500 hover:text-gray-700">หน้าแรก</NuxtLink>
+        <span class="mx-2 text-gray-400">/</span>
+        <NuxtLink to="/events" class="text-gray-500 hover:text-gray-700">กิจกรรม</NuxtLink>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900">{{ event.title }}</span>
+      </nav>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-2">
+          <!-- Image Gallery -->
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+            <div class="aspect-video bg-gray-200 relative">
+              <img
+                v-if="currentImage"
+                :src="currentImage"
+                :alt="event.title"
+                class="w-full h-full object-cover"
+              />
+              <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-400 to-pink-500">
+                <svg class="w-24 h-24 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div v-if="event.schedule?.startDate" class="absolute top-4 right-4 bg-white px-4 py-2 rounded-lg shadow-lg">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-purple-600">{{ getDay(event.schedule.startDate) }}</div>
+                  <div class="text-xs text-gray-600">{{ getMonthYear(event.schedule.startDate) }}</div>
+                </div>
+              </div>
+            </div>
+            <div v-if="event.images && event.images.length > 1" class="grid grid-cols-4 gap-2 p-4">
+              <div
+                v-for="(image, index) in event.images"
+                :key="index"
+                @click="currentImageIndex = index"
+                class="aspect-video bg-gray-200 rounded-lg overflow-hidden cursor-pointer hover:opacity-75 transition-opacity"
+                :class="{ 'ring-2 ring-purple-500': index === currentImageIndex }"
+              >
+                <img :src="image" :alt="`${event.title} ${index + 1}`" class="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Event Info -->
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <div class="flex items-start justify-between mb-4">
+              <h1 class="text-3xl font-bold text-gray-900">{{ event.title }}</h1>
+              <span v-if="event.featured" class="badge badge-secondary">แนะนำ</span>
+            </div>
+
+            <div class="flex items-center gap-4 mb-6">
+              <span class="badge badge-secondary badge-lg">{{ getCategoryLabel(event.category) }}</span>
+              <div v-if="event.pricing?.ticketPrice" class="text-2xl font-bold text-purple-600">
+                ฿{{ event.pricing.ticketPrice.toLocaleString() }}
+                <span v-if="event.pricing.isFree" class="text-base text-gray-600">(ฟรี)</span>
+              </div>
+              <div v-else-if="event.pricing?.isFree" class="text-2xl font-bold text-green-600">
+                ฟรี
+              </div>
+            </div>
+
+            <div class="prose max-w-none">
+              <h2 class="text-xl font-semibold text-gray-900 mb-3">รายละเอียดกิจกรรม</h2>
+              <p class="text-gray-700 whitespace-pre-line">{{ event.description }}</p>
+            </div>
+          </div>
+
+          <!-- Event Details -->
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-900">ข้อมูลกิจกรรม</h2>
+
+            <div class="space-y-4">
+              <!-- Schedule -->
+              <div v-if="event.schedule">
+                <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  วันและเวลา
+                </h3>
+                <div class="text-gray-700 space-y-1">
+                  <div v-if="event.schedule.startDate">
+                    <span class="font-semibold">เริ่ม:</span> {{ formatDateTime(event.schedule.startDate) }}
+                  </div>
+                  <div v-if="event.schedule.endDate">
+                    <span class="font-semibold">สิ้นสุด:</span> {{ formatDateTime(event.schedule.endDate) }}
+                  </div>
+                  <div v-if="event.schedule.timeStart">
+                    <span class="font-semibold">เวลา:</span> {{ event.schedule.timeStart }}
+                    <span v-if="event.schedule.timeEnd"> - {{ event.schedule.timeEnd }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div v-if="event.location">
+                <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  สถานที่
+                </h3>
+                <div class="text-gray-700">
+                  <div class="font-semibold">{{ event.location.venue }}</div>
+                  <div v-if="event.location.address" class="text-sm">
+                    {{ event.location.address }}<br>
+                    {{ event.location.district }}, {{ event.location.province }}
+                    <span v-if="event.location.postalCode">{{ event.location.postalCode }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Capacity -->
+              <div v-if="event.capacity">
+                <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  จำนวนที่รับ
+                </h3>
+                <p class="text-gray-700">
+                  {{ event.capacity.total }} คน
+                  <span v-if="event.capacity.current" class="text-sm text-gray-600">
+                    (เหลือ {{ event.capacity.total - event.capacity.current }} ที่นั่ง)
+                  </span>
+                </p>
+              </div>
+
+              <!-- Registration -->
+              <div v-if="event.registration">
+                <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                  การลงทะเบียน
+                </h3>
+                <div class="text-gray-700 space-y-1">
+                  <div v-if="event.registration.required">
+                    <span class="badge badge-warning">ต้องลงทะเบียนล่วงหน้า</span>
+                  </div>
+                  <div v-if="event.registration.deadline">
+                    <span class="font-semibold">ปิดรับสมัคร:</span> {{ formatDate(event.registration.deadline) }}
+                  </div>
+                  <div v-if="event.registration.url">
+                    <a :href="event.registration.url" target="_blank" class="text-blue-600 hover:underline">
+                      ลงทะเบียนที่นี่
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Organizer -->
+              <div v-if="event.organizer">
+                <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  ผู้จัดงาน
+                </h3>
+                <p class="text-gray-700">{{ event.organizer.name }}</p>
+                <div v-if="event.organizer.contactInfo" class="text-sm text-gray-600 mt-1">
+                  <div v-if="event.organizer.contactInfo.phone && event.organizer.contactInfo.phone.length > 0">
+                    โทร: {{ Array.isArray(event.organizer.contactInfo.phone) ? event.organizer.contactInfo.phone.join(', ') : event.organizer.contactInfo.phone }}
+                  </div>
+                  <div v-if="event.organizer.contactInfo.email">
+                    Email: {{ Array.isArray(event.organizer.contactInfo.email) ? event.organizer.contactInfo.email.join(', ') : event.organizer.contactInfo.email }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Activities -->
+              <div v-if="event.activities && event.activities.length > 0">
+                <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                  </svg>
+                  กิจกรรมภายในงาน
+                </h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                  <li v-for="activity in event.activities" :key="activity">{{ activity }}</li>
+                </ul>
+              </div>
+
+              <!-- Highlights -->
+              <div v-if="event.highlights && event.highlights.length > 0">
+                <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+                  <svg class="w-5 h-5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  ไฮไลท์
+                </h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                  <li v-for="highlight in event.highlights" :key="highlight">{{ highlight }}</li>
+                </ul>
+              </div>
+
+              <!-- Requirements -->
+              <div v-if="event.requirements && event.requirements.length > 0">
+                <h3 class="font-semibold text-gray-900 mb-2 flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  ข้อกำหนด/สิ่งที่ต้องเตรียม
+                </h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                  <li v-for="req in event.requirements" :key="req">{{ req }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terms & Policies -->
+          <div v-if="event.terms && event.terms.length > 0" class="bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">ข้อกำหนดและเงื่อนไข</h2>
+            <ul class="list-disc list-inside space-y-1 text-gray-700">
+              <li v-for="term in event.terms" :key="term">{{ term }}</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <!-- Action Card -->
+          <div class="bg-white rounded-xl shadow-lg p-6 sticky top-24">
+            <h2 class="text-xl font-semibold mb-4 text-gray-900">เข้าร่วมกิจกรรม</h2>
+
+            <div v-if="event.pricing?.ticketPrice || event.pricing?.isFree" class="mb-6">
+              <div v-if="event.pricing.isFree" class="text-3xl font-bold text-green-600">
+                ฟรี!
+              </div>
+              <div v-else class="text-3xl font-bold text-purple-600">
+                ฿{{ event.pricing.ticketPrice?.toLocaleString() }}
+              </div>
+            </div>
+
+            <div v-if="event.schedule" class="mb-6 space-y-2 text-sm">
+              <div class="flex items-center text-gray-700">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>{{ formatDate(event.schedule.startDate) }}</span>
+              </div>
+              <div v-if="event.schedule.timeStart" class="flex items-center text-gray-700">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{ event.schedule.timeStart }}</span>
+              </div>
+            </div>
+
+            <button v-if="event.registration?.url" class="btn btn-primary w-full mb-3">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              ลงทะเบียน
+            </button>
+
+            <button v-else class="btn btn-primary w-full mb-3">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              ติดต่อสอบถาม
+            </button>
+
+            <!-- Contact Info -->
+            <div v-if="event.contactInfo" class="mt-6 pt-6 border-t space-y-3 text-sm">
+              <h3 class="font-semibold text-gray-900 mb-3">ติดต่อสอบถาม</h3>
+
+              <div v-if="event.contactInfo.phone && event.contactInfo.phone.length > 0">
+                <div class="font-semibold text-gray-900 mb-1">โทรศัพท์</div>
+                <div v-for="phone in event.contactInfo.phone" :key="phone">
+                  <a :href="`tel:${phone}`" class="text-blue-600 hover:underline">{{ phone }}</a>
+                </div>
+              </div>
+
+              <div v-if="event.contactInfo.email">
+                <div class="font-semibold text-gray-900 mb-1">อีเมล</div>
+                <div v-if="Array.isArray(event.contactInfo.email)">
+                  <div v-for="email in event.contactInfo.email" :key="email">
+                    <a :href="`mailto:${email}`" class="text-blue-600 hover:underline break-all">{{ email }}</a>
+                  </div>
+                </div>
+                <div v-else>
+                  <a :href="`mailto:${event.contactInfo.email}`" class="text-blue-600 hover:underline break-all">{{ event.contactInfo.email }}</a>
+                </div>
+              </div>
+
+              <div v-if="event.contactInfo.website">
+                <div class="font-semibold text-gray-900 mb-1">เว็บไซต์</div>
+                <a :href="event.contactInfo.website" target="_blank" class="text-blue-600 hover:underline break-all">
+                  {{ event.contactInfo.website }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12 mt-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-xl font-bold mb-4">Local Spot</h3>
+            <p class="text-gray-400">แพลตฟอร์มท่องเที่ยวท้องถิ่น ค้นพบที่พัก ร้านอาหาร และกิจกรรมท้องถิ่น</p>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-4">สำรวจ</h4>
+            <ul class="space-y-2">
+              <li><NuxtLink to="/hotels" class="text-gray-400 hover:text-white">โรงแรม</NuxtLink></li>
+              <li><NuxtLink to="/restaurants" class="text-gray-400 hover:text-white">ร้านอาหาร</NuxtLink></li>
+              <li><NuxtLink to="/events" class="text-gray-400 hover:text-white">กิจกรรม</NuxtLink></li>
+              <li><NuxtLink to="/travel-services" class="text-gray-400 hover:text-white">บริการท่องเที่ยว</NuxtLink></li>
+              <li><NuxtLink to="/local-products" class="text-gray-400 hover:text-white">สินค้าท้องถิ่น</NuxtLink></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-4">เกี่ยวกับเรา</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white">เกี่ยวกับ</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white">ติดต่อเรา</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white">นโยบายความเป็นส่วนตัว</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-4">ติดตามเรา</h4>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-white">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.945 7.612c.097.306.155.627.155.958 0 9.805-7.465 21.106-21.106 21.106-4.193 0-8.093-1.227-11.37-3.33.58.07 1.17.1 1.77.1 3.473 0 6.668-1.184 9.204-3.17-3.243-.06-5.98-2.202-6.923-5.148.453.087.918.134 1.395.134.676 0 1.33-.09 1.95-.258-3.388-.68-5.94-3.676-5.94-7.267v-.092c.998.554 2.14.886 3.353.924-1.988-1.328-3.296-3.597-3.296-6.167 0-1.36.365-2.634 1.003-3.73 3.653 4.483 9.114 7.432 15.27 7.74-.127-.547-.193-1.116-.193-1.702 0-4.123 3.343-7.465 7.465-7.465 2.147 0 4.086.906 5.448 2.356 1.7-.335 3.297-.957 4.74-1.813-.558 1.743-1.742 3.204-3.283 4.127 1.51-.18 2.948-.581 4.287-1.175-.999 1.498-2.263 2.813-3.72 3.867z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+          <p>&copy; 2024 Local Spot. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useEventsStore } from '~/stores/events'
+
+definePageMeta({
+  layout: false
+})
+
+const route = useRoute()
+const eventsStore = useEventsStore()
+
+const loading = ref(true)
+const currentImageIndex = ref(0)
+
+const event = computed(() => eventsStore.current)
+const currentImage = computed(() => {
+  if (!event.value?.images || event.value.images.length === 0) return null
+  return event.value.images[currentImageIndex.value]
+})
+
+function getCategoryLabel(category: string) {
+  const labels: Record<string, string> = {
+    festival: 'เทศกาล',
+    workshop: 'เวิร์กช็อป',
+    cultural: 'วัฒนธรรม',
+    sports: 'กีฬา',
+    market: 'ตลาด'
+  }
+  return labels[category] || category
+}
+
+function formatDate(dateString: string) {
+  if (!dateString) return ''
+  const date = new Date(dateString)
+  return date.toLocaleDateString('th-TH', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+
+function formatDateTime(dateString: string) {
+  if (!dateString) return ''
+  const date = new Date(dateString)
+  return date.toLocaleDateString('th-TH', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+}
+
+function getDay(dateString: string) {
+  if (!dateString) return ''
+  const date = new Date(dateString)
+  return date.getDate()
+}
+
+function getMonthYear(dateString: string) {
+  if (!dateString) return ''
+  const date = new Date(dateString)
+  return date.toLocaleDateString('th-TH', {
+    month: 'short',
+    year: 'numeric'
+  })
+}
+
+onMounted(async () => {
+  loading.value = true
+  try {
+    const id = route.params.id as string
+    await eventsStore.fetchEvent({ body: { _id: id } })
+  } catch (error) {
+    console.error('Failed to load event:', error)
+  } finally {
+    loading.value = false
+  }
+})
+
+// SEO
+useHead({
+  title: computed(() => event.value ? `${event.value.title} - Local Spot` : 'กิจกรรม - Local Spot'),
+  meta: computed(() => [
+    { name: 'description', content: event.value?.description || 'กิจกรรมและเทศกาลท้องถิ่น' }
+  ])
+})
+</script>
+
+<style scoped>
+.prose {
+  max-width: none;
+}
+</style>

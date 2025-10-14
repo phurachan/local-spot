@@ -15,12 +15,12 @@ export const getApiBaseUrl = (): string => {
   // Fallback to SSR API (same domain)
   if (typeof window === 'undefined') {
     // Server-side - use relative path for SSR
-    return '/api/local-spot'
+    return '/api'
   } else {
     // Client-side - use current domain for SSR
     const protocol = window.location.protocol
     const host = window.location.host
-    return `${protocol}//${host}/api/local-spot`
+    return `${protocol}//${host}/api`
   }
 }
 
