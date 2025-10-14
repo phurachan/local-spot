@@ -9,6 +9,7 @@
           </NuxtLink>
           <nav class="flex items-center space-x-6">
             <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
+            <NuxtLink to="/news" class="text-gray-600 hover:text-green-600">ข่าวสาร</NuxtLink>
             <NuxtLink to="/hotels" class="text-gray-600 hover:text-green-600">โรงแรม</NuxtLink>
             <NuxtLink to="/restaurants" class="text-green-600 font-semibold">ร้านอาหาร</NuxtLink>
             <NuxtLink to="/events" class="text-gray-600 hover:text-green-600">กิจกรรม</NuxtLink>
@@ -319,7 +320,7 @@ onMounted(async () => {
 
 // SEO
 useHead(() => ({
-  title: restaurant.value ? `${restaurant.value.title} - Local Spot` : 'ร้านอาหาร - Local Spot',
+  title: computed(() => restaurant.value ? `${restaurant.value.title} - ${siteName.value}` : `ร้านอาหาร - ${siteName.value}`),
   meta: [
     { name: 'description', content: restaurant.value?.description || 'รายละเอียดร้านอาหาร' }
   ]

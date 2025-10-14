@@ -8,8 +8,8 @@
             {{ siteName }}
           </NuxtLink>
           <nav class="flex items-center space-x-6">
-            <NuxtLink to="/news" class="text-green-600 font-semibold">ข่าวสาร</NuxtLink>
             <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
+            <NuxtLink to="/news" class="text-green-600 font-semibold">ข่าวสาร</NuxtLink>
             <NuxtLink to="/hotels" class="text-gray-600 hover:text-green-600">โรงแรม</NuxtLink>
             <NuxtLink to="/restaurants" class="text-gray-600 hover:text-green-600">ร้านอาหาร</NuxtLink>
             <NuxtLink to="/events" class="text-gray-600 hover:text-green-600">กิจกรรม</NuxtLink>
@@ -149,18 +149,20 @@
           <div>
             <h4 class="font-semibold mb-4">สำรวจ</h4>
             <ul class="space-y-2">
+              <li><NuxtLink to="/" class="text-gray-400 hover:text-white">หน้าแรก</NuxtLink></li>
               <li><NuxtLink to="/news" class="text-gray-400 hover:text-white">ข่าวสาร</NuxtLink></li>
               <li><NuxtLink to="/hotels" class="text-gray-400 hover:text-white">โรงแรม</NuxtLink></li>
               <li><NuxtLink to="/restaurants" class="text-gray-400 hover:text-white">ร้านอาหาร</NuxtLink></li>
               <li><NuxtLink to="/events" class="text-gray-400 hover:text-white">กิจกรรม</NuxtLink></li>
+              <li><NuxtLink to="/travel-services" class="text-gray-400 hover:text-white">บริการท่องเที่ยว</NuxtLink></li>
+              <li><NuxtLink to="/local-products" class="text-gray-400 hover:text-white">สินค้าท้องถิ่น</NuxtLink></li>
             </ul>
           </div>
           <div>
             <h4 class="font-semibold mb-4">เกี่ยวกับเรา</h4>
             <ul class="space-y-2">
-              <li><a href="#" class="text-gray-400 hover:text-white">เกี่ยวกับ</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white">ติดต่อเรา</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white">นโยบายความเป็นส่วนตัว</a></li>
+              <li><a href="/#about" class="text-gray-400 hover:text-white">เกี่ยวกับ</a></li>
+              <li><a href="/#contact" class="text-gray-400 hover:text-white">ติดต่อเรา</a></li>
             </ul>
           </div>
           <div>

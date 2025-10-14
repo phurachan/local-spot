@@ -592,6 +592,12 @@ const webSettingsSchema = new mongoose.Schema({
       type: Boolean,
       default: true
     },
+    type: {
+      type: String,
+      enum: ['standard', 'carousel'],
+      default: 'standard'
+    },
+    // Standard hero fields
     title: {
       type: String,
       default: 'ค้นพบสถานที่ท่องเที่ยวท้องถิ่น'
@@ -602,7 +608,37 @@ const webSettingsSchema = new mongoose.Schema({
     },
     image: String,
     ctaText: String,
-    ctaLink: String
+    ctaLink: String,
+    // Carousel hero fields
+    carousel: {
+      slides: [{
+        image: String,
+        title: String,
+        description: String,
+        ctaText: String,
+        ctaLink: String,
+        order: {
+          type: Number,
+          default: 0
+        }
+      }],
+      autoplay: {
+        type: Boolean,
+        default: true
+      },
+      interval: {
+        type: Number,
+        default: 5000 // milliseconds
+      },
+      showIndicators: {
+        type: Boolean,
+        default: true
+      },
+      showControls: {
+        type: Boolean,
+        default: true
+      }
+    }
   },
   contact: {
     email: String,

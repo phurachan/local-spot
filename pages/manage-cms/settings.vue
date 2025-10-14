@@ -67,7 +67,8 @@
               <div class="flex gap-2">
                 <input
                   type="color"
-                  v-model="formData.colors.primary"
+                  :value="formData.colors.primary || '#10b981'"
+                  @input="formData.colors.primary = $event.target.value"
                   class="w-14 h-10 rounded cursor-pointer"
                 />
                 <input
@@ -86,7 +87,8 @@
               <div class="flex gap-2">
                 <input
                   type="color"
-                  v-model="formData.colors.secondary"
+                  :value="formData.colors.secondary || '#0d9488'"
+                  @input="formData.colors.secondary = $event.target.value"
                   class="w-14 h-10 rounded cursor-pointer"
                 />
                 <input
@@ -105,7 +107,8 @@
               <div class="flex gap-2">
                 <input
                   type="color"
-                  v-model="formData.colors.accent"
+                  :value="formData.colors.accent || '#f59e0b'"
+                  @input="formData.colors.accent = $event.target.value"
                   class="w-14 h-10 rounded cursor-pointer"
                 />
                 <input
@@ -124,7 +127,8 @@
               <div class="flex gap-2">
                 <input
                   type="color"
-                  v-model="formData.colors.neutral"
+                  :value="formData.colors.neutral || '#6b7280'"
+                  @input="formData.colors.neutral = $event.target.value"
                   class="w-14 h-10 rounded cursor-pointer"
                 />
                 <input
@@ -140,53 +144,7 @@
       </div>
 
       <!-- Hero Section -->
-      <div class="card bg-base-100 shadow">
-        <div class="card-body">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="card-title text-lg">ส่วน Hero (หน้าแรก)</h3>
-            <BaseCheckbox
-              v-model="formData.hero.enabled"
-              label="เปิดใช้งาน"
-              variant="primary"
-            />
-          </div>
-
-          <div class="grid grid-cols-1 gap-4">
-            <BaseInput
-              v-model="formData.hero.title"
-              label="หัวข้อ"
-              placeholder="ค้นพบสถานที่ท่องเที่ยวท้องถิ่น"
-            />
-
-            <BaseTextarea
-              v-model="formData.hero.description"
-              label="คำอธิบาย"
-              placeholder="สำรวจโรงแรม ร้านอาหาร และกิจกรรมท้องถิ่นที่น่าสนใจ"
-              :rows="2"
-            />
-
-            <BaseInput
-              v-model="formData.hero.image"
-              label="URL รูปภาพพื้นหลัง"
-              placeholder="https://..."
-            />
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <BaseInput
-                v-model="formData.hero.ctaText"
-                label="ข้อความปุ่ม CTA"
-                placeholder="เริ่มสำรวจ"
-              />
-
-              <BaseInput
-                v-model="formData.hero.ctaLink"
-                label="ลิงก์ปุ่ม CTA"
-                placeholder="/hotels"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <HeroSettingsForm v-model="formData.hero" />
 
       <!-- Contact Information -->
       <div class="card bg-base-100 shadow">
@@ -367,6 +325,7 @@
 <script setup lang="ts">
 import type { WebSettings } from '~/composables/data_models/cms'
 import { useWebSettingsStore } from '~/stores/webSettings'
+import HeroSettingsForm from '~/components/cms/HeroSettingsForm.vue'
 
 definePageMeta({
   layout: 'default',
@@ -401,11 +360,19 @@ const formData = ref<Partial<WebSettings>>({
   },
   hero: {
     enabled: true,
+    type: 'standard',
     title: 'ค้นพบสถานที่ท่องเที่ยวท้องถิ่น',
     description: 'สำรวจโรงแรม ร้านอาหาร และกิจกรรมท้องถิ่นที่น่าสนใจ',
     image: '',
     ctaText: '',
-    ctaLink: ''
+    ctaLink: '',
+    carousel: {
+      slides: [],
+      autoplay: true,
+      interval: 5000,
+      showIndicators: true,
+      showControls: true
+    }
   },
   contact: {
     email: '',

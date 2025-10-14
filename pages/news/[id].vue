@@ -8,11 +8,13 @@
             {{ siteName }}
           </NuxtLink>
           <nav class="flex items-center space-x-6">
-            <NuxtLink to="/news" class="text-green-600 font-semibold">ข่าวสาร</NuxtLink>
             <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
+            <NuxtLink to="/news" class="text-green-600 font-semibold">ข่าวสาร</NuxtLink>
             <NuxtLink to="/hotels" class="text-gray-600 hover:text-green-600">โรงแรม</NuxtLink>
             <NuxtLink to="/restaurants" class="text-gray-600 hover:text-green-600">ร้านอาหาร</NuxtLink>
             <NuxtLink to="/events" class="text-gray-600 hover:text-green-600">กิจกรรม</NuxtLink>
+            <NuxtLink to="/travel-services" class="text-gray-600 hover:text-green-600">บริการท่องเที่ยว</NuxtLink>
+            <NuxtLink to="/local-products" class="text-gray-600 hover:text-green-600">สินค้าท้องถิ่น</NuxtLink>
           </nav>
         </div>
       </div>
@@ -366,7 +368,7 @@ watch(() => news.value?.content, () => {
 
 // SEO
 useHead(() => ({
-  title: news.value ? `${news.value.title} - Local Spot` : 'ข่าว - Local Spot',
+  title: news.value ? `${news.value.title} - ${siteName.value}` : `ข่าว - ${siteName.value}`,
   meta: [
     { name: 'description', content: news.value?.description || 'รายละเอียดข่าว' }
   ]

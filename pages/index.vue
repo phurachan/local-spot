@@ -1,35 +1,118 @@
 <template>
   <div class="min-h-screen">
-    <!-- Hero Section -->
-    <section id="hero" class="relative h-screen bg-gradient-to-br from-green-500 via-teal-600 to-blue-600 text-white overflow-hidden">
-      <div class="absolute inset-0 bg-black/20"></div>
-      <nav class="site-header" :class="{ 'nav-hidden': navbarHidden }">
+    <!-- Loading state while fetching hero settings -->
+    <div v-if="loadingHero" class="h-screen flex items-center justify-center bg-gradient-to-br from-green-500 via-teal-600 to-blue-600">
+      <BaseLoading />
+    </div>
+
+    <template v-else>
+      <!-- Navbar (for carousel type) -->
+      <nav v-if="heroType === 'carousel'" class="site-header" :class="{ 'nav-hidden': navbarHidden }">
         <div class="relative z-20 p-6 flex justify-between items-center">
-          <div class="text-2xl font-bold">{{ siteName }}</div>
-          <div class="space-x-4 flex items-center">
-            <a v-if="enabledFeatures.enableNews" href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
-            <a v-if="enabledFeatures.enableHotels" href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
-            <a v-if="enabledFeatures.enableRestaurants" href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
-            <a v-if="enabledFeatures.enableEvents" href="#events" class="hover:text-green-200 transition-colors">กิจกรรม</a>
-            <a v-if="enabledFeatures.enableTravelServices" href="#travel-services" class="hover:text-green-200 transition-colors">บริการท่องเที่ยว</a>
-            <a v-if="enabledFeatures.enableLocalProducts" href="#local-products" class="hover:text-green-200 transition-colors">ผลิตภัณฑ์</a>
-            <a href="#contact" class="hover:text-green-200 transition-colors">ติดต่อ</a>
-          </div>
+          <ClientOnly>
+            <div class="text-2xl font-bold">{{ siteName }}</div>
+            <template #fallback>
+              <div class="text-2xl font-bold">Local Spot</div>
+            </template>
+          </ClientOnly>
+          <ClientOnly>
+            <div class="space-x-4 flex items-center">
+              <a v-if="enabledFeatures.enableNews" href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
+              <a v-if="enabledFeatures.enableHotels" href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
+              <a v-if="enabledFeatures.enableRestaurants" href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
+              <a v-if="enabledFeatures.enableEvents" href="#events" class="hover:text-green-200 transition-colors">กิจกรรม</a>
+              <a v-if="enabledFeatures.enableTravelServices" href="#travel-services" class="hover:text-green-200 transition-colors">บริการท่องเที่ยว</a>
+              <a v-if="enabledFeatures.enableLocalProducts" href="#local-products" class="hover:text-green-200 transition-colors">ผลิตภัณฑ์</a>
+              <a href="#contact" class="hover:text-green-200 transition-colors">ติดต่อ</a>
+            </div>
+            <template #fallback>
+              <div class="space-x-4 flex items-center">
+                <a href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
+                <a href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
+                <a href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
+                <a href="#events" class="hover:text-green-200 transition-colors">กิจกรรม</a>
+                <a href="#travel-services" class="hover:text-green-200 transition-colors">บริการท่องเที่ยว</a>
+                <a href="#local-products" class="hover:text-green-200 transition-colors">ผลิตภัณฑ์</a>
+                <a href="#contact" class="hover:text-green-200 transition-colors">ติดต่อ</a>
+              </div>
+            </template>
+          </ClientOnly>
         </div>
       </nav>
 
+      <!-- Hero Section - Carousel Type -->
+      <HeroCarousel
+        v-if="heroType === 'carousel' && carouselSlides.length > 0"
+        :slides="carouselSlides"
+        :autoplay="carouselSettings.autoplay"
+        :interval="carouselSettings.interval"
+        :show-indicators="carouselSettings.showIndicators"
+        :show-controls="carouselSettings.showControls"
+      />
+
+      <!-- Hero Section - Standard Type -->
+      <section v-else id="hero" class="relative h-screen bg-gradient-to-br from-green-500 via-teal-600 to-blue-600 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <nav class="site-header" :class="{ 'nav-hidden': navbarHidden }">
+          <div class="relative z-20 p-6 flex justify-between items-center">
+            <ClientOnly>
+              <div class="text-2xl font-bold">{{ siteName }}</div>
+              <template #fallback>
+                <div class="text-2xl font-bold">Local Spot</div>
+              </template>
+            </ClientOnly>
+            <ClientOnly>
+              <div class="space-x-4 flex items-center">
+                <a v-if="enabledFeatures.enableNews" href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
+                <a v-if="enabledFeatures.enableHotels" href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
+                <a v-if="enabledFeatures.enableRestaurants" href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
+                <a v-if="enabledFeatures.enableEvents" href="#events" class="hover:text-green-200 transition-colors">กิจกรรม</a>
+                <a v-if="enabledFeatures.enableTravelServices" href="#travel-services" class="hover:text-green-200 transition-colors">บริการท่องเที่ยว</a>
+                <a v-if="enabledFeatures.enableLocalProducts" href="#local-products" class="hover:text-green-200 transition-colors">ผลิตภัณฑ์</a>
+                <a href="#contact" class="hover:text-green-200 transition-colors">ติดต่อ</a>
+              </div>
+              <template #fallback>
+                <div class="space-x-4 flex items-center">
+                  <a href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
+                  <a href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
+                  <a href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
+                  <a href="#events" class="hover:text-green-200 transition-colors">กิจกรรม</a>
+                  <a href="#travel-services" class="hover:text-green-200 transition-colors">บริการท่องเที่ยว</a>
+                  <a href="#local-products" class="hover:text-green-200 transition-colors">ผลิตภัณฑ์</a>
+                  <a href="#contact" class="hover:text-green-200 transition-colors">ติดต่อ</a>
+                </div>
+              </template>
+            </ClientOnly>
+          </div>
+        </nav>
+
       <div class="relative z-10 h-full flex items-center justify-center text-center">
         <div class="max-w-4xl px-6">
-          <h1 class="text-6xl md:text-7xl font-bold mb-6 animate-fade-in">
-            {{ siteName }}
-            <span class="text-green-300">ท้องถิ่น</span>
-          </h1>
-          <p class="text-xl md:text-2xl mb-8 text-green-100">
-            {{ siteDescription || 'ท่องเที่ยว พักผ่อน ชิม ช้อป ใช้ ทุกอย่างในที่เดียว' }}
-          </p>
+          <ClientOnly>
+            <h1 class="text-6xl md:text-7xl font-bold mb-6 animate-fade-in">
+              {{ heroTitle || siteName }}
+              <span class="text-green-300">ท้องถิ่น</span>
+            </h1>
+            <template #fallback>
+              <h1 class="text-6xl md:text-7xl font-bold mb-6 animate-fade-in">
+                Local Spot
+                <span class="text-green-300">ท้องถิ่น</span>
+              </h1>
+            </template>
+          </ClientOnly>
+          <ClientOnly>
+            <p class="text-xl md:text-2xl mb-8 text-green-100">
+              {{ heroDescription || siteDescription || 'ท่องเที่ยว พักผ่อน ชิม ช้อป ใช้ ทุกอย่างในที่เดียว' }}
+            </p>
+            <template #fallback>
+              <p class="text-xl md:text-2xl mb-8 text-green-100">
+                ท่องเที่ยว พักผ่อน ชิม ช้อป ใช้ ทุกอย่างในที่เดียว
+              </p>
+            </template>
+          </ClientOnly>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#hotels" class="bg-green-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-400 transition-colors">
-              เริ่มค้นหา
+            <a :href="heroCtaLink || '#hotels'" class="bg-green-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-400 transition-colors">
+              {{ heroCtaText || 'เริ่มค้นหา' }}
             </a>
             <a href="#about" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">
               เรียนรู้เพิ่มเติม
@@ -500,11 +583,24 @@
     <!-- About Section -->
     <section id="about" class="py-20 bg-gray-50">
       <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl font-bold text-gray-800 mb-8">เกี่ยวกับ Local Spot</h2>
-        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-          Local Spot เป็นแพลตฟอร์มที่เชื่อมต่อคนในชุมชนเพื่อแบ่งปันและค้นพบสถานที่น่าสนใจในท้องถิ่น
-          เราเชื่อว่าทุกชุมชนมีเสน่ห์และความพิเศษเป็นของตัวเอง ที่รอให้คนได้มาค้นพบ
-        </p>
+        <ClientOnly>
+          <h2 class="text-4xl font-bold text-gray-800 mb-8">เกี่ยวกับ {{ siteName }}</h2>
+          <template #fallback>
+            <h2 class="text-4xl font-bold text-gray-800 mb-8">เกี่ยวกับ Local Spot</h2>
+          </template>
+        </ClientOnly>
+        <ClientOnly>
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            {{ siteName }} เป็นแพลตฟอร์มที่เชื่อมต่อคนในชุมชนเพื่อแบ่งปันและค้นพบสถานที่น่าสนใจในท้องถิ่น
+            เราเชื่อว่าทุกชุมชนมีเสน่ห์และความพิเศษเป็นของตัวเอง ที่รอให้คนได้มาค้นพบ
+          </p>
+          <template #fallback>
+            <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+              Local Spot เป็นแพลตฟอร์มที่เชื่อมต่อคนในชุมชนเพื่อแบ่งปันและค้นพบสถานที่น่าสนใจในท้องถิ่น
+              เราเชื่อว่าทุกชุมชนมีเสน่ห์และความพิเศษเป็นของตัวเอง ที่รอให้คนได้มาค้นพบ
+            </p>
+          </template>
+        </ClientOnly>
         <div class="grid md:grid-cols-3 gap-8 mt-12">
           <div class="text-center">
             <div class="text-3xl font-bold text-green-600 mb-2">{{ totalHotels }}+</div>
@@ -526,7 +622,12 @@
     <section class="py-20 bg-gradient-to-r from-green-600 to-teal-600 text-white">
       <div class="max-w-4xl mx-auto px-6 text-center">
         <h2 class="text-4xl font-bold mb-8">เริ่มต้นค้นพบสถานที่ใหม่ๆ วันนี้</h2>
-        <p class="text-xl mb-8">เข้าร่วม Local Spot และเป็นส่วนหนึ่งของการท่องเที่ยวท้องถิ่น</p>
+        <ClientOnly>
+          <p class="text-xl mb-8">เข้าร่วม {{ siteName }} และเป็นส่วนหนึ่งของการท่องเที่ยวท้องถิ่น</p>
+          <template #fallback>
+            <p class="text-xl mb-8">เข้าร่วม Local Spot และเป็นส่วนหนึ่งของการท่องเที่ยวท้องถิ่น</p>
+          </template>
+        </ClientOnly>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <NuxtLink to="/hotels" class="bg-white text-green-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-50 transition-colors">
             เริ่มค้นหา
@@ -540,8 +641,18 @@
       <div class="max-w-6xl mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-8">
           <div>
-            <h3 class="text-xl font-bold mb-4">{{ siteName }}</h3>
-            <p class="text-gray-400">{{ siteDescription || 'แพลตฟอร์มท่องเที่ยวท้องถิ่น ค้นพบที่พัก ร้านอาหาร และกิจกรรมท้องถิ่น' }}</p>
+            <ClientOnly>
+              <h3 class="text-xl font-bold mb-4">{{ siteName }}</h3>
+              <template #fallback>
+                <h3 class="text-xl font-bold mb-4">Local Spot</h3>
+              </template>
+            </ClientOnly>
+            <ClientOnly>
+              <p class="text-gray-400">{{ siteDescription || 'แพลตฟอร์มท่องเที่ยวท้องถิ่น ค้นพบที่พัก ร้านอาหาร และกิจกรรมท้องถิ่น' }}</p>
+              <template #fallback>
+                <p class="text-gray-400">แพลตฟอร์มท่องเที่ยวท้องถิ่น ค้นพบที่พัก ร้านอาหาร และกิจกรรมท้องถิ่น</p>
+              </template>
+            </ClientOnly>
           </div>
           <div>
             <h4 class="font-semibold mb-4">หมวดหมู่</h4>
@@ -557,40 +668,52 @@
           <div>
             <h4 class="font-semibold mb-4">เกี่ยวกับเรา</h4>
             <ul class="space-y-2 text-gray-400">
-              <li><a href="#about" class="hover:text-white transition-colors">เกี่ยวกับ Local Spot</a></li>
+              <li><a href="#about" class="hover:text-white transition-colors">เกี่ยวกับเรา</a></li>
               <li><a href="#contact" class="hover:text-white transition-colors">ติดต่อเรา</a></li>
-              <li><NuxtLink to="/login" class="hover:text-white transition-colors">เข้าสู่ระบบ</NuxtLink></li>
             </ul>
           </div>
           <div>
             <h4 class="font-semibold mb-4">ติดตามเรา</h4>
-            <div class="flex space-x-4">
-              <!-- Facebook -->
-              <a v-if="socialMedia?.facebook" :href="socialMedia.facebook" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-              </a>
-              <!-- Instagram -->
-              <a v-if="socialMedia?.instagram" :href="socialMedia.instagram" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
-                </svg>
-              </a>
-              <!-- Line -->
-              <a v-if="socialMedia?.line" :href="socialMedia.line" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Line">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-                </svg>
-              </a>
-            </div>
+            <ClientOnly>
+              <div class="flex space-x-4">
+                <!-- Facebook -->
+                <a v-if="socialMedia?.facebook" :href="socialMedia.facebook" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <!-- Instagram -->
+                <a v-if="socialMedia?.instagram" :href="socialMedia.instagram" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                  </svg>
+                </a>
+                <!-- Line -->
+                <a v-if="socialMedia?.line" :href="socialMedia.line" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Line">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                  </svg>
+                </a>
+              </div>
+              <template #fallback>
+                <div class="flex space-x-4">
+                  <!-- Placeholder for social icons during SSR -->
+                </div>
+              </template>
+            </ClientOnly>
           </div>
         </div>
         <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 {{ siteName }}. สงวนลิขสิทธิ์.</p>
+          <ClientOnly>
+            <p>&copy; 2025 {{ siteName }}. สงวนลิขสิทธิ์.</p>
+            <template #fallback>
+              <p>&copy; 2025 Local Spot. สงวนลิขสิทธิ์.</p>
+            </template>
+          </ClientOnly>
         </div>
       </div>
     </footer>
+    </template>
   </div>
 </template>
 
@@ -601,6 +724,7 @@ import { useRestaurantsStore } from '~/stores/restaurants'
 import { useEventsStore } from '~/stores/events'
 import { useTravelServicesStore } from '~/stores/travelServices'
 import { useLocalProductsStore } from '~/stores/localProducts'
+import HeroCarousel from '~/components/public/HeroCarousel.vue'
 
 // Use a clean layout for the home page
 definePageMeta({
@@ -616,6 +740,7 @@ const travelServicesStore = useTravelServicesStore()
 const localProductsStore = useLocalProductsStore()
 
 // State
+const loadingHero = ref(true)
 const loadingNews = ref(true)
 const loadingHotels = ref(true)
 const loadingRestaurants = ref(true)
@@ -630,6 +755,20 @@ let ticking = false
 
 // Public settings
 const { siteName, siteDescription, primaryColor, secondaryColor, enabledFeatures, contactInfo, socialMedia } = usePublicSettings()
+
+// Hero settings
+const heroType = ref('standard')
+const heroTitle = ref('')
+const heroDescription = ref('')
+const heroCtaText = ref('เริ่มค้นหา')
+const heroCtaLink = ref('#hotels')
+const carouselSlides = ref([])
+const carouselSettings = ref({
+  autoplay: true,
+  interval: 5000,
+  showIndicators: true,
+  showControls: true
+})
 
 // Computed
 const latestNews = computed(() => (newsStore.list || []).slice(0, 6))
@@ -704,6 +843,41 @@ function formatDate(date: any) {
     month: 'short',
     day: 'numeric'
   })
+}
+
+// Load hero settings
+async function loadHeroSettings() {
+  loadingHero.value = true
+  try {
+    const response: any = await $fetch('/api/cms/settings')
+    console.log(response);
+
+    if (response?.data?.hero) {
+      heroType.value = response.data.hero.type || 'standard'
+      heroTitle.value = response.data.hero.title || ''
+      heroDescription.value = response.data.hero.description || ''
+      heroCtaText.value = response.data.hero.ctaText || 'เริ่มค้นหา'
+      heroCtaLink.value = response.data.hero.ctaLink || '#hotels'
+
+      // Load carousel settings if type is carousel
+      if (response.data.hero.carousel) {
+        carouselSettings.value = {
+          autoplay: response.data.hero.carousel.autoplay ?? true,
+          interval: response.data.hero.carousel.interval || 5000,
+          showIndicators: response.data.hero.carousel.showIndicators ?? true,
+          showControls: response.data.hero.carousel.showControls ?? true
+        }
+
+        // Sort slides by order
+        carouselSlides.value = (response.data.hero.carousel.slides || [])
+          .sort((a: any, b: any) => (a.order || 0) - (b.order || 0))
+      }
+    }
+  } catch (error) {
+    console.error('Failed to load hero settings:', error)
+  } finally {
+    loadingHero.value = false
+  }
 }
 
 // Load data
@@ -833,7 +1007,11 @@ const handleScroll = () => {
 }
 
 // Smooth scrolling for navigation
-onMounted(() => {
+onMounted(async () => {
+  // Load hero settings first (client-side only to avoid hydration mismatch)
+  await loadHeroSettings()
+
+  // Then load other data
   loadData()
 
   // Handle scroll for navbar
@@ -860,7 +1038,7 @@ onBeforeUnmount(() => {
 
 // SEO
 useHead({
-  title: 'Local Spot - ค้นพบสถานที่ท้องถิ่น',
+  title: computed(() => `${siteName.value} - ค้นพบสถานที่ท้องถิ่น`),
   meta: [
     { name: 'description', content: 'แพลตฟอร์มท่องเที่ยวท้องถิ่น โรงแรม ร้านอาหาร กิจกรรม และสถานที่น่าสนใจ' }
   ]
