@@ -1,6 +1,9 @@
 <template>
   <ClientOnly>
-    <div class="drawer lg:drawer-open">
+    <div class="drawer lg:drawer-open" :style="{
+      '--color-primary': primaryColor,
+      '--color-secondary': secondaryColor
+    }">
       <input id="admin-drawer" type="checkbox" class="drawer-toggle" />
 
       <!-- Main Content -->
@@ -35,12 +38,12 @@
           <!-- Right side actions -->
           <div class="navbar-end gap-2">
             <!-- Search -->
-            <div class="form-control hidden md:flex">
+            <!-- <div class="form-control hidden md:flex">
               <input type="text" placeholder="Search..." class="input input-bordered input-sm w-24 md:w-auto" />
-            </div>
+            </div> -->
 
             <!-- Notifications dropdown -->
-            <div class="dropdown dropdown-end">
+            <!-- <div class="dropdown dropdown-end">
               <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
                 <div class="indicator">
                   <BaseIcon name="bell" size="md" />
@@ -82,10 +85,10 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Language Switcher -->
-            <BaseLanguageSwitcher />
+            <!-- <BaseLanguageSwitcher /> -->
 
             <!-- Theme Toggle -->
             <BaseThemeToggle
@@ -117,14 +120,14 @@
                       size="sm"
                     />
                     <div>
-                      <div class="font-semibold">Admin User</div>
-                      <div class="text-xs text-base-content/70">admin@example.com</div>
+                      <div class="font-semibold">{{ authStore.user?.name || '' }}</div>
+                      <div class="text-xs text-base-content/70">{{ authStore.user?.email || '' }}</div>
                     </div>
                   </div>
                 </li>
-                <li><a><BaseIcon name="user" size="sm" />Profile</a></li>
+                <!-- <li><a><BaseIcon name="user" size="sm" />Profile</a></li>
                 <li><a><BaseIcon name="cog-6-tooth" size="sm" />Settings</a></li>
-                <li><a><BaseIcon name="document-text" size="sm" />Help & Support</a></li>
+                <li><a><BaseIcon name="document-text" size="sm" />Help & Support</a></li> -->
                 <li>
                   <hr class="my-2">
                 </li>
@@ -227,13 +230,18 @@
   </ClientOnly>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '~/stores/auth'
 
 const route = useRoute()
 const authStore = useAuthStore()
+// Public settings
+const { primaryColor, secondaryColor } = usePublicSettings()
+
+console.log(authStore);
+
 
 // Theme change handler
 const onThemeChange = (theme) => {
@@ -297,10 +305,10 @@ const menuSections = ref([
     icon: "chart-bar",
     items: [
       {
-        path: "/local-spot/admin",
+        path: "/admin",
         label: "Overview",
         icon: "home",
-        activeWhen: ["/local-spot/admin"]
+        activeWhen: ["/admin"]
       }
     ]
   },
@@ -309,10 +317,10 @@ const menuSections = ref([
     icon: "document-text",
     items: [
       {
-        path: "/local-spot/manage-cms",
-        label: "CMS Dashboard",
-        icon: "squares-2x2",
-        activeWhen: ["/local-spot/manage-cms"]
+        path: "/manage-cms",
+        label: "Dashboard",
+        icon: "chart-pie",
+        activeWhen: ["/manage-cms"]
       },
       {
         path: "/manage-cms/news",
@@ -375,7 +383,7 @@ const menuSections = ref([
     icon: "users",
     items: [
       {
-        path: "/local-spot/admin/user_management",
+        path: "/admin/user_management",
         label: "จัดการผู้ใช้",
         icon: "user",
         badge: {
@@ -385,35 +393,35 @@ const menuSections = ref([
       },
     ]
   },
-  {
-    title: "Examples",
-    icon: "beaker",
-    items: [
-      {
-        path: "/local-spot/admin/demo",
-        label: "Demo",
-        icon: "server",
-      },
-      {
-        path: "/local-spot/admin/components",
-        label: "Components",
-        icon: "puzzle-piece",
-        badge: {
-          text: "UI",
-          variant: "info"
-        }
-      },
-      {
-        path: "/local-spot/admin/i18n-test",
-        label: "i18n Test",
-        icon: "language",
-        badge: {
-          text: "Test",
-          variant: "warning"
-        }
-      }
-    ]
-  }
+  // {
+  //   title: "Examples",
+  //   icon: "beaker",
+  //   items: [
+  //     {
+  //       path: "/admin/demo",
+  //       label: "Demo",
+  //       icon: "server",
+  //     },
+  //     {
+  //       path: "/admin/components",
+  //       label: "Components",
+  //       icon: "puzzle-piece",
+  //       badge: {
+  //         text: "UI",
+  //         variant: "info"
+  //       }
+  //     },
+  //     {
+  //       path: "/admin/i18n-test",
+  //       label: "i18n Test",
+  //       icon: "language",
+  //       badge: {
+  //         text: "Test",
+  //         variant: "warning"
+  //       }
+  //     }
+  //   ]
+  // }
 ])
 
 // Helper function to check if route is active

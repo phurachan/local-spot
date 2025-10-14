@@ -1,11 +1,11 @@
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-40">
+    <header class="site-header bg-white shadow-sm sticky top-0 z-40 transition-transform duration-300" :class="{ 'nav-hidden': navbarHidden }">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex items-center justify-between">
           <NuxtLink to="/" class="text-2xl font-bold text-green-600">
-            Local Spot
+            {{ siteName }}
           </NuxtLink>
           <nav class="flex items-center space-x-6">
             <NuxtLink to="/news" class="text-green-600 font-semibold">ข่าวสาร</NuxtLink>
@@ -249,6 +249,9 @@ const newsStore = useNewsStore()
 
 const loading = ref(true)
 
+// Public header with settings
+const { siteName, navbarHidden } = usePublicHeader()
+
 const news = computed(() => newsStore.current)
 
 function getCategoryLabel(category: string) {
@@ -371,6 +374,10 @@ useHead(() => ({
 </script>
 
 <style scoped>
+.site-header.nav-hidden {
+  transform: translateY(-100%);
+}
+
 .prose {
   max-width: none;
 }

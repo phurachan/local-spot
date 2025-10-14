@@ -1,11 +1,11 @@
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-40">
+    <header class="site-header bg-white shadow-sm sticky top-0 z-40 transition-transform duration-300" :class="{ 'nav-hidden': navbarHidden }">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex items-center justify-between">
           <NuxtLink to="/" class="text-2xl font-bold text-green-600">
-            Local Spot
+            {{ siteName }}
           </NuxtLink>
           <nav class="flex items-center space-x-6">
             <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
@@ -145,7 +145,7 @@
       <div class="max-w-6xl mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-8">
           <div>
-            <h3 class="text-xl font-bold mb-4">Local Spot</h3>
+            <h3 class="text-xl font-bold mb-4">{{ siteName }}</h3>
             <p class="text-gray-400">แพลตฟอร์มท่องเที่ยวท้องถิ่น ค้นพบที่พัก ร้านอาหาร และกิจกรรมท้องถิ่น</p>
           </div>
           <div>
@@ -182,7 +182,7 @@
           </div>
         </div>
         <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Local Spot. All rights reserved.</p>
+          <p>&copy; 2025 {{ siteName }}. สงวนลิขสิทธิ์.</p>
         </div>
       </div>
     </footer>
@@ -203,6 +203,9 @@ const loading = ref(true)
 const searchQuery = ref('')
 const selectedCategory = ref('')
 const selectedProvince = ref('')
+
+// Public header with settings
+const { siteName, navbarHidden } = usePublicHeader()
 
 // Computed
 const hotels = computed(() => hotelsStore.list || [])
@@ -276,7 +279,7 @@ onMounted(() => {
 
 // SEO
 useHead({
-  title: 'โรงแรมและที่พัก - Local Spot',
+  title: computed(() => `โรงแรมและที่พัก - ${siteName.value}`),
   meta: [
     { name: 'description', content: 'ค้นพบโรงแรมและที่พักคุณภาพในท้องถิ่น บรรยากาศดี ราคาเป็นมิตร' }
   ]
@@ -284,6 +287,10 @@ useHead({
 </script>
 
 <style scoped>
+.site-header.nav-hidden {
+  transform: translateY(-100%);
+}
+
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;

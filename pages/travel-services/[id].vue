@@ -1,11 +1,11 @@
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-40">
+    <header class="site-header bg-white shadow-sm sticky top-0 z-40 transition-transform duration-300" :class="{ 'nav-hidden': navbarHidden }">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex items-center justify-between">
           <NuxtLink to="/" class="text-2xl font-bold text-green-600">
-            Local Spot
+            {{ siteName }}
           </NuxtLink>
           <nav class="flex items-center space-x-6">
             <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
@@ -360,6 +360,9 @@ const travelServicesStore = useTravelServicesStore()
 const loading = ref(true)
 const currentImageIndex = ref(0)
 
+// Public header with settings
+const { siteName, navbarHidden } = usePublicHeader()
+
 const service = computed(() => travelServicesStore.current)
 const currentImage = computed(() => {
   if (!service.value?.images || service.value.images.length === 0) return null
@@ -408,6 +411,10 @@ useHead({
 </script>
 
 <style scoped>
+.site-header.nav-hidden {
+  transform: translateY(-100%);
+}
+
 .prose {
   max-width: none;
 }

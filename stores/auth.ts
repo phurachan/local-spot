@@ -50,11 +50,8 @@ export const useAuthStore = defineStore('auth', {
 
     async logout() {
       // Clear cookies
-      const tokenCookie = useCookie('token', { default: () => null, watch: false })
-      const userCookie = useCookie('user', { default: () => null, watch: false })
-
-      tokenCookie.value = null
-      userCookie.value = null
+      useCookie('token', { default: () => null, watch: false, maxAge: 0 }).value = null
+      useCookie('user', { default: () => null, watch: false, maxAge: 0 }).value = null
 
       this.user = null
       this.isAuthenticated = false
@@ -118,9 +115,9 @@ export const useAuthStore = defineStore('auth', {
           default: () => null,
           watch: false
         })
-        userCookie.value = response?.data?.user
+        userCookie.value = response?.data
 
-        this.user = response?.data?.user
+        this.user = response?.data
         this.isAuthenticated = true
 
         this.responseData = { ...(response || {}) };
