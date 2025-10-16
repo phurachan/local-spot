@@ -120,7 +120,7 @@
           <span
             v-for="tag in news.tags"
             :key="tag"
-            class="badge badge-outline badge-lg"
+            class="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium hover:bg-green-200 transition-colors"
           >
             {{ tag }}
           </span>

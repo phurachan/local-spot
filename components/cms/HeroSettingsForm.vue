@@ -318,6 +318,9 @@
 </template>
 
 <script setup lang="ts">
+import { API_ENDPOINTS } from '~/composables/constants/api'
+import { useHttpClient } from '~/composables/utilities/useHttpClient'
+
 interface HeroSlide {
   image: string
   title: string
@@ -358,6 +361,9 @@ const props = defineProps<{
 const emit = defineEmits<{
   'update:modelValue': [value: HeroSettings]
 }>()
+
+// HTTP Client
+const httpClient = useHttpClient()
 
 // Image gallery
 const showImageGallery = ref(false)
@@ -449,8 +455,12 @@ function openImageGallery(type: 'standard' | 'carousel', index?: number) {
 async function searchImages() {
   loadingImages.value = true
   try {
-    const query = imageSearchQuery.value ? `?search=${encodeURIComponent(imageSearchQuery.value)}` : ''
-    const response: any = await $fetch(`/api/cms/images${query}`)
+    const params: any = {}
+    if (imageSearchQuery.value) {
+      params.search = imageSearchQuery.value
+    }
+
+    const response: any = await httpClient.get(API_ENDPOINTS.CMS.IMAGES.LIST, params)
     console.log('Images API response:', response)
 
     // Handle different response formats

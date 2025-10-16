@@ -1,13 +1,15 @@
+import { API_ENDPOINTS } from '~/composables/constants/api'
+import { useHttpClient } from '~/composables/utilities/useHttpClient'
+
 export const useContentSearch = () => {
+  const httpClient = useHttpClient({ useAuth: false })
+
   const searchHotels = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/cms/hotels', {
-        method: 'GET',
-        query: {
-          search: query,
-          limit: 20,
-          isActive: true
-        }
+      const response = await httpClient.get(API_ENDPOINTS.CMS.HOTELS.LIST, {
+        search: query,
+        limit: 20,
+        isActive: true
       })
       return response.data || []
     } catch (error) {
@@ -18,13 +20,10 @@ export const useContentSearch = () => {
 
   const searchRestaurants = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/cms/restaurants', {
-        method: 'GET',
-        query: {
-          search: query,
-          limit: 20,
-          isActive: true
-        }
+      const response = await httpClient.get(API_ENDPOINTS.CMS.RESTAURANTS.LIST, {
+        search: query,
+        limit: 20,
+        isActive: true
       })
       return response.data || []
     } catch (error) {
@@ -35,13 +34,10 @@ export const useContentSearch = () => {
 
   const searchTravelServices = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/cms/travel-services', {
-        method: 'GET',
-        query: {
-          search: query,
-          limit: 20,
-          isActive: true
-        }
+      const response = await httpClient.get(API_ENDPOINTS.CMS.TRAVEL_SERVICES.LIST, {
+        search: query,
+        limit: 20,
+        isActive: true
       })
       return response.data || []
     } catch (error) {
@@ -52,13 +48,10 @@ export const useContentSearch = () => {
 
   const searchLocalProducts = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/cms/local-products', {
-        method: 'GET',
-        query: {
-          search: query,
-          limit: 20,
-          isActive: true
-        }
+      const response = await httpClient.get(API_ENDPOINTS.CMS.LOCAL_PRODUCTS.LIST, {
+        search: query,
+        limit: 20,
+        isActive: true
       })
       return response.data || []
     } catch (error) {
@@ -69,13 +62,10 @@ export const useContentSearch = () => {
 
   const searchEvents = async (query: string = '') => {
     try {
-      const response = await $fetch('/api/cms/events', {
-        method: 'GET',
-        query: {
-          search: query,
-          limit: 20,
-          isActive: true
-        }
+      const response = await httpClient.get(API_ENDPOINTS.CMS.EVENTS.LIST, {
+        search: query,
+        limit: 20,
+        isActive: true
       })
       return response.data || []
     } catch (error) {

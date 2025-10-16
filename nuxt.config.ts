@@ -63,6 +63,13 @@ export default defineNuxtConfig({
       apiBase: '/api'
     }
   },
+  app: {
+    head: {
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ]
+    }
+  },
   vite: {
     build: {
       chunkSizeWarningLimit: 1000,

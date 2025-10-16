@@ -39,17 +39,29 @@
           />
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <BaseInput
-              v-model="formData.logo"
-              label="URL โลโก้"
-              placeholder="https://..."
-            />
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">โลโก้</span>
+              </label>
+              <BaseImagePicker
+                v-model="logoImages"
+                :multiple="false"
+                :max-images="1"
+                category="general"
+              />
+            </div>
 
-            <BaseInput
-              v-model="formData.favicon"
-              label="URL Favicon"
-              placeholder="https://..."
-            />
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Favicon</span>
+              </label>
+              <BaseImagePicker
+                v-model="faviconImages"
+                :multiple="false"
+                :max-images="1"
+                category="general"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -344,6 +356,8 @@ const breadcrumbs = [
 const loading = ref(true)
 const saving = ref(false)
 const keywordsInput = ref('')
+const logoImages = ref<string[]>([])
+const faviconImages = ref<string[]>([])
 
 // Form data with defaults
 const formData = ref<Partial<WebSettings>>({
@@ -417,6 +431,10 @@ async function loadSettings() {
         ...settingsStore.settings
       }
       keywordsInput.value = settingsStore.settings.seo?.keywords?.join(', ') || ''
+
+      // Convert logo and favicon strings to arrays for ImagePicker
+      logoImages.value = settingsStore.settings.logo ? [settingsStore.settings.logo] : []
+      faviconImages.value = settingsStore.settings.favicon ? [settingsStore.settings.favicon] : []
     }
   } catch (error) {
     console.error('Error loading settings:', error)
@@ -439,6 +457,10 @@ function updateKeywords() {
 // Submit form
 async function handleSubmit() {
   updateKeywords()
+
+  // Convert logo and favicon arrays back to strings
+  formData.value.logo = logoImages.value[0] || ''
+  formData.value.favicon = faviconImages.value[0] || ''
 
   saving.value = true
   try {

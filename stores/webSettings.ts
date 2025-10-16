@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
+import { API_ENDPOINTS } from '~/composables/constants/api'
 import type { WebSettings } from '~/composables/data_models/cms'
+import { useHttpClient } from '~/composables/utilities/useHttpClient'
 
 export const useWebSettingsStore = defineStore('webSettings', {
   state: () => ({
@@ -23,9 +25,8 @@ export const useWebSettingsStore = defineStore('webSettings', {
       this.error = null
 
       try {
-        const response = await $fetch('/api/cms/settings', {
-          method: 'GET'
-        })
+        const httpClient = useHttpClient({ useAuth: false })
+        const response = await httpClient.get(API_ENDPOINTS.CMS.WEB_SETTINGS.GET)
 
         this.settings = response.data as WebSettings
         return this.settings
@@ -43,10 +44,8 @@ export const useWebSettingsStore = defineStore('webSettings', {
       this.error = null
 
       try {
-        const response = await $fetch('/api/cms/settings', {
-          method: 'PUT',
-          body: data
-        })
+        const httpClient = useHttpClient()
+        const response = await httpClient.put(API_ENDPOINTS.CMS.WEB_SETTINGS.UPDATE, data)
 
         this.settings = response.data as WebSettings
         useToast().success('บันทึกการตั้งค่าสำเร็จ')

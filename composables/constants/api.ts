@@ -90,6 +90,11 @@ export const API_ENDPOINTS = {
     UPDATE: '/settings'
   },
 
+  // oEmbed - Social Media Embeds
+  OEMBED: {
+    TIKTOK: '/oembed/tiktok'
+  },
+
   // CMS - Content Management
   CMS: {
     // News
@@ -157,6 +162,11 @@ export const API_ENDPOINTS = {
       UPDATE: (id: string) => `/cms/seo/${id}`,
       DELETE: (id: string) => `/cms/seo/${id}`,
       BY_URL: (url: string) => `/cms/seo/by-url?url=${encodeURIComponent(url)}`
+    },
+    // Web Settings
+    WEB_SETTINGS: {
+      GET: '/cms/settings',
+      UPDATE: '/cms/settings'
     }
   }
 } as const

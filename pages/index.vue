@@ -187,6 +187,11 @@
       </div>
     </section>
 
+    <div class="container">
+      <!-- YouTube -->
+      <BaseSocialEmbed url="https://www.youtube.com/watch?v=S8fM3Pbr_S8" :autoplay="true" />
+    </div>
+
     <!-- Hotels Section -->
     <section id="hotels" class="py-20 bg-gray-50">
       <div class="max-w-6xl mx-auto px-6">
@@ -238,6 +243,10 @@
         </div>
       </div>
     </section>
+
+    <div class="container bg-white">
+      <BaseSocialEmbed url="https://www.facebook.com/Rayongrayongfanpage/posts/pfbid037UtjrxRnLNDHE7VJx5XLxVGYAT8VFSaqAufKMhk9wwTwBCcrGffopxqS6uyZCKPtl?locale=th_TH" />
+    </div>
 
     <!-- Restaurants Section -->
     <section id="restaurants" class="py-20 bg-gray-50">
@@ -291,8 +300,13 @@
       </div>
     </section>
 
+    <div class="container bg-white flex gap-20 justify-center items-center">
+      <BaseSocialEmbed url="https://www.instagram.com/p/DLFim-oAeKY/?utm_source=ig_web_copy_link" />
+      <BaseSocialEmbed url="https://www.instagram.com/p/C8oBMeev1x7/?utm_source=ig_web_copy_link" />
+    </div>
+
     <!-- Events Section -->
-    <section id="events" class="py-20 bg-white">
+    <section id="events" class="py-20 bg-gray-50">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16">
           <h2 class="text-4xl font-bold text-gray-800 mb-4">กิจกรรมและเทศกาล</h2>
@@ -343,8 +357,19 @@
       </div>
     </section>
 
+    <!-- <div class="container bg-white flex gap-20 justify-center items-center">
+      <BaseSocialEmbed
+        key="tiktok-1"
+        url="https://www.tiktok.com/@wannai.when/video/7514277384510590215"
+      />
+      <BaseSocialEmbed
+        key="tiktok-2"
+        url="https://www.tiktok.com/@loi_story/video/7520639427698445586"
+      />
+    </div> -->
+
     <!-- Travel Services Section -->
-    <section id="travel-services" class="py-20 bg-white">
+    <section id="travel-services" class="py-20 bg-gray-50">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16">
           <h2 class="text-4xl font-bold text-gray-800 mb-4">บริการท่องเที่ยว</h2>
@@ -724,6 +749,7 @@ import { useRestaurantsStore } from '~/stores/restaurants'
 import { useEventsStore } from '~/stores/events'
 import { useTravelServicesStore } from '~/stores/travelServices'
 import { useLocalProductsStore } from '~/stores/localProducts'
+import { useWebSettingsStore } from '~/stores/webSettings'
 import HeroCarousel from '~/components/public/HeroCarousel.vue'
 
 // Use a clean layout for the home page
@@ -738,6 +764,7 @@ const restaurantsStore = useRestaurantsStore()
 const eventsStore = useEventsStore()
 const travelServicesStore = useTravelServicesStore()
 const localProductsStore = useLocalProductsStore()
+const webSettingsStore = useWebSettingsStore()
 
 // State
 const loadingHero = ref(true)
@@ -849,27 +876,27 @@ function formatDate(date: any) {
 async function loadHeroSettings() {
   loadingHero.value = true
   try {
-    const response: any = await $fetch('/api/cms/settings')
-    console.log(response);
+    await webSettingsStore.fetchSettings()
+    const settings = webSettingsStore.settings
 
-    if (response?.data?.hero) {
-      heroType.value = response.data.hero.type || 'standard'
-      heroTitle.value = response.data.hero.title || ''
-      heroDescription.value = response.data.hero.description || ''
-      heroCtaText.value = response.data.hero.ctaText || 'เริ่มค้นหา'
-      heroCtaLink.value = response.data.hero.ctaLink || '#hotels'
+    if (settings?.hero) {
+      heroType.value = settings.hero.type || 'standard'
+      heroTitle.value = settings.hero.title || ''
+      heroDescription.value = settings.hero.description || ''
+      heroCtaText.value = settings.hero.ctaText || 'เริ่มค้นหา'
+      heroCtaLink.value = settings.hero.ctaLink || '#hotels'
 
       // Load carousel settings if type is carousel
-      if (response.data.hero.carousel) {
+      if (settings.hero.carousel) {
         carouselSettings.value = {
-          autoplay: response.data.hero.carousel.autoplay ?? true,
-          interval: response.data.hero.carousel.interval || 5000,
-          showIndicators: response.data.hero.carousel.showIndicators ?? true,
-          showControls: response.data.hero.carousel.showControls ?? true
+          autoplay: settings.hero.carousel.autoplay ?? true,
+          interval: settings.hero.carousel.interval || 5000,
+          showIndicators: settings.hero.carousel.showIndicators ?? true,
+          showControls: settings.hero.carousel.showControls ?? true
         }
 
         // Sort slides by order
-        carouselSlides.value = (response.data.hero.carousel.slides || [])
+        carouselSlides.value = (settings.hero.carousel.slides || [])
           .sort((a: any, b: any) => (a.order || 0) - (b.order || 0))
       }
     }
