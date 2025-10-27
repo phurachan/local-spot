@@ -304,7 +304,7 @@
       <div class="max-w-6xl mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-8">
           <div>
-            <h3 class="text-xl font-bold mb-4">Local Spot</h3>
+            <h3 class="text-xl font-bold mb-4">{{ siteName }}</h3>
             <p class="text-gray-400">แพลตฟอร์มท่องเที่ยวท้องถิ่น ค้นพบที่พัก ร้านอาหาร และกิจกรรมท้องถิ่น</p>
           </div>
           <div>
@@ -342,7 +342,7 @@
           </div>
         </div>
         <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Local Spot. All rights reserved.</p>
+          <p>&copy; 2025 {{ siteName }}. สงวนลิขสิทธิ์.</p>
         </div>
       </div>
     </footer>
@@ -405,7 +405,7 @@ onMounted(async () => {
 
 // SEO
 useHead({
-  title: computed(() => service.value ? `${service.value.title} - Local Spot` : 'บริการท่องเที่ยว - Local Spot'),
+  title: computed(() => service.value ? `${service.value.title} - ${siteName.value}` : 'บริการท่องเที่ยว - ${siteName.value}'),
   meta: computed(() => [
     { name: 'description', content: service.value?.description || 'บริการท่องเที่ยวท้องถิ่น' }
   ])

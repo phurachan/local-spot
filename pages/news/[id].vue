@@ -1,34 +1,16 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <!-- Header -->
-    <header class="site-header bg-white shadow-sm sticky top-0 z-40 transition-transform duration-300" :class="{ 'nav-hidden': navbarHidden }">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex items-center justify-between">
-          <NuxtLink to="/" class="text-2xl font-bold text-green-600">
-            {{ siteName }}
-          </NuxtLink>
-          <nav class="flex items-center space-x-6">
-            <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
-            <NuxtLink to="/news" class="text-green-600 font-semibold">ข่าวสาร</NuxtLink>
-            <NuxtLink to="/hotels" class="text-gray-600 hover:text-green-600">โรงแรม</NuxtLink>
-            <NuxtLink to="/restaurants" class="text-gray-600 hover:text-green-600">ร้านอาหาร</NuxtLink>
-            <NuxtLink to="/events" class="text-gray-600 hover:text-green-600">กิจกรรม</NuxtLink>
-            <NuxtLink to="/travel-services" class="text-gray-600 hover:text-green-600">บริการท่องเที่ยว</NuxtLink>
-            <NuxtLink to="/local-products" class="text-gray-600 hover:text-green-600">สินค้าท้องถิ่น</NuxtLink>
-          </nav>
-        </div>
-      </div>
-    </header>
+    <PublicHeaderWrapper active-page="news" />
 
-    <BaseLoading v-if="loading" class="py-20" />
+    <BaseLoading v-if="loading" class="py-12 sm:py-20" />
 
-    <div v-else-if="news" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div v-else-if="news" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <!-- Main Content -->
         <div class="lg:col-span-8">
       <!-- Breadcrumb -->
-      <nav class="flex mb-8 text-sm" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+      <nav class="flex mb-4 sm:mb-6 md:mb-8 text-xs sm:text-sm" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 sm:space-x-2 md:space-x-3">
           <li class="inline-flex items-center">
             <NuxtLink to="/" class="text-gray-700 hover:text-green-600">หน้าหลัก</NuxtLink>
           </li>
@@ -58,10 +40,10 @@
       </div>
 
       <!-- Title -->
-      <h1 class="text-4xl font-bold text-gray-900 mb-6">{{ news.title }}</h1>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">{{ news.title }}</h1>
 
       <!-- Meta Information -->
-      <div class="flex flex-wrap items-center gap-6 text-sm text-gray-600 mb-8 pb-8 border-b">
+      <div class="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm text-gray-600 mb-6 sm:mb-8 pb-6 sm:pb-8 border-b">
         <div class="flex items-center">
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -236,6 +218,8 @@
         กลับไปยังรายการข่าว
       </NuxtLink>
     </div>
+
+    <PublicFooterWrapper />
   </div>
 </template>
 
@@ -252,7 +236,7 @@ const newsStore = useNewsStore()
 const loading = ref(true)
 
 // Public header with settings
-const { siteName, navbarHidden } = usePublicHeader()
+const { siteName } = usePublicSettings()
 
 const news = computed(() => newsStore.current)
 
@@ -376,10 +360,6 @@ useHead(() => ({
 </script>
 
 <style scoped>
-.site-header.nav-hidden {
-  transform: translateY(-100%);
-}
-
 .prose {
   max-width: none;
 }

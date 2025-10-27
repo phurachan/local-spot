@@ -1,26 +1,9 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <!-- Header -->
-    <header class="site-header bg-white shadow-sm sticky top-0 z-40 transition-transform duration-300" :class="{ 'nav-hidden': navbarHidden }">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex items-center justify-between">
-          <NuxtLink to="/" class="text-2xl font-bold text-green-600">
-            {{ siteName }}
-          </NuxtLink>
-          <nav class="flex items-center space-x-6">
-            <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
-            <NuxtLink to="/news" class="text-gray-600 hover:text-green-600">ข่าวสาร</NuxtLink>
-            <NuxtLink to="/hotels" class="text-gray-600 hover:text-green-600">โรงแรม</NuxtLink>
-            <NuxtLink to="/restaurants" class="text-gray-600 hover:text-green-600">ร้านอาหาร</NuxtLink>
-            <NuxtLink to="/events" class="text-gray-600 hover:text-green-600">กิจกรรม</NuxtLink>
-            <NuxtLink to="/travel-services" class="text-green-600 font-semibold">บริการท่องเที่ยว</NuxtLink>
-            <NuxtLink to="/local-products" class="text-gray-600 hover:text-green-600">สินค้าท้องถิ่น</NuxtLink>
-          </nav>
-        </div>
-      </div>
-    </header>
 
-    <BaseLoading v-if="loading" class="py-20" />
+    <PublicHeaderWrapper active-page="travel-services" />
+
+    <BaseLoading v-if="loading" class="py-12 sm:py-20" />
 
     <div v-else-if="service" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Breadcrumb -->
@@ -36,7 +19,7 @@
         <!-- Main Content -->
         <div class="lg:col-span-2">
           <!-- Image Gallery -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-4 sm:mb-6">
             <div class="aspect-video bg-gray-200">
               <img
                 v-if="currentImage"
@@ -64,15 +47,15 @@
           </div>
 
           <!-- Service Info -->
-          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-4 sm:mb-6">
             <div class="flex items-start justify-between mb-4">
-              <h1 class="text-3xl font-bold text-gray-900">{{ service.title }}</h1>
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">{{ service.title }}</h1>
               <span v-if="service.featured" class="badge badge-secondary">แนะนำ</span>
             </div>
 
-            <div class="flex items-center gap-4 mb-6">
+            <div class="flex items-center gap-4 mb-4 sm:mb-6">
               <span class="badge badge-info badge-lg">{{ getServiceTypeLabel(service.serviceType) }}</span>
-              <div v-if="service.pricing?.amount" class="text-2xl font-bold text-blue-600">
+              <div v-if="service.pricing?.amount" class="text-lg sm:text-xl md:text-2xl font-bold text-blue-600">
                 ฿{{ service.pricing.amount.toLocaleString() }}
                 <span v-if="service.pricing.unit" class="text-base text-gray-600">/{{ service.pricing.unit }}</span>
               </div>
@@ -85,7 +68,7 @@
           </div>
 
           <!-- Service Details -->
-          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-4 sm:mb-6">
             <h2 class="text-xl font-semibold mb-4 text-gray-900">ข้อมูลบริการ</h2>
 
             <div class="space-y-4">
@@ -346,6 +329,8 @@
         </div>
       </div>
     </footer>
+    <PublicFooterWrapper />
+
   </div>
 </template>
 
@@ -363,7 +348,7 @@ const loading = ref(true)
 const currentImageIndex = ref(0)
 
 // Public header with settings
-const { siteName, navbarHidden } = usePublicHeader()
+const { siteName } = usePublicSettings()
 
 const service = computed(() => travelServicesStore.current)
 const currentImage = computed(() => {
@@ -413,9 +398,6 @@ useHead({
 </script>
 
 <style scoped>
-.site-header.nav-hidden {
-  transform: translateY(-100%);
-}
 
 .prose {
   max-width: none;

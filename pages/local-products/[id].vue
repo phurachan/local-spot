@@ -1,26 +1,9 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <!-- Header -->
-    <header class="site-header bg-white shadow-sm sticky top-0 z-40 transition-transform duration-300" :class="{ 'nav-hidden': navbarHidden }">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex items-center justify-between">
-          <NuxtLink to="/" class="text-2xl font-bold text-green-600">
-            {{ siteName }}
-          </NuxtLink>
-          <nav class="flex items-center space-x-6">
-            <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
-            <NuxtLink to="/news" class="text-gray-600 hover:text-green-600">ข่าวสาร</NuxtLink>
-            <NuxtLink to="/hotels" class="text-gray-600 hover:text-green-600">โรงแรม</NuxtLink>
-            <NuxtLink to="/restaurants" class="text-gray-600 hover:text-green-600">ร้านอาหาร</NuxtLink>
-            <NuxtLink to="/events" class="text-gray-600 hover:text-green-600">กิจกรรม</NuxtLink>
-            <NuxtLink to="/travel-services" class="text-gray-600 hover:text-green-600">บริการท่องเที่ยว</NuxtLink>
-            <NuxtLink to="/local-products" class="text-green-600 font-semibold">สินค้าท้องถิ่น</NuxtLink>
-          </nav>
-        </div>
-      </div>
-    </header>
 
-    <BaseLoading v-if="loading" class="py-20" />
+    <PublicHeaderWrapper active-page="local-products" />
+
+    <BaseLoading v-if="loading" class="py-12 sm:py-20" />
 
     <div v-else-if="product" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Breadcrumb -->
@@ -36,7 +19,7 @@
         <!-- Main Content -->
         <div class="lg:col-span-2">
           <!-- Image Gallery -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-4 sm:mb-6">
             <div class="aspect-square bg-gray-200">
               <img
                 v-if="currentImage"
@@ -64,20 +47,20 @@
           </div>
 
           <!-- Product Info -->
-          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-4 sm:mb-6">
             <div class="flex items-start justify-between mb-4">
-              <h1 class="text-3xl font-bold text-gray-900">{{ product.title }}</h1>
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">{{ product.title }}</h1>
               <span v-if="product.featured" class="badge badge-secondary">แนะนำ</span>
             </div>
 
-            <div class="flex items-center gap-4 mb-6">
+            <div class="flex items-center gap-4 mb-4 sm:mb-6">
               <span class="badge badge-warning badge-lg">{{ getCategoryLabel(product.category) }}</span>
-              <div v-if="product.price" class="text-3xl font-bold text-amber-600">
+              <div v-if="product.price" class="text-xl sm:text-2xl md:text-3xl font-bold text-amber-600">
                 ฿{{ product.price.toLocaleString() }}
               </div>
             </div>
 
-            <div v-if="product.availability" class="mb-6">
+            <div v-if="product.availability" class="mb-4 sm:mb-6">
               <span class="badge badge-success">
                 มีสินค้า
                 <span v-if="product.availability.stockQuantity"> ({{ product.availability.stockQuantity }} ชิ้น)</span>
@@ -94,7 +77,7 @@
           </div>
 
           <!-- Product Details -->
-          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-4 sm:mb-6">
             <h2 class="text-xl font-semibold mb-4 text-gray-900">ข้อมูลสินค้า</h2>
 
             <div class="space-y-4">
@@ -238,6 +221,8 @@
         </div>
       </div>
     </footer>
+    <PublicFooterWrapper />
+
   </div>
 </template>
 
@@ -255,7 +240,7 @@ const loading = ref(true)
 const currentImageIndex = ref(0)
 
 // Public header with settings
-const { siteName, navbarHidden } = usePublicHeader()
+const { siteName } = usePublicSettings()
 
 const product = computed(() => localProductsStore.current)
 const currentImage = computed(() => {
@@ -306,9 +291,6 @@ useHead({
 </script>
 
 <style scoped>
-.site-header.nav-hidden {
-  transform: translateY(-100%);
-}
 
 .prose {
   max-width: none;

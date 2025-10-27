@@ -1,26 +1,9 @@
 <template>
   <div class="min-h-screen bg-gray-50">
-    <!-- Header -->
-    <header class="site-header bg-white shadow-sm sticky top-0 z-40 transition-transform duration-300" :class="{ 'nav-hidden': navbarHidden }">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex items-center justify-between">
-          <NuxtLink to="/" class="text-2xl font-bold text-green-600">
-            {{ siteName }}
-          </NuxtLink>
-          <nav class="flex items-center space-x-6">
-            <NuxtLink to="/" class="text-gray-600 hover:text-green-600">หน้าแรก</NuxtLink>
-            <NuxtLink to="/news" class="text-gray-600 hover:text-green-600">ข่าวสาร</NuxtLink>
-            <NuxtLink to="/hotels" class="text-gray-600 hover:text-green-600">โรงแรม</NuxtLink>
-            <NuxtLink to="/restaurants" class="text-gray-600 hover:text-green-600">ร้านอาหาร</NuxtLink>
-            <NuxtLink to="/events" class="text-green-600 font-semibold">กิจกรรม</NuxtLink>
-            <NuxtLink to="/travel-services" class="text-gray-600 hover:text-green-600">บริการท่องเที่ยว</NuxtLink>
-            <NuxtLink to="/local-products" class="text-gray-600 hover:text-green-600">สินค้าท้องถิ่น</NuxtLink>
-          </nav>
-        </div>
-      </div>
-    </header>
 
-    <BaseLoading v-if="loading" class="py-20" />
+    <PublicHeaderWrapper active-page="events" />
+
+    <BaseLoading v-if="loading" class="py-12 sm:py-20" />
 
     <div v-else-if="event" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Breadcrumb -->
@@ -36,7 +19,7 @@
         <!-- Main Content -->
         <div class="lg:col-span-2">
           <!-- Image Gallery -->
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-4 sm:mb-6">
             <div class="aspect-video bg-gray-200 relative">
               <img
                 v-if="currentImage"
@@ -51,7 +34,7 @@
               </div>
               <div v-if="event.schedule?.startDate" class="absolute top-4 right-4 bg-white px-4 py-2 rounded-lg shadow-lg">
                 <div class="text-center">
-                  <div class="text-2xl font-bold text-purple-600">{{ getDay(event.schedule.startDate) }}</div>
+                  <div class="text-lg sm:text-xl md:text-2xl font-bold text-purple-600">{{ getDay(event.schedule.startDate) }}</div>
                   <div class="text-xs text-gray-600">{{ getMonthYear(event.schedule.startDate) }}</div>
                 </div>
               </div>
@@ -70,19 +53,19 @@
           </div>
 
           <!-- Event Info -->
-          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-4 sm:mb-6">
             <div class="flex items-start justify-between mb-4">
-              <h1 class="text-3xl font-bold text-gray-900">{{ event.title }}</h1>
+              <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">{{ event.title }}</h1>
               <span v-if="event.featured" class="badge badge-secondary">แนะนำ</span>
             </div>
 
-            <div class="flex items-center gap-4 mb-6">
+            <div class="flex items-center gap-4 mb-4 sm:mb-6">
               <span class="badge badge-secondary badge-lg">{{ getCategoryLabel(event.category) }}</span>
-              <div v-if="event.pricing?.ticketPrice" class="text-2xl font-bold text-purple-600">
+              <div v-if="event.pricing?.ticketPrice" class="text-lg sm:text-xl md:text-2xl font-bold text-purple-600">
                 ฿{{ event.pricing.ticketPrice.toLocaleString() }}
                 <span v-if="event.pricing.isFree" class="text-base text-gray-600">(ฟรี)</span>
               </div>
-              <div v-else-if="event.pricing?.isFree" class="text-2xl font-bold text-green-600">
+              <div v-else-if="event.pricing?.isFree" class="text-lg sm:text-xl md:text-2xl font-bold text-green-600">
                 ฟรี
               </div>
             </div>
@@ -94,7 +77,7 @@
           </div>
 
           <!-- Event Details -->
-          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-4 sm:mb-6">
             <h2 class="text-xl font-semibold mb-4 text-gray-900">ข้อมูลกิจกรรม</h2>
 
             <div class="space-y-4">
@@ -253,11 +236,11 @@
           <div class="bg-white rounded-xl shadow-lg p-6 sticky top-24">
             <h2 class="text-xl font-semibold mb-4 text-gray-900">เข้าร่วมกิจกรรม</h2>
 
-            <div v-if="event.pricing?.ticketPrice || event.pricing?.isFree" class="mb-6">
-              <div v-if="event.pricing.isFree" class="text-3xl font-bold text-green-600">
+            <div v-if="event.pricing?.ticketPrice || event.pricing?.isFree" class="mb-4 sm:mb-6">
+              <div v-if="event.pricing.isFree" class="text-xl sm:text-2xl md:text-3xl font-bold text-green-600">
                 ฟรี!
               </div>
-              <div v-else class="text-3xl font-bold text-purple-600">
+              <div v-else class="text-xl sm:text-2xl md:text-3xl font-bold text-purple-600">
                 ฿{{ event.pricing.ticketPrice?.toLocaleString() }}
               </div>
             </div>
@@ -373,6 +356,8 @@
         </div>
       </div>
     </footer>
+    <PublicFooterWrapper />
+
   </div>
 </template>
 
@@ -390,7 +375,7 @@ const loading = ref(true)
 const currentImageIndex = ref(0)
 
 // Public header with settings
-const { siteName, navbarHidden } = usePublicHeader()
+const { siteName } = usePublicSettings()
 
 const event = computed(() => eventsStore.current)
 const currentImage = computed(() => {
@@ -468,9 +453,6 @@ useHead({
 </script>
 
 <style scoped>
-.site-header.nav-hidden {
-  transform: translateY(-100%);
-}
 
 .prose {
   max-width: none;

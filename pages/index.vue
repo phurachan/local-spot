@@ -15,8 +15,10 @@
               <div class="text-2xl font-bold">Local Spot</div>
             </template>
           </ClientOnly>
+
+          <!-- Desktop Menu (hidden on mobile/tablet) -->
           <ClientOnly>
-            <div class="space-x-4 flex items-center">
+            <div class="hidden lg:flex space-x-4 items-center">
               <a v-if="enabledFeatures.enableNews" href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
               <a v-if="enabledFeatures.enableHotels" href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
               <a v-if="enabledFeatures.enableRestaurants" href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
@@ -26,7 +28,7 @@
               <a href="#contact" class="hover:text-green-200 transition-colors">ติดต่อ</a>
             </div>
             <template #fallback>
-              <div class="space-x-4 flex items-center">
+              <div class="hidden lg:flex space-x-4 items-center">
                 <a href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
                 <a href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
                 <a href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
@@ -37,7 +39,49 @@
               </div>
             </template>
           </ClientOnly>
+
+          <!-- Mobile Menu Button (visible on mobile/tablet) -->
+          <button
+            @click="toggleMobileMenu"
+            class="lg:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+            aria-label="Toggle menu"
+          >
+            <svg v-if="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
         </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <Transition name="mobile-menu">
+          <div v-if="mobileMenuOpen" class="lg:hidden bg-green-600 border-t border-green-500">
+            <ClientOnly>
+              <div class="flex flex-col p-4 space-y-2">
+                <a v-if="enabledFeatures.enableNews" href="#news" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ข่าวสาร</a>
+                <a v-if="enabledFeatures.enableHotels" href="#hotels" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">โรงแรม</a>
+                <a v-if="enabledFeatures.enableRestaurants" href="#restaurants" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ร้านอาหาร</a>
+                <a v-if="enabledFeatures.enableEvents" href="#events" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">กิจกรรม</a>
+                <a v-if="enabledFeatures.enableTravelServices" href="#travel-services" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">บริการท่องเที่ยว</a>
+                <a v-if="enabledFeatures.enableLocalProducts" href="#local-products" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ผลิตภัณฑ์</a>
+                <a href="#contact" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ติดต่อ</a>
+              </div>
+              <template #fallback>
+                <div class="flex flex-col p-4 space-y-2">
+                  <a href="#news" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ข่าวสาร</a>
+                  <a href="#hotels" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">โรงแรม</a>
+                  <a href="#restaurants" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ร้านอาหาร</a>
+                  <a href="#events" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">กิจกรรม</a>
+                  <a href="#travel-services" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">บริการท่องเที่ยว</a>
+                  <a href="#local-products" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ผลิตภัณฑ์</a>
+                  <a href="#contact" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ติดต่อ</a>
+                </div>
+              </template>
+            </ClientOnly>
+          </div>
+        </Transition>
       </nav>
 
       <!-- Hero Section - Carousel Type -->
@@ -61,8 +105,10 @@
                 <div class="text-2xl font-bold">Local Spot</div>
               </template>
             </ClientOnly>
+
+            <!-- Desktop Menu (hidden on mobile/tablet) -->
             <ClientOnly>
-              <div class="space-x-4 flex items-center">
+              <div class="hidden lg:flex space-x-4 items-center">
                 <a v-if="enabledFeatures.enableNews" href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
                 <a v-if="enabledFeatures.enableHotels" href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
                 <a v-if="enabledFeatures.enableRestaurants" href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
@@ -72,7 +118,7 @@
                 <a href="#contact" class="hover:text-green-200 transition-colors">ติดต่อ</a>
               </div>
               <template #fallback>
-                <div class="space-x-4 flex items-center">
+                <div class="hidden lg:flex space-x-4 items-center">
                   <a href="#news" class="hover:text-green-200 transition-colors">ข่าวสาร</a>
                   <a href="#hotels" class="hover:text-green-200 transition-colors">โรงแรม</a>
                   <a href="#restaurants" class="hover:text-green-200 transition-colors">ร้านอาหาร</a>
@@ -83,38 +129,80 @@
                 </div>
               </template>
             </ClientOnly>
+
+            <!-- Mobile Menu Button (visible on mobile/tablet) -->
+            <button
+              @click="toggleMobileMenu"
+              class="lg:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+              aria-label="Toggle menu"
+            >
+              <svg v-if="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+              <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
           </div>
+
+          <!-- Mobile Dropdown Menu -->
+          <Transition name="mobile-menu">
+            <div v-if="mobileMenuOpen" class="lg:hidden bg-green-600 border-t border-green-500">
+              <ClientOnly>
+                <div class="flex flex-col p-4 space-y-2">
+                  <a v-if="enabledFeatures.enableNews" href="#news" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ข่าวสาร</a>
+                  <a v-if="enabledFeatures.enableHotels" href="#hotels" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">โรงแรม</a>
+                  <a v-if="enabledFeatures.enableRestaurants" href="#restaurants" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ร้านอาหาร</a>
+                  <a v-if="enabledFeatures.enableEvents" href="#events" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">กิจกรรม</a>
+                  <a v-if="enabledFeatures.enableTravelServices" href="#travel-services" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">บริการท่องเที่ยว</a>
+                  <a v-if="enabledFeatures.enableLocalProducts" href="#local-products" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ผลิตภัณฑ์</a>
+                  <a href="#contact" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ติดต่อ</a>
+                </div>
+                <template #fallback>
+                  <div class="flex flex-col p-4 space-y-2">
+                    <a href="#news" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ข่าวสาร</a>
+                    <a href="#hotels" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">โรงแรม</a>
+                    <a href="#restaurants" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ร้านอาหาร</a>
+                    <a href="#events" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">กิจกรรม</a>
+                    <a href="#travel-services" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">บริการท่องเที่ยว</a>
+                    <a href="#local-products" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ผลิตภัณฑ์</a>
+                    <a href="#contact" @click="closeMobileMenu" class="py-3 px-4 hover:bg-green-500 rounded-lg transition-colors">ติดต่อ</a>
+                  </div>
+                </template>
+              </ClientOnly>
+            </div>
+          </Transition>
         </nav>
 
-      <div class="relative z-10 h-full flex items-center justify-center text-center">
-        <div class="max-w-4xl px-6">
+      <div class="relative z-10 h-full flex items-center justify-center text-center pt-20">
+        <div class="max-w-4xl px-4 sm:px-6">
           <ClientOnly>
-            <h1 class="text-6xl md:text-7xl font-bold mb-6 animate-fade-in">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 animate-fade-in">
               {{ heroTitle || siteName }}
               <span class="text-green-300">ท้องถิ่น</span>
             </h1>
             <template #fallback>
-              <h1 class="text-6xl md:text-7xl font-bold mb-6 animate-fade-in">
+              <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 animate-fade-in">
                 Local Spot
                 <span class="text-green-300">ท้องถิ่น</span>
               </h1>
             </template>
           </ClientOnly>
           <ClientOnly>
-            <p class="text-xl md:text-2xl mb-8 text-green-100">
+            <p class="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-green-100 px-4">
               {{ heroDescription || siteDescription || 'ท่องเที่ยว พักผ่อน ชิม ช้อป ใช้ ทุกอย่างในที่เดียว' }}
             </p>
             <template #fallback>
-              <p class="text-xl md:text-2xl mb-8 text-green-100">
+              <p class="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-green-100 px-4">
                 ท่องเที่ยว พักผ่อน ชิม ช้อป ใช้ ทุกอย่างในที่เดียว
               </p>
             </template>
           </ClientOnly>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a :href="heroCtaLink || '#hotels'" class="bg-green-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-400 transition-colors">
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
+            <a :href="heroCtaLink || '#hotels'" class="bg-green-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-green-400 transition-colors">
               {{ heroCtaText || 'เริ่มค้นหา' }}
             </a>
-            <a href="#about" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">
+            <a href="#about" class="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">
               เรียนรู้เพิ่มเติม
             </a>
           </div>
@@ -130,18 +218,18 @@
     </section>
 
     <!-- News Section -->
-    <section id="news" class="py-20 bg-white">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">ข่าวสารและบทความ</h2>
-          <p class="text-xl text-gray-600">อัพเดทข่าวสาร เคล็ดลับการท่องเที่ยว และเรื่องราวท้องถิ่น</p>
+    <section id="news" class="py-12 sm:py-16 md:py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">ข่าวสารและบทความ</h2>
+          <p class="text-lg sm:text-xl text-gray-600 px-4">อัพเดทข่าวสาร เคล็ดลับการท่องเที่ยว และเรื่องราวท้องถิ่น</p>
         </div>
 
         <div v-if="loadingNews" class="flex justify-center">
           <BaseLoading />
         </div>
 
-        <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <NuxtLink
             v-for="news in latestNews"
             :key="news._id"
@@ -193,18 +281,18 @@
     </div>
 
     <!-- Hotels Section -->
-    <section id="hotels" class="py-20 bg-gray-50">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">โรงแรมแนะนำ</h2>
-          <p class="text-xl text-gray-600">ที่พักสะดวกสบาย บรรยากาศดี</p>
+    <section id="hotels" class="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">โรงแรมแนะนำ</h2>
+          <p class="text-lg sm:text-xl text-gray-600 px-4">ที่พักสะดวกสบาย บรรยากาศดี</p>
         </div>
 
         <div v-if="loadingHotels" class="flex justify-center">
           <BaseLoading />
         </div>
 
-        <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <NuxtLink
             v-for="hotel in featuredHotels"
             :key="hotel._id"
@@ -249,18 +337,18 @@
     </div>
 
     <!-- Restaurants Section -->
-    <section id="restaurants" class="py-20 bg-gray-50">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">ร้านอาหารแนะนำ</h2>
-          <p class="text-xl text-gray-600">ร้านอาหารอร่อย บรรยากาศดี</p>
+    <section id="restaurants" class="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">ร้านอาหารแนะนำ</h2>
+          <p class="text-lg sm:text-xl text-gray-600 px-4">ร้านอาหารอร่อย บรรยากาศดี</p>
         </div>
 
         <div v-if="loadingRestaurants" class="flex justify-center">
           <BaseLoading />
         </div>
 
-        <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <NuxtLink
             v-for="restaurant in featuredRestaurants"
             :key="restaurant._id"
@@ -300,24 +388,26 @@
       </div>
     </section>
 
-    <div class="container bg-white flex gap-20 justify-center items-center">
-      <BaseSocialEmbed url="https://www.instagram.com/p/DLFim-oAeKY/?utm_source=ig_web_copy_link" />
-      <BaseSocialEmbed url="https://www.instagram.com/p/C8oBMeev1x7/?utm_source=ig_web_copy_link" />
+    <div class="container bg-white px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row gap-6 sm:gap-10 md:gap-20 justify-center items-center">
+        <BaseSocialEmbed url="https://www.instagram.com/p/DLFim-oAeKY/?utm_source=ig_web_copy_link" />
+        <BaseSocialEmbed url="https://www.instagram.com/p/C8oBMeev1x7/?utm_source=ig_web_copy_link" />
+      </div>
     </div>
 
     <!-- Events Section -->
-    <section id="events" class="py-20 bg-gray-50">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">กิจกรรมและเทศกาล</h2>
-          <p class="text-xl text-gray-600">กิจกรรมน่าสนใจในท้องถิ่น</p>
+    <section id="events" class="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">กิจกรรมและเทศกาล</h2>
+          <p class="text-lg sm:text-xl text-gray-600 px-4">กิจกรรมน่าสนใจในท้องถิ่น</p>
         </div>
 
         <div v-if="loadingEvents" class="flex justify-center">
           <BaseLoading />
         </div>
 
-        <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <NuxtLink
             v-for="event in upcomingEvents"
             :key="event._id"
@@ -369,16 +459,16 @@
     </div> -->
 
     <!-- Travel Services Section -->
-    <section id="travel-services" class="py-20 bg-gray-50">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">บริการท่องเที่ยว</h2>
-          <p class="text-xl text-gray-600">บริการที่ช่วยให้การเที่ยวของคุณสะดวกสบาย</p>
+    <section id="travel-services" class="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">บริการท่องเที่ยว</h2>
+          <p class="text-lg sm:text-xl text-gray-600 px-4">บริการที่ช่วยให้การเที่ยวของคุณสะดวกสบาย</p>
         </div>
 
-        <BaseLoading v-if="loadingTravelServices" class="py-20" />
+        <BaseLoading v-if="loadingTravelServices" class="py-12 sm:py-20" />
 
-        <div v-else-if="featuredTravelServices.length > 0" class="grid md:grid-cols-3 gap-8">
+        <div v-else-if="featuredTravelServices.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           <NuxtLink
             v-for="service in featuredTravelServices"
             :key="service._id"
@@ -431,16 +521,16 @@
     </section>
 
     <!-- Local Products Section -->
-    <section id="local-products" class="py-20 bg-gray-50">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">ผลิตภัณฑ์ท้องถิ่น</h2>
-          <p class="text-xl text-gray-600">สินค้าท้องถิ่นคุณภาพจากชุมชน</p>
+    <section id="local-products" class="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">ผลิตภัณฑ์ท้องถิ่น</h2>
+          <p class="text-lg sm:text-xl text-gray-600 px-4">สินค้าท้องถิ่นคุณภาพจากชุมชน</p>
         </div>
 
-        <BaseLoading v-if="loadingLocalProducts" class="py-20" />
+        <BaseLoading v-if="loadingLocalProducts" class="py-12 sm:py-20" />
 
-        <div v-else-if="featuredLocalProducts.length > 0" class="grid md:grid-cols-3 gap-8">
+        <div v-else-if="featuredLocalProducts.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           <NuxtLink
             v-for="product in featuredLocalProducts"
             :key="product._id"
@@ -492,14 +582,14 @@
     </section>
 
     <!-- Contact & Location Section -->
-    <section id="contact" class="py-20 bg-white">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">ติดต่อเรา</h2>
-          <p class="text-xl text-gray-600">เรายินดีที่จะรับฟังและช่วยเหลือคุณ</p>
+    <section id="contact" class="py-12 sm:py-16 md:py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-3 sm:mb-4">ติดต่อเรา</h2>
+          <p class="text-lg sm:text-xl text-gray-600 px-4">เรายินดีที่จะรับฟังและช่วยเหลือคุณ</p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12">
           <!-- Contact Info -->
           <div>
             <h3 class="text-2xl font-bold text-gray-800 mb-6">ข้อมูลติดต่อ</h3>
@@ -606,27 +696,27 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-gray-50">
-      <div class="max-w-4xl mx-auto px-6 text-center">
+    <section id="about" class="py-12 sm:py-16 md:py-20 bg-gray-50">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <ClientOnly>
-          <h2 class="text-4xl font-bold text-gray-800 mb-8">เกี่ยวกับ {{ siteName }}</h2>
+          <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-6 sm:mb-8 px-4">เกี่ยวกับ {{ siteName }}</h2>
           <template #fallback>
-            <h2 class="text-4xl font-bold text-gray-800 mb-8">เกี่ยวกับ Local Spot</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-6 sm:mb-8 px-4">เกี่ยวกับ Local Spot</h2>
           </template>
         </ClientOnly>
         <ClientOnly>
-          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+          <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed px-4">
             {{ siteName }} เป็นแพลตฟอร์มที่เชื่อมต่อคนในชุมชนเพื่อแบ่งปันและค้นพบสถานที่น่าสนใจในท้องถิ่น
             เราเชื่อว่าทุกชุมชนมีเสน่ห์และความพิเศษเป็นของตัวเอง ที่รอให้คนได้มาค้นพบ
           </p>
           <template #fallback>
-            <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed px-4">
               Local Spot เป็นแพลตฟอร์มที่เชื่อมต่อคนในชุมชนเพื่อแบ่งปันและค้นพบสถานที่น่าสนใจในท้องถิ่น
               เราเชื่อว่าทุกชุมชนมีเสน่ห์และความพิเศษเป็นของตัวเอง ที่รอให้คนได้มาค้นพบ
             </p>
           </template>
         </ClientOnly>
-        <div class="grid md:grid-cols-3 gap-8 mt-12">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12">
           <div class="text-center">
             <div class="text-3xl font-bold text-green-600 mb-2">{{ totalHotels }}+</div>
             <p class="text-gray-600">โรงแรม</p>
@@ -644,16 +734,16 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-r from-green-600 to-teal-600 text-white">
-      <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl font-bold mb-8">เริ่มต้นค้นพบสถานที่ใหม่ๆ วันนี้</h2>
+    <section class="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-green-600 to-teal-600 text-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 px-4">เริ่มต้นค้นพบสถานที่ใหม่ๆ วันนี้</h2>
         <ClientOnly>
-          <p class="text-xl mb-8">เข้าร่วม {{ siteName }} และเป็นส่วนหนึ่งของการท่องเที่ยวท้องถิ่น</p>
+          <p class="text-lg sm:text-xl mb-6 sm:mb-8 px-4">เข้าร่วม {{ siteName }} และเป็นส่วนหนึ่งของการท่องเที่ยวท้องถิ่น</p>
           <template #fallback>
-            <p class="text-xl mb-8">เข้าร่วม Local Spot และเป็นส่วนหนึ่งของการท่องเที่ยวท้องถิ่น</p>
+            <p class="text-lg sm:text-xl mb-6 sm:mb-8 px-4">เข้าร่วม Local Spot และเป็นส่วนหนึ่งของการท่องเที่ยวท้องถิ่น</p>
           </template>
         </ClientOnly>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
           <NuxtLink to="/hotels" class="bg-white text-green-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-50 transition-colors">
             เริ่มค้นหา
           </NuxtLink>
@@ -662,9 +752,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="grid md:grid-cols-4 gap-8">
+    <footer class="bg-gray-800 text-white py-8 sm:py-10 md:py-12">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           <div>
             <ClientOnly>
               <h3 class="text-xl font-bold mb-4">{{ siteName }}</h3>
@@ -698,7 +788,7 @@
             </ul>
           </div>
           <div>
-            <h4 class="font-semibold mb-4">ติดตามเรา</h4>
+            <h4 class="font-semibold mb-4">โซเชียลมีเดีย</h4>
             <ClientOnly>
               <div class="flex space-x-4">
                 <!-- Facebook -->
@@ -779,6 +869,9 @@ const loadingLocalProducts = ref(true)
 const navbarHidden = ref(false)
 let lastScrollY = 0
 let ticking = false
+
+// Mobile menu state
+const mobileMenuOpen = ref(false)
 
 // Public settings
 const { siteName, siteDescription, primaryColor, secondaryColor, enabledFeatures, contactInfo, socialMedia } = usePublicSettings()
@@ -870,6 +963,15 @@ function formatDate(date: any) {
     month: 'short',
     day: 'numeric'
   })
+}
+
+// Mobile menu methods
+function toggleMobileMenu() {
+  mobileMenuOpen.value = !mobileMenuOpen.value
+}
+
+function closeMobileMenu() {
+  mobileMenuOpen.value = false
 }
 
 // Load hero settings
@@ -1011,6 +1113,11 @@ const handleScroll = () => {
     window.requestAnimationFrame(() => {
       const currentScrollY = window.scrollY
 
+      // ปิด mobile menu เมื่อ scroll
+      if (mobileMenuOpen.value) {
+        closeMobileMenu()
+      }
+
       // ต้องเลื่อนมากกว่า 50px จากตำแหน่งเดิม
       if (Math.abs(currentScrollY - lastScrollY) < 50) {
         ticking = false
@@ -1087,6 +1194,22 @@ useHead({
 
 .site-header.nav-hidden {
   transform: translateY(-100%);
+}
+
+/* Mobile Menu Animation */
+.mobile-menu-enter-active,
+.mobile-menu-leave-active {
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.mobile-menu-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
 @keyframes fade-in {
