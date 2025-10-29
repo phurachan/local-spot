@@ -317,7 +317,7 @@
       <BaseButton @click="$emit('cancel')" variant="ghost">
         ยกเลิก
       </BaseButton>
-      <BaseButton type="submit" variant="primary" :loading="isSubmitting">
+      <BaseButton type="submit" variant="primary" :loading="saving">
         บันทึก
       </BaseButton>
     </div>
@@ -330,11 +330,13 @@ import type { LocalProductContent } from '~/composables/data_models/cms'
 interface Props {
   localProduct?: LocalProductContent | null
   isEditing?: boolean
+  saving?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   localProduct: null,
-  isEditing: false
+  isEditing: false,
+  saving: false
 })
 
 const emit = defineEmits<{
@@ -397,7 +399,6 @@ const shippingAreasInput = ref('')
 const tagsInput = ref('')
 
 // Form state
-const isSubmitting = ref(false)
 const errors = ref<Record<string, string>>({})
 
 // Reset form to initial state
@@ -554,7 +555,7 @@ function validateForm(): boolean {
 }
 
 // Handle submit
-async function handleSubmit() {
+function handleSubmit() {
   // Update all array fields before validation
   updateVendorPhones()
   updateMaterials()
@@ -568,14 +569,6 @@ async function handleSubmit() {
     return
   }
 
-  isSubmitting.value = true
-
-  try {
-    emit('save', formData.value)
-  } catch (error) {
-    console.error('Form submission error:', error)
-  } finally {
-    isSubmitting.value = false
-  }
+  emit('save', formData.value)
 }
 </script>

@@ -161,6 +161,7 @@
         <CmsTravelServiceForm
           :travel-service="selectedTravelService"
           :is-editing="isEditing"
+          :saving="saving"
           @save="handleSaveTravelService"
           @cancel="closeModal"
         />
@@ -176,7 +177,7 @@
           <form method="dialog">
             <button class="btn">ยกเลิก</button>
           </form>
-          <button @click="confirmDelete" class="btn btn-error">ลบ</button>
+          <button @click="confirmDelete" class="btn btn-error" :disabled="deleting"><span v-if="deleting" class="loading loading-spinner loading-sm"></span>{{ deleting ? 'กำลังลบ...' : 'ลบ' }}</button>
         </div>
       </div>
     </dialog>
@@ -208,6 +209,8 @@ const itemsPerPage = 10
 const selectedTravelService = ref<TravelServiceContent | null>(null)
 const isEditing = ref(false)
 const travelServiceToDelete = ref<TravelServiceContent | null>(null)
+const saving = ref(false)
+const deleting = ref(false)
 
 // Modal refs
 const travelServiceModal = ref<HTMLDialogElement>()
@@ -300,6 +303,7 @@ function resetFilters() {
 
 function handlePageChange(page: number) {
   currentPage.value = page
+  loadTravelServices()
 }
 
 function createTravelService() {
@@ -325,6 +329,7 @@ function deleteTravelService(service: TravelServiceContent) {
 }
 
 async function confirmDelete() {
+  deleting.value = true
   if (travelServiceToDelete.value?._id) {
     try {
       await travelServicesStore.deleteTravelService({
@@ -333,13 +338,15 @@ async function confirmDelete() {
       useToast().success('ลบบริการเรียบร้อยแล้ว')
       // Reload data
       await loadTravelServices()
+      deleteModal.value?.close()
+      travelServiceToDelete.value = null
     } catch (error: any) {
       console.error('Failed to delete travel service:', error)
       useToast().error('เกิดข้อผิดพลาดในการลบข้อมูล')
+    } finally {
+      deleting.value = false
     }
   }
-  deleteModal.value?.close()
-  travelServiceToDelete.value = null
 }
 
 async function toggleFeatured(service: TravelServiceContent) {
@@ -361,6 +368,7 @@ async function toggleFeatured(service: TravelServiceContent) {
 }
 
 async function handleSaveTravelService(serviceData: TravelServiceContent) {
+  saving.value = true
   try {
     if (isEditing.value && selectedTravelService.value?._id) {
       // Update existing travel service
@@ -385,6 +393,8 @@ async function handleSaveTravelService(serviceData: TravelServiceContent) {
   } catch (error: any) {
     console.error('Failed to save travel service:', error)
     useToast().error('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+  } finally {
+    saving.value = false
   }
 }
 

@@ -174,6 +174,7 @@
         <CmsRestaurantForm
           :restaurant="selectedRestaurant"
           :is-editing="isEditing"
+          :saving="saving"
           @save="handleSaveRestaurant"
           @cancel="closeModal"
         />
@@ -189,7 +190,10 @@
           <form method="dialog">
             <button class="btn">ยกเลิก</button>
           </form>
-          <button @click="confirmDelete" class="btn btn-error">ลบ</button>
+          <button @click="confirmDelete" class="btn btn-error" :disabled="deleting">
+            <span v-if="deleting" class="loading loading-spinner loading-sm"></span>
+            {{ deleting ? 'กำลังลบ...' : 'ลบ' }}
+          </button>
         </div>
       </div>
     </dialog>
@@ -221,6 +225,8 @@ const itemsPerPage = 10
 const selectedRestaurant = ref<RestaurantContent | null>(null)
 const isEditing = ref(false)
 const restaurantToDelete = ref<RestaurantContent | null>(null)
+const saving = ref(false)
+const deleting = ref(false)
 
 // Modal refs
 const restaurantModal = ref<HTMLDialogElement>()
@@ -335,6 +341,7 @@ function resetFilters() {
 
 function handlePageChange(page: number) {
   currentPage.value = page
+  loadRestaurants()
 }
 
 function createRestaurant() {
@@ -361,6 +368,7 @@ function deleteRestaurant(restaurant: RestaurantContent) {
 
 async function confirmDelete() {
   if (restaurantToDelete.value?._id) {
+    deleting.value = true
     try {
       await restaurantsStore.deleteRestaurant({
         body: { _id: restaurantToDelete.value._id }
@@ -368,13 +376,15 @@ async function confirmDelete() {
       useToast().success('ลบร้านอาหารเรียบร้อยแล้ว')
       // Reload data
       await loadRestaurants()
+      deleteModal.value?.close()
+      restaurantToDelete.value = null
     } catch (error: any) {
       console.error('Failed to delete restaurant:', error)
       useToast().error('เกิดข้อผิดพลาดในการลบข้อมูล')
+    } finally {
+      deleting.value = false
     }
   }
-  deleteModal.value?.close()
-  restaurantToDelete.value = null
 }
 
 async function toggleFeatured(restaurant: RestaurantContent) {
@@ -396,6 +406,7 @@ async function toggleFeatured(restaurant: RestaurantContent) {
 }
 
 async function handleSaveRestaurant(restaurantData: RestaurantContent) {
+  saving.value = true
   try {
     if (isEditing.value && selectedRestaurant.value?._id) {
       // Update existing restaurant
@@ -420,6 +431,8 @@ async function handleSaveRestaurant(restaurantData: RestaurantContent) {
   } catch (error: any) {
     console.error('Failed to save restaurant:', error)
     useToast().error('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+  } finally {
+    saving.value = false
   }
 }
 

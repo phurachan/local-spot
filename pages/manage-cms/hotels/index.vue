@@ -143,6 +143,7 @@
         <CmsHotelForm
           :hotel="selectedHotel"
           :is-editing="isEditing"
+          :saving="saving"
           @save="handleSaveHotel"
           @cancel="closeModal"
         />
@@ -158,7 +159,10 @@
           <form method="dialog">
             <button class="btn">ยกเลิก</button>
           </form>
-          <button @click="confirmDelete" class="btn btn-error">ลบ</button>
+          <button @click="confirmDelete" class="btn btn-error" :disabled="deleting">
+            <span v-if="deleting" class="loading loading-spinner loading-sm"></span>
+            {{ deleting ? 'กำลังลบ...' : 'ลบ' }}
+          </button>
         </div>
       </div>
     </dialog>
@@ -191,6 +195,8 @@ const itemsPerPage = 10
 const selectedHotel = ref<HotelContent | null>(null)
 const isEditing = ref(false)
 const hotelToDelete = ref<HotelContent | null>(null)
+const saving = ref(false)
+const deleting = ref(false)
 
 // Modal refs
 const hotelModal = ref<HTMLDialogElement>()
@@ -271,6 +277,7 @@ function resetFilters() {
 
 function handlePageChange(page: number) {
   currentPage.value = page
+  loadHotels()
 }
 
 function createHotel() {
@@ -297,6 +304,7 @@ function deleteHotel(hotel: HotelContent) {
 
 async function confirmDelete() {
   if (hotelToDelete.value?._id) {
+    deleting.value = true
     try {
       await hotelsStore.deleteHotel({
         body: { _id: hotelToDelete.value._id }
@@ -304,13 +312,15 @@ async function confirmDelete() {
       useToast().success('ลบโรงแรมเรียบร้อยแล้ว')
       // Reload data
       await loadHotels()
+      deleteModal.value?.close()
+      hotelToDelete.value = null
     } catch (error: any) {
       console.error('Failed to delete hotel:', error)
       useToast().error('เกิดข้อผิดพลาดในการลบข้อมูล')
+    } finally {
+      deleting.value = false
     }
   }
-  deleteModal.value?.close()
-  hotelToDelete.value = null
 }
 
 async function toggleFeatured(hotel: HotelContent) {
@@ -332,6 +342,7 @@ async function toggleFeatured(hotel: HotelContent) {
 }
 
 async function handleSaveHotel(hotelData: HotelContent) {
+  saving.value = true
   try {
     if (isEditing.value && selectedHotel.value?._id) {
       // Update existing hotel
@@ -356,6 +367,8 @@ async function handleSaveHotel(hotelData: HotelContent) {
   } catch (error: any) {
     console.error('Failed to save hotel:', error)
     useToast().error('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+  } finally {
+    saving.value = false
   }
 }
 

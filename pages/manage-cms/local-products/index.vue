@@ -154,6 +154,7 @@
         <CmsLocalProductForm
           :local-product="selectedLocalProduct"
           :is-editing="isEditing"
+          :saving="saving"
           @save="handleSaveLocalProduct"
           @cancel="closeModal"
         />
@@ -169,7 +170,7 @@
           <form method="dialog">
             <button class="btn">ยกเลิก</button>
           </form>
-          <button @click="confirmDelete" class="btn btn-error">ลบ</button>
+          <button @click="confirmDelete" class="btn btn-error" :disabled="deleting"><span v-if="deleting" class="loading loading-spinner loading-sm"></span>{{ deleting ? 'กำลังลบ...' : 'ลบ' }}</button>
         </div>
       </div>
     </dialog>
@@ -201,6 +202,8 @@ const itemsPerPage = 10
 const selectedLocalProduct = ref<LocalProductContent | null>(null)
 const isEditing = ref(false)
 const localProductToDelete = ref<LocalProductContent | null>(null)
+const saving = ref(false)
+const deleting = ref(false)
 
 // Modal refs
 const localProductModal = ref<HTMLDialogElement>()
@@ -282,6 +285,7 @@ function resetFilters() {
 
 function handlePageChange(page: number) {
   currentPage.value = page
+  loadLocalProducts()
 }
 
 function createLocalProduct() {
@@ -308,6 +312,7 @@ function deleteLocalProduct(product: LocalProductContent) {
 
 async function confirmDelete() {
   if (localProductToDelete.value?._id) {
+    deleting.value = true
     try {
       await localProductsStore.deleteLocalProduct({
         body: { _id: localProductToDelete.value._id }
@@ -315,13 +320,15 @@ async function confirmDelete() {
       useToast().success('ลบสินค้าเรียบร้อยแล้ว')
       // Reload data
       await loadLocalProducts()
+      deleteModal.value?.close()
+      localProductToDelete.value = null
     } catch (error: any) {
       console.error('Failed to delete local product:', error)
       useToast().error('เกิดข้อผิดพลาดในการลบข้อมูล')
+    } finally {
+      deleting.value = false
     }
   }
-  deleteModal.value?.close()
-  localProductToDelete.value = null
 }
 
 async function toggleFeatured(product: LocalProductContent) {
@@ -343,6 +350,7 @@ async function toggleFeatured(product: LocalProductContent) {
 }
 
 async function handleSaveLocalProduct(productData: LocalProductContent) {
+  saving.value = true
   try {
     if (isEditing.value && selectedLocalProduct.value?._id) {
       // Update existing local product
@@ -367,6 +375,8 @@ async function handleSaveLocalProduct(productData: LocalProductContent) {
   } catch (error: any) {
     console.error('Failed to save local product:', error)
     useToast().error('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+  } finally {
+    saving.value = false
   }
 }
 

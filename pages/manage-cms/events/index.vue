@@ -156,6 +156,7 @@
         <CmsEventForm
           :event="selectedEvent"
           :is-editing="isEditing"
+          :saving="saving"
           @save="handleSaveEvent"
           @cancel="closeModal"
         />
@@ -171,7 +172,7 @@
           <form method="dialog">
             <button class="btn">ยกเลิก</button>
           </form>
-          <button @click="confirmDelete" class="btn btn-error">ลบ</button>
+          <button @click="confirmDelete" class="btn btn-error" :disabled="deleting"><span v-if="deleting" class="loading loading-spinner loading-sm"></span>{{ deleting ? 'กำลังลบ...' : 'ลบ' }}</button>
         </div>
       </div>
     </dialog>
@@ -204,6 +205,8 @@ const itemsPerPage = 10
 const selectedEvent = ref<EventContent | null>(null)
 const isEditing = ref(false)
 const eventToDelete = ref<EventContent | null>(null)
+const saving = ref(false)
+const deleting = ref(false)
 
 // Modal refs
 const eventModal = ref<HTMLDialogElement>()
@@ -295,6 +298,7 @@ function resetFilters() {
 
 function handlePageChange(page: number) {
   currentPage.value = page
+  loadEvents()
 }
 
 function createEvent() {
@@ -320,6 +324,7 @@ function deleteEvent(event: EventContent) {
 }
 
 async function confirmDelete() {
+  deleting.value = true
   if (eventToDelete.value?._id) {
     try {
       await eventsStore.deleteEvent({
@@ -328,13 +333,15 @@ async function confirmDelete() {
       useToast().success('ลบกิจกรรมเรียบร้อยแล้ว')
       // Reload data
       await loadEvents()
+      deleteModal.value?.close()
+      eventToDelete.value = null
     } catch (error: any) {
       console.error('Failed to delete event:', error)
       useToast().error('เกิดข้อผิดพลาดในการลบข้อมูล')
+    } finally {
+      deleting.value = false
     }
   }
-  deleteModal.value?.close()
-  eventToDelete.value = null
 }
 
 async function toggleFeatured(event: EventContent) {
@@ -356,6 +363,7 @@ async function toggleFeatured(event: EventContent) {
 }
 
 async function handleSaveEvent(eventData: EventContent) {
+  saving.value = true
   try {
     if (isEditing.value && selectedEvent.value?._id) {
       // Update existing event
@@ -380,6 +388,8 @@ async function handleSaveEvent(eventData: EventContent) {
   } catch (error: any) {
     console.error('Failed to save event:', error)
     useToast().error('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+  } finally {
+    saving.value = false
   }
 }
 

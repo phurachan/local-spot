@@ -11,7 +11,11 @@
     "clean": "rm -rf .output .nuxt dist node_modules/.cache",
     "fresh-install": "npm run clean && rm -rf node_modules package-lock.json && npm install",
     "dev:clean": "npm run clean && nuxt dev",
-    "build:clean": "npm run clean && nuxt build"
+    "build:clean": "npm run clean && nuxt build",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
@@ -42,6 +46,7 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.4",
+    "@playwright/test": "^1.56.1",
     "@types/jsonwebtoken": "^9.0.10",
     "daisyui": "^5.1.12",
     "typescript": "^5.9.2"

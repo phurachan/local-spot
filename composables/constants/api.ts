@@ -188,7 +188,7 @@ export const HTTP_STATUS = {
 
 // Request Timeouts (in milliseconds)
 export const API_TIMEOUTS = {
-  DEFAULT: 10000,    // 10 seconds
+  DEFAULT: 30000,    // 10 seconds
   UPLOAD: 60000,     // 1 minute
   DOWNLOAD: 30000,   // 30 seconds
   AUTH: 15000        // 15 seconds

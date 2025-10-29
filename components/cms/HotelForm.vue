@@ -270,6 +270,7 @@ import { THAILAND_PROVINCES } from '~/composables/constants/provinces'
 interface Props {
   hotel?: HotelContent | null
   isEditing?: boolean
+  saving?: boolean
 }
 
 interface Emits {
@@ -279,7 +280,8 @@ interface Emits {
 
 const props = withDefaults(defineProps<Props>(), {
   hotel: null,
-  isEditing: false
+  isEditing: false,
+  saving: false
 })
 
 const emit = defineEmits<Emits>()
@@ -326,7 +328,6 @@ const amenitiesInput = ref('')
 const tagsInput = ref('')
 
 // Form state
-const saving = ref(false)
 const errors = ref<Record<string, string>>({})
 
 // Initialize form data
@@ -453,21 +454,13 @@ async function handleSubmit() {
     return
   }
 
-  saving.value = true
+  // Update inputs before saving
+  updatePhones()
+  updateAmenities()
+  updateTags()
 
-  try {
-    // Update inputs before saving
-    updatePhones()
-    updateAmenities()
-    updateTags()
-
-    // Emit save event
-    emit('save', { ...formData.value })
-  } catch (error) {
-    console.error('Error saving hotel:', error)
-  } finally {
-    saving.value = false
-  }
+  // Emit save event
+  emit('save', { ...formData.value })
 }
 
 function handleCancel() {

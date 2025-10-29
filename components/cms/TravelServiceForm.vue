@@ -304,7 +304,7 @@
       <BaseButton @click="$emit('cancel')" variant="ghost">
         ยกเลิก
       </BaseButton>
-      <BaseButton type="submit" variant="primary" :loading="isSubmitting">
+      <BaseButton type="submit" variant="primary" :loading="saving">
         บันทึก
       </BaseButton>
     </div>
@@ -317,11 +317,13 @@ import type { TravelServiceContent } from '~/composables/data_models/cms'
 interface Props {
   travelService?: TravelServiceContent | null
   isEditing?: boolean
+  saving?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   travelService: null,
-  isEditing: false
+  isEditing: false,
+  saving: false
 })
 
 const emit = defineEmits<{
@@ -385,7 +387,6 @@ const availabilityInput = ref('')
 const tagsInput = ref('')
 
 // Form state
-const isSubmitting = ref(false)
 const errors = ref<Record<string, string>>({})
 
 // Reset form to initial state
@@ -558,14 +559,6 @@ async function handleSubmit() {
     return
   }
 
-  isSubmitting.value = true
-
-  try {
-    emit('save', formData.value)
-  } catch (error) {
-    console.error('Form submission error:', error)
-  } finally {
-    isSubmitting.value = false
-  }
+  emit('save', formData.value)
 }
 </script>

@@ -1,0 +1,393 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - alert [ref=e4]: จัดการโรงแรม - CMS
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - button [ref=e9] [cursor=pointer]:
+            - img [ref=e10]
+          - generic [ref=e12]:
+            - 'button "Toggle theme. Current theme: light" [ref=e15] [cursor=pointer]':
+              - img [ref=e16]
+            - button "Admin Profile" [ref=e19] [cursor=pointer]:
+              - img "Admin Profile" [ref=e22]
+        - main [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25]:
+              - generic [ref=e26]:
+                - generic [ref=e27]:
+                  - generic [ref=e28]:
+                    - heading "จัดการโรงแรม" [level=1] [ref=e29]
+                    - generic [ref=e30]: HOTEL-001
+                  - paragraph [ref=e31]: จัดการข้อมูลโรงแรมและสถานที่พัก
+                - button "เพิ่มโรงแรม" [ref=e33] [cursor=pointer]:
+                  - img [ref=e34]
+                  - generic [ref=e36]: เพิ่มโรงแรม
+              - list [ref=e38]:
+                - listitem [ref=e39]:
+                  - link "CMS Dashboard" [ref=e40] [cursor=pointer]:
+                    - /url: /manage-cms
+                - listitem [ref=e41]:
+                  - generic [ref=e42] [cursor=pointer]: โรงแรม
+            - generic [ref=e44]:
+              - generic [ref=e45]:
+                - generic [ref=e46]:
+                  - generic [ref=e48]: ค้นหา
+                  - textbox "ค้นหา" [active] [ref=e49]:
+                    - /placeholder: ชื่อโรงแรม...
+                    - text: โรงแรมทดสอบ E2E
+                - generic [ref=e50]:
+                  - generic [ref=e52]: ประเภท
+                  - combobox "ประเภท" [ref=e53]:
+                    - option "ทั้งหมด" [selected]
+                    - option "โรงแรม"
+                    - option "รีสอร์ท"
+                    - option "โฮสเทล"
+                    - option "เกสต์เฮาส์"
+                    - option "วิลลา"
+                - generic [ref=e54]:
+                  - generic [ref=e56]: จังหวัด
+                  - combobox "จังหวัด" [ref=e57]:
+                    - option "ทั้งหมด" [selected]
+                    - option "กระบี่"
+                    - option "กรุงเทพมหานคร"
+                    - option "กาญจนบุรี"
+                    - option "กาฬสินธุ์"
+                    - option "กำแพงเพชร"
+                    - option "ขอนแก่น"
+                    - option "จันทบุรี"
+                    - option "ฉะเชิงเทรา"
+                    - option "ชลบุรี"
+                    - option "ชัยนาท"
+                    - option "ชัยภูมิ"
+                    - option "ชุมพร"
+                    - option "เชียงราย"
+                    - option "เชียงใหม่"
+                    - option "ตรัง"
+                    - option "ตราด"
+                    - option "ตาก"
+                    - option "นครนายก"
+                    - option "นครปฐม"
+                    - option "นครพนม"
+                    - option "นครราชสีมา"
+                    - option "นครศรีธรรมราช"
+                    - option "นครสวรรค์"
+                    - option "นนทบุรี"
+                    - option "นราธิวาส"
+                    - option "น่าน"
+                    - option "บึงกาฬ"
+                    - option "บุรีรัมย์"
+                    - option "ปทุมธานี"
+                    - option "ประจวบคีรีขันธ์"
+                    - option "ปราจีนบุรี"
+                    - option "ปัตตานี"
+                    - option "พระนครศรีอยุธยา"
+                    - option "พังงา"
+                    - option "พัทลุง"
+                    - option "พิจิตร"
+                    - option "พิษณุโลก"
+                    - option "เพชรบุรี"
+                    - option "เพชรบูรณ์"
+                    - option "แพร่"
+                    - option "พะเยา"
+                    - option "ภูเก็ต"
+                    - option "มหาสารคาม"
+                    - option "มุกดาหาร"
+                    - option "แม่ฮ่องสอน"
+                    - option "ยโสธร"
+                    - option "ยะลา"
+                    - option "ร้อยเอ็ด"
+                    - option "ระนอง"
+                    - option "ระยอง"
+                    - option "ราชบุรี"
+                    - option "ลพบุรี"
+                    - option "ลำปาง"
+                    - option "ลำพูน"
+                    - option "เลย"
+                    - option "ศรีสะเกษ"
+                    - option "สกลนคร"
+                    - option "สงขลา"
+                    - option "สตูล"
+                    - option "สมุทรปราการ"
+                    - option "สมุทรสงคราม"
+                    - option "สมุทรสาคร"
+                    - option "สระแก้ว"
+                    - option "สระบุรี"
+                    - option "สิงห์บุรี"
+                    - option "สุโขทัย"
+                    - option "สุพรรณบุรี"
+                    - option "สุราษฎร์ธานี"
+                    - option "สุรินทร์"
+                    - option "หนองคาย"
+                    - option "หนองบัวลำภู"
+                    - option "อ่างทอง"
+                    - option "อำนาจเจริญ"
+                    - option "อุดรธานี"
+                    - option "อุตรดิตถ์"
+                    - option "อุทัยธานี"
+                    - option "อุบลราชธานี"
+                - generic [ref=e58]:
+                  - generic [ref=e60]: สถานะ
+                  - combobox "สถานะ" [ref=e61]:
+                    - option "ทั้งหมด" [selected]
+                    - option "เปิดใช้งาน"
+                    - option "ปิดใช้งาน"
+              - generic [ref=e62]:
+                - button "ล้างตัวกรอง" [ref=e63] [cursor=pointer]:
+                  - generic [ref=e64]: ล้างตัวกรอง
+                - generic [ref=e65]: พบ 0 รายการ
+            - generic [ref=e67]:
+              - table [ref=e69]:
+                - rowgroup [ref=e70]:
+                  - row "รูปภาพ ชื่อโรงแรม ประเภท ที่ตั้ง สถานะ แนะนำ จัดการ Actions" [ref=e71]:
+                    - cell "รูปภาพ" [ref=e72]:
+                      - generic [ref=e74]: รูปภาพ
+                    - cell "ชื่อโรงแรม" [ref=e75]:
+                      - generic [ref=e76]:
+                        - generic [ref=e77]: ชื่อโรงแรม
+                        - generic [ref=e78]:
+                          - img [ref=e79] [cursor=pointer]
+                          - img [ref=e81] [cursor=pointer]
+                    - cell "ประเภท" [ref=e83]:
+                      - generic [ref=e84]:
+                        - generic [ref=e85]: ประเภท
+                        - generic [ref=e86]:
+                          - img [ref=e87] [cursor=pointer]
+                          - img [ref=e89] [cursor=pointer]
+                    - cell "ที่ตั้ง" [ref=e91]:
+                      - generic [ref=e93]: ที่ตั้ง
+                    - cell "สถานะ" [ref=e94]:
+                      - generic [ref=e95]:
+                        - generic [ref=e96]: สถานะ
+                        - generic [ref=e97]:
+                          - img [ref=e98] [cursor=pointer]
+                          - img [ref=e100] [cursor=pointer]
+                    - cell "แนะนำ" [ref=e102]:
+                      - generic [ref=e104]: แนะนำ
+                    - cell "จัดการ" [ref=e105]:
+                      - generic [ref=e107]: จัดการ
+                    - cell "Actions" [ref=e108]
+                - rowgroup [ref=e109]:
+                  - row "No data found There are no items to display" [ref=e110]:
+                    - cell "No data found There are no items to display" [ref=e111]:
+                      - generic [ref=e112]:
+                        - img [ref=e113]
+                        - generic [ref=e115]:
+                          - generic [ref=e116]: No data found
+                          - generic [ref=e117]: There are no items to display
+              - generic [ref=e120]:
+                - button [disabled]:
+                  - img
+                - button [disabled]:
+                  - img
+                - button "1" [ref=e121] [cursor=pointer]
+                - button [disabled]:
+                  - img
+                - button [disabled]:
+                  - img
+            - option "กรุณาเลือก" [disabled]
+            - option "เลือกประเภท"
+            - option "โรงแรม" [selected]
+            - option "รีสอร์ท"
+            - option "โฮสเทล"
+            - option "เกสต์เฮาส์"
+            - option "วิลลา"
+            - option "กรุณาเลือก" [disabled] [selected]
+            - option "เลือกจังหวัด"
+            - option "กระบี่"
+            - option "กรุงเทพมหานคร"
+            - option "กาญจนบุรี"
+            - option "กาฬสินธุ์"
+            - option "กำแพงเพชร"
+            - option "ขอนแก่น"
+            - option "จันทบุรี"
+            - option "ฉะเชิงเทรา"
+            - option "ชลบุรี"
+            - option "ชัยนาท"
+            - option "ชัยภูมิ"
+            - option "ชุมพร"
+            - option "เชียงราย"
+            - option "เชียงใหม่"
+            - option "ตรัง"
+            - option "ตราด"
+            - option "ตาก"
+            - option "นครนายก"
+            - option "นครปฐม"
+            - option "นครพนม"
+            - option "นครราชสีมา"
+            - option "นครศรีธรรมราช"
+            - option "นครสวรรค์"
+            - option "นนทบุรี"
+            - option "นราธิวาส"
+            - option "น่าน"
+            - option "บึงกาฬ"
+            - option "บุรีรัมย์"
+            - option "ปทุมธานี"
+            - option "ประจวบคีรีขันธ์"
+            - option "ปราจีนบุรี"
+            - option "ปัตตานี"
+            - option "พระนครศรีอยุธยา"
+            - option "พังงา"
+            - option "พัทลุง"
+            - option "พิจิตร"
+            - option "พิษณุโลก"
+            - option "เพชรบุรี"
+            - option "เพชรบูรณ์"
+            - option "แพร่"
+            - option "พะเยา"
+            - option "ภูเก็ต"
+            - option "มหาสารคาม"
+            - option "มุกดาหาร"
+            - option "แม่ฮ่องสอน"
+            - option "ยโสธร"
+            - option "ยะลา"
+            - option "ร้อยเอ็ด"
+            - option "ระนอง"
+            - option "ระยอง"
+            - option "ราชบุรี"
+            - option "ลพบุรี"
+            - option "ลำปาง"
+            - option "ลำพูน"
+            - option "เลย"
+            - option "ศรีสะเกษ"
+            - option "สกลนคร"
+            - option "สงขลา"
+            - option "สตูล"
+            - option "สมุทรปราการ"
+            - option "สมุทรสงคราม"
+            - option "สมุทรสาคร"
+            - option "สระแก้ว"
+            - option "สระบุรี"
+            - option "สิงห์บุรี"
+            - option "สุโขทัย"
+            - option "สุพรรณบุรี"
+            - option "สุราษฎร์ธานี"
+            - option "สุรินทร์"
+            - option "หนองคาย"
+            - option "หนองบัวลำภู"
+            - option "อ่างทอง"
+            - option "อำนาจเจริญ"
+            - option "อุดรธานี"
+            - option "อุตรดิตถ์"
+            - option "อุทัยธานี"
+            - option "อุบลราชธานี"
+            - option "กรุณาเลือก" [disabled]
+            - option "ทั้งหมด"
+            - option "โรงแรม" [selected]
+            - option "ร้านอาหาร"
+            - option "บริการท่องเที่ยว"
+            - option "สินค้าท้องถิ่น"
+            - option "กิจกรรม"
+            - option "สถานที่ท่องเที่ยว"
+            - option "ทั่วไป"
+            - option "กรุณาเลือก" [disabled]
+            - option "ทั้งหมด"
+            - option "โรงแรม" [selected]
+            - option "ร้านอาหาร"
+            - option "บริการท่องเที่ยว"
+            - option "สินค้าท้องถิ่น"
+            - option "กิจกรรม"
+            - option "สถานที่ท่องเที่ยว"
+            - option "ทั่วไป"
+      - generic [ref=e122]:
+        - generic "close sidebar"
+        - complementary [ref=e123]:
+          - generic [ref=e125]:
+            - img [ref=e126]
+            - generic [ref=e128]:
+              - heading "Admin Panel" [level=1] [ref=e129]
+              - paragraph [ref=e130]: Management System
+          - list [ref=e132]:
+            - listitem [ref=e133]:
+              - generic [ref=e134]:
+                - img [ref=e135]
+                - generic [ref=e137]: Dashboard
+            - listitem [ref=e138]:
+              - link "Overview" [ref=e139] [cursor=pointer]:
+                - /url: /admin
+                - img [ref=e140]
+                - generic [ref=e142]: Overview
+            - listitem [ref=e143]:
+              - generic [ref=e144]:
+                - img [ref=e145]
+                - generic [ref=e147]: Content Management
+            - listitem [ref=e148]:
+              - link "Dashboard" [ref=e149] [cursor=pointer]:
+                - /url: /manage-cms
+                - img [ref=e150]
+                - generic [ref=e153]: Dashboard
+            - listitem [ref=e154]:
+              - link "ข่าวสาร" [ref=e155] [cursor=pointer]:
+                - /url: /manage-cms/news
+                - img [ref=e156]
+                - generic [ref=e158]: ข่าวสาร
+            - listitem [ref=e159]:
+              - link "โรงแรม" [ref=e160] [cursor=pointer]:
+                - /url: /manage-cms/hotels
+                - img [ref=e161]
+                - generic [ref=e163]: โรงแรม
+            - listitem [ref=e164]:
+              - link "ร้านอาหาร" [ref=e165] [cursor=pointer]:
+                - /url: /manage-cms/restaurants
+                - img [ref=e166]
+                - generic [ref=e168]: ร้านอาหาร
+            - listitem [ref=e169]:
+              - link "บริการท่องเที่ยว" [ref=e170] [cursor=pointer]:
+                - /url: /manage-cms/travel-services
+                - img [ref=e171]
+                - generic [ref=e173]: บริการท่องเที่ยว
+            - listitem [ref=e174]:
+              - link "ผลิตภัณฑ์ท้องถิ่น" [ref=e175] [cursor=pointer]:
+                - /url: /manage-cms/local-products
+                - img [ref=e176]
+                - generic [ref=e178]: ผลิตภัณฑ์ท้องถิ่น
+            - listitem [ref=e179]:
+              - link "กิจกรรม" [ref=e180] [cursor=pointer]:
+                - /url: /manage-cms/events
+                - img [ref=e181]
+                - generic [ref=e183]: กิจกรรม
+            - listitem [ref=e184]:
+              - link "คลังรูปภาพ" [ref=e185] [cursor=pointer]:
+                - /url: /manage-cms/images
+                - img [ref=e186]
+                - generic [ref=e188]: คลังรูปภาพ
+            - listitem [ref=e189]:
+              - link "SEO & Meta" [ref=e190] [cursor=pointer]:
+                - /url: /manage-cms/seo
+                - img [ref=e191]
+                - generic [ref=e193]: SEO & Meta
+            - listitem [ref=e194]:
+              - link "ตั้งค่าเว็บไซต์" [ref=e195] [cursor=pointer]:
+                - /url: /manage-cms/settings
+                - img [ref=e196]
+                - generic [ref=e199]: ตั้งค่าเว็บไซต์
+            - listitem [ref=e200]:
+              - generic [ref=e201]:
+                - img [ref=e202]
+                - generic [ref=e204]: User Management
+            - listitem [ref=e205]:
+              - link "จัดการผู้ใช้ New" [ref=e206] [cursor=pointer]:
+                - /url: /admin/user_management
+                - img [ref=e207]
+                - generic [ref=e209]: จัดการผู้ใช้
+                - generic [ref=e210]: New
+  - generic:
+    - img
+  - generic:
+    - generic:
+      - generic:
+        - button "Go to parent" [disabled]
+        - button "Open in editor"
+        - button "Close"
+  - generic [ref=e211]:
+    - button "Toggle Nuxt DevTools" [ref=e212] [cursor=pointer]:
+      - img [ref=e213]
+    - generic "Page load time" [ref=e216]:
+      - generic [ref=e217]: "172"
+      - generic [ref=e218]: ms
+    - button "Toggle Component Inspector" [ref=e220] [cursor=pointer]:
+      - img [ref=e221]
+```

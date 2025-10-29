@@ -264,7 +264,7 @@
       <BaseButton
         type="submit"
         variant="primary"
-        :loading="loading"
+        :loading="saving"
       >
         {{ isEditing ? 'บันทึกการแก้ไข' : 'สร้างข่าว' }}
       </BaseButton>
@@ -280,12 +280,14 @@ interface Props {
   news?: NewsContent | null
   isEditing?: boolean
   loading?: boolean
+  saving?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   news: null,
   isEditing: false,
-  loading: false
+  loading: false,
+  saving: false
 })
 
 const emit = defineEmits<{

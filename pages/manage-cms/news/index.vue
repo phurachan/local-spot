@@ -148,6 +148,7 @@
         <CmsNewsForm
           :news="selectedNews"
           :is-editing="isEditing"
+          :saving="saving"
           @save="handleSaveNews"
           @cancel="closeModal"
         />
@@ -163,7 +164,7 @@
           <form method="dialog">
             <button class="btn">ยกเลิก</button>
           </form>
-          <button @click="confirmDelete" class="btn btn-error">ลบ</button>
+          <button @click="confirmDelete" class="btn btn-error" :disabled="deleting"><span v-if="deleting" class="loading loading-spinner loading-sm"></span>{{ deleting ? 'กำลังลบ...' : 'ลบ' }}</button>
         </div>
       </div>
     </dialog>
@@ -196,6 +197,8 @@ const itemsPerPage = 10
 const selectedNews = ref<NewsContent | null>(null)
 const isEditing = ref(false)
 const newsToDelete = ref<NewsContent | null>(null)
+const saving = ref(false)
+const deleting = ref(false)
 
 // Modal refs
 const newsModal = ref<HTMLDialogElement>()
@@ -288,6 +291,7 @@ function resetFilters() {
 
 function handlePageChange(page: number) {
   currentPage.value = page
+  loadNews()
 }
 
 function createNews() {
@@ -312,6 +316,7 @@ function deleteNews(news: NewsContent) {
 }
 
 async function confirmDelete() {
+  deleting.value = true
   if (newsToDelete.value?._id) {
     try {
       await newsStore.deleteNews({
@@ -319,13 +324,15 @@ async function confirmDelete() {
       })
       useToast().success('ลบข่าวเรียบร้อยแล้ว')
       await loadNews()
+      deleteModal.value?.close()
+      newsToDelete.value = null
     } catch (error: any) {
       console.error('Failed to delete news:', error)
       useToast().error('เกิดข้อผิดพลาดในการลบข้อมูล')
+    } finally {
+      deleting.value = false
     }
   }
-  deleteModal.value?.close()
-  newsToDelete.value = null
 }
 
 async function toggleFeatured(news: NewsContent) {
@@ -347,6 +354,7 @@ async function toggleFeatured(news: NewsContent) {
 }
 
 async function handleSaveNews(newsData: Partial<NewsContent>) {
+  saving.value = true
   try {
     if (isEditing.value && selectedNews.value?._id) {
       // Update existing news
@@ -371,6 +379,8 @@ async function handleSaveNews(newsData: Partial<NewsContent>) {
   } catch (error: any) {
     console.error('Failed to save news:', error)
     useToast().error('เกิดข้อผิดพลาดในการบันทึกข้อมูล')
+  } finally {
+    saving.value = false
   }
 }
 

@@ -348,7 +348,7 @@
       <BaseButton @click="$emit('cancel')" variant="ghost">
         ยกเลิก
       </BaseButton>
-      <BaseButton type="submit" variant="primary" :loading="isSubmitting">
+      <BaseButton type="submit" variant="primary" :loading="saving">
         บันทึก
       </BaseButton>
     </div>
@@ -362,11 +362,13 @@ import { THAILAND_PROVINCES } from '~/composables/constants/provinces'
 interface Props {
   event?: EventContent | null
   isEditing?: boolean
+  saving?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   event: null,
-  isEditing: false
+  isEditing: false,
+  saving: false
 })
 
 const emit = defineEmits<{
@@ -432,7 +434,6 @@ const activitiesInput = ref('')
 const tagsInput = ref('')
 
 // Form state
-const isSubmitting = ref(false)
 const errors = ref<Record<string, string>>({})
 
 // Reset form to initial state
@@ -585,14 +586,6 @@ async function handleSubmit() {
     return
   }
 
-  isSubmitting.value = true
-
-  try {
-    emit('save', formData.value)
-  } catch (error) {
-    console.error('Form submission error:', error)
-  } finally {
-    isSubmitting.value = false
-  }
+  emit('save', formData.value)
 }
 </script>

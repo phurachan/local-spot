@@ -233,6 +233,7 @@ function resetFilters() {
 
 function handlePageChange(page: number) {
   currentPage.value = page
+  loadSEO()
 }
 
 function createSEO() {
