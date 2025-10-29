@@ -89,14 +89,7 @@
             label="จังหวัด"
             :required="true"
             :error="errors['location.province']"
-            :options="[
-              { label: 'เลือกจังหวัด', value: '' },
-              { label: 'กรุงเทพมหานคร', value: 'กรุงเทพมหานคร' },
-              { label: 'เชียงใหม่', value: 'เชียงใหม่' },
-              { label: 'ภูเก็ต', value: 'ภูเก็ต' },
-              { label: 'ขอนแก่น', value: 'ขอนแก่น' },
-              { label: 'สงขลา', value: 'สงขลา' }
-            ]"
+            :options="THAILAND_PROVINCES"
           />
         </div>
 
@@ -272,6 +265,7 @@
 
 <script setup lang="ts">
 import type { HotelContent } from '~/composables/data_models/cms'
+import { THAILAND_PROVINCES } from '~/composables/constants/provinces'
 
 interface Props {
   hotel?: HotelContent | null

@@ -176,14 +176,7 @@
             v-model="formData.location.province"
             label="จังหวัด"
             :required="true"
-            :options="[
-              { label: 'เลือกจังหวัด', value: '' },
-              { label: 'กรุงเทพมหานคร', value: 'กรุงเทพมหานคร' },
-              { label: 'เชียงใหม่', value: 'เชียงใหม่' },
-              { label: 'ภูเก็ต', value: 'ภูเก็ต' },
-              { label: 'ขอนแก่น', value: 'ขอนแก่น' },
-              { label: 'สงขลา', value: 'สงขลา' }
-            ]"
+            :options="THAILAND_PROVINCES"
           />
         </div>
 
@@ -364,6 +357,7 @@
 
 <script setup lang="ts">
 import type { EventContent } from '~/composables/data_models/cms'
+import { THAILAND_PROVINCES } from '~/composables/constants/provinces'
 
 interface Props {
   event?: EventContent | null

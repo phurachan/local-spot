@@ -168,6 +168,7 @@
 <script setup lang="ts">
 import type { HotelContent } from '~/composables/data_models/cms'
 import { useHotelsStore } from '~/stores/hotels'
+import { THAILAND_PROVINCES } from '~/composables/constants/provinces'
 
 // Page Meta
 definePageMeta({
@@ -220,10 +221,7 @@ const categoryOptions = [
 
 const provinceOptions = [
   { value: '', label: 'ทั้งหมด' },
-  { value: 'กรุงเทพมหานคร', label: 'กรุงเทพมหานคร' },
-  { value: 'เชียงใหม่', label: 'เชียงใหม่' },
-  { value: 'ภูเก็ต', label: 'ภูเก็ต' },
-  { value: 'ขอนแก่น', label: 'ขอนแก่น' }
+  ...THAILAND_PROVINCES.slice(1) // Skip the first empty option from THAILAND_PROVINCES
 ]
 
 const statusOptions = [

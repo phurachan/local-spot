@@ -159,10 +159,10 @@
         <h4 class="card-title text-lg mb-4">ที่ตั้ง (ไม่บังคับ)</h4>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <BaseInput
+          <BaseSelect
             v-model="formData.location.province"
             label="จังหวัด"
-            placeholder="จังหวัด"
+            :options="THAILAND_PROVINCES"
           />
 
           <BaseInput
@@ -274,6 +274,7 @@
 
 <script setup lang="ts">
 import type { NewsContent } from '~/composables/data_models/cms'
+import { THAILAND_PROVINCES } from '~/composables/constants/provinces'
 
 interface Props {
   news?: NewsContent | null
