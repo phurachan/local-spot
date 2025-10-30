@@ -87,7 +87,7 @@
           </template>
 
           <template #status="{ row }">
-            <div class="badge" :class="row.isActive ? 'badge-success' : 'badge-error'">
+            <div class="badge truncate max-w-[100px]" :class="row.isActive ? 'badge-success' : 'badge-error'">
               {{ row.isActive ? 'เปิดใช้งาน' : 'ปิดใช้งาน' }}
             </div>
           </template>
@@ -104,25 +104,25 @@
           </template>
 
           <template #category="{ row }">
-            <div class="badge badge-outline">
+            <div class="badge badge-outline truncate max-w-[120px]">
               {{ getCategoryLabel(row.category) }}
             </div>
           </template>
 
           <template #price="{ row }">
-            <div class="text-sm font-medium">
+            <div class="badge badge-sm badge-success truncate max-w-[120px]">
               {{ row.pricing?.price.toLocaleString() }} {{ row.pricing?.currency }}
             </div>
           </template>
 
           <template #stock="{ row }">
-            <div class="badge" :class="row.availability?.inStock ? 'badge-info' : 'badge-warning'">
+            <div class="badge truncate max-w-[100px]" :class="row.availability?.inStock ? 'badge-info' : 'badge-warning'">
               {{ row.availability?.inStock ? 'มีสินค้า' : 'สินค้าหมด' }}
             </div>
           </template>
 
           <template #vendor="{ row }">
-            <div class="text-sm">
+            <div class="badge badge-sm badge-ghost truncate max-w-[150px]">
               {{ row.vendor?.name }}
             </div>
           </template>

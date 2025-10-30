@@ -87,7 +87,7 @@
           </template>
 
           <template #status="{ row }">
-            <div class="badge" :class="row.isActive ? 'badge-success' : 'badge-error'">
+            <div class="badge truncate max-w-[100px]" :class="row.isActive ? 'badge-success' : 'badge-error'">
               {{ row.isActive ? 'เปิดใช้งาน' : 'ปิดใช้งาน' }}
             </div>
           </template>
@@ -104,15 +104,19 @@
           </template>
 
           <template #category="{ row }">
-            <div class="badge badge-outline">
+            <div class="badge badge-outline truncate max-w-[120px]">
               {{ getCategoryLabel(row.category) }}
             </div>
           </template>
 
           <template #location="{ row }">
-            <div class="text-sm">
-              <div class="font-medium">{{ row.location?.district }}</div>
-              <div class="text-base-content/70">{{ row.location?.province }}</div>
+            <div class="flex flex-wrap gap-1 max-w-[200px]">
+              <div v-if="row.location?.district" class="badge badge-sm badge-ghost truncate max-w-full">
+                {{ row.location.district }}
+              </div>
+              <div v-if="row.location?.province" class="badge badge-sm badge-outline truncate max-w-full">
+                {{ row.location.province }}
+              </div>
             </div>
           </template>
         </BaseTable>

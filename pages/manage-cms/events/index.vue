@@ -87,7 +87,7 @@
           </template>
 
           <template #status="{ row }">
-            <div class="badge" :class="row.isActive ? 'badge-success' : 'badge-error'">
+            <div class="badge truncate max-w-[100px]" :class="row.isActive ? 'badge-success' : 'badge-error'">
               {{ row.isActive ? 'เปิดใช้งาน' : 'ปิดใช้งาน' }}
             </div>
           </template>
@@ -104,27 +104,31 @@
           </template>
 
           <template #category="{ row }">
-            <div class="badge badge-outline">
+            <div class="badge badge-outline truncate max-w-[120px]">
               {{ getCategoryLabel(row.category) }}
             </div>
           </template>
 
           <template #schedule="{ row }">
-            <div class="text-sm">
-              <div class="font-medium">{{ formatDate(row.schedule?.startDate) }}</div>
-              <div class="text-base-content/70 text-xs">ถึง {{ formatDate(row.schedule?.endDate) }}</div>
+            <div class="flex flex-col gap-1 max-w-[150px]">
+              <div class="badge badge-sm badge-ghost truncate w-full">{{ formatDate(row.schedule?.startDate) }}</div>
+              <div class="badge badge-sm badge-outline truncate w-full">{{ formatDate(row.schedule?.endDate) }}</div>
             </div>
           </template>
 
           <template #location="{ row }">
-            <div class="text-sm">
-              <div class="font-medium">{{ row.location?.venue }}</div>
-              <div class="text-base-content/70">{{ row.location?.province }}</div>
+            <div class="flex flex-wrap gap-1 max-w-[200px]">
+              <div v-if="row.location?.venue" class="badge badge-sm badge-ghost truncate max-w-full">
+                {{ row.location.venue }}
+              </div>
+              <div v-if="row.location?.province" class="badge badge-sm badge-outline truncate max-w-full">
+                {{ row.location.province }}
+              </div>
             </div>
           </template>
 
           <template #ticketing="{ row }">
-            <div class="badge" :class="row.ticketing?.freeEntry ? 'badge-success' : 'badge-info'">
+            <div class="badge truncate max-w-[120px]" :class="row.ticketing?.freeEntry ? 'badge-success' : 'badge-info'">
               {{ row.ticketing?.freeEntry ? 'ฟรี' : row.ticketing?.price ? `${row.ticketing.price} ${row.ticketing.currency}` : 'ไม่มีข้อมูล' }}
             </div>
           </template>

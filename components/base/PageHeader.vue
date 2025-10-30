@@ -8,7 +8,7 @@
           <h1 class="text-2xl sm:text-3xl font-bold text-base-content">
             {{ title }}
           </h1>
-          <div v-if="code" class="badge badge-primary badge-outline font-mono text-xs mb-1">
+          <div v-if="code" class="badge badge-primary badge-outline font-mono text-xs mb-1 truncate max-w-[150px]">
             {{ code }}
           </div>
         </div>

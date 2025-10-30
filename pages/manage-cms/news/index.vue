@@ -87,7 +87,7 @@
           </template>
 
           <template #status="{ row }">
-            <div class="badge" :class="row.isActive ? 'badge-success' : 'badge-error'">
+            <div class="badge truncate max-w-[100px]" :class="row.isActive ? 'badge-success' : 'badge-error'">
               {{ row.isActive ? 'เปิดใช้งาน' : 'ปิดใช้งาน' }}
             </div>
           </template>

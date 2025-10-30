@@ -87,7 +87,7 @@
           </template>
 
           <template #status="{ row }">
-            <div class="badge" :class="row.isActive ? 'badge-success' : 'badge-error'">
+            <div class="badge truncate max-w-[100px]" :class="row.isActive ? 'badge-success' : 'badge-error'">
               {{ row.isActive ? 'เปิดใช้งาน' : 'ปิดใช้งาน' }}
             </div>
           </template>
@@ -104,24 +104,28 @@
           </template>
 
           <template #category="{ row }">
-            <div class="badge badge-outline">
+            <div class="badge badge-outline truncate max-w-[120px]">
               {{ getCategoryLabel(row.category) }}
             </div>
           </template>
 
           <template #pricing="{ row }">
-            <div class="text-sm">
-              <div class="font-medium">{{ row.pricing?.amount.toLocaleString() }} {{ row.pricing?.currency }}</div>
-              <div class="text-base-content/70 text-xs">{{ getPricingTypeLabel(row.pricing?.type) }}</div>
+            <div class="flex flex-wrap gap-1 max-w-[180px]">
+              <div class="badge badge-sm badge-info truncate max-w-full">
+                {{ row.pricing?.amount.toLocaleString() }} {{ row.pricing?.currency }}
+              </div>
+              <div class="badge badge-sm badge-ghost truncate max-w-full">
+                {{ getPricingTypeLabel(row.pricing?.type) }}
+              </div>
             </div>
           </template>
 
           <template #serviceArea="{ row }">
-            <div class="flex flex-wrap gap-1">
+            <div class="flex flex-wrap gap-1 max-w-[200px]">
               <div
                 v-for="area in row.location?.serviceArea?.slice(0, 2)"
                 :key="area"
-                class="badge badge-sm badge-ghost"
+                class="badge badge-sm badge-ghost truncate max-w-[90px]"
               >
                 {{ area }}
               </div>
