@@ -465,7 +465,8 @@ watch(
     // Reset errors first
     errors.value = {}
 
-    if (newLocalProduct && props.isEditing) {
+    if (newLocalProduct) {
+      // Edit mode - populate form
       formData.value = { ...newLocalProduct }
       vendorPhoneInput.value = newLocalProduct.vendor?.contactInfo?.phone?.join(', ') || ''
       materialsInput.value = newLocalProduct.product?.materials?.join(', ') || ''
@@ -474,6 +475,7 @@ watch(
       shippingAreasInput.value = newLocalProduct.shipping?.areas?.join(', ') || ''
       tagsInput.value = newLocalProduct.tags?.join(', ') || ''
     } else {
+      // Create mode - reset to defaults
       resetForm()
     }
   },

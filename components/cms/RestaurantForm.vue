@@ -447,6 +447,7 @@ watch(() => props.restaurant, (restaurant) => {
   errors.value = {}
 
   if (restaurant) {
+    // Edit mode - populate form
     formData.value = { ...restaurant }
     phoneInput.value = restaurant.contactInfo?.phone?.join(', ') || ''
     cuisineInput.value = restaurant.cuisine?.join(', ') || ''
@@ -455,6 +456,7 @@ watch(() => props.restaurant, (restaurant) => {
     deliveryPlatformsInput.value = restaurant.delivery?.platforms?.join(', ') || ''
     tagsInput.value = restaurant.tags?.join(', ') || ''
   } else {
+    // Create mode - reset to defaults
     resetForm()
   }
 }, { immediate: true })

@@ -454,7 +454,8 @@ watch(
     // Reset errors first
     errors.value = {}
 
-    if (newTravelService && props.isEditing) {
+    if (newTravelService) {
+      // Edit mode - populate form
       formData.value = { ...newTravelService }
       phoneInput.value = newTravelService.contactInfo?.phone?.join(', ') || ''
       serviceAreaInput.value = newTravelService.location?.serviceArea?.join(', ') || ''
@@ -464,6 +465,7 @@ watch(
       availabilityInput.value = newTravelService.availability?.join(', ') || ''
       tagsInput.value = newTravelService.tags?.join(', ') || ''
     } else {
+      // Create mode - reset to defaults
       resetForm()
     }
   },

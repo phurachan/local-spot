@@ -500,20 +500,53 @@ function handleSubmit() {
 
 // Watch for props changes
 watch(() => props.news, (newNews) => {
+  // Reset errors first
+  errors.value = {}
+
   if (newNews) {
+    // Edit mode - populate form with news data
     formData.value = {
-      ...formData.value,
       ...newNews,
       author: {
-        ...formData.value.author,
-        ...newNews.author
+        name: newNews.author?.name || '',
+        email: newNews.author?.email || '',
+        bio: newNews.author?.bio || ''
       },
       location: {
-        ...formData.value.location,
-        ...newNews.location
+        province: newNews.location?.province || '',
+        district: newNews.location?.district || ''
       }
     }
     tagsInput.value = newNews.tags?.join(', ') || ''
+  } else {
+    // Create mode - reset form to defaults
+    formData.value = {
+      title: '',
+      description: '',
+      content: '',
+      excerpt: '',
+      category: '' as any,
+      author: {
+        name: '',
+        email: '',
+        bio: ''
+      },
+      coverImage: '',
+      publishDate: new Date(),
+      source: '',
+      location: {
+        province: '',
+        district: ''
+      },
+      tags: [],
+      images: [],
+      relatedContent: [],
+      isActive: true,
+      featured: false,
+      order: 0,
+      readTime: 5
+    }
+    tagsInput.value = ''
   }
-})
+}, { immediate: true })
 </script>

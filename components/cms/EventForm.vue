@@ -503,13 +503,15 @@ watch(
     // Reset errors first
     errors.value = {}
 
-    if (newEvent && props.isEditing) {
+    if (newEvent) {
+      // Edit mode - populate form
       formData.value = { ...newEvent }
       organizerPhoneInput.value = newEvent.organizer?.contactInfo?.phone?.join(', ') || ''
       targetAudienceInput.value = newEvent.targetAudience?.join(', ') || ''
       activitiesInput.value = newEvent.activities?.join(', ') || ''
       tagsInput.value = newEvent.tags?.join(', ') || ''
     } else {
+      // Create mode - reset to defaults
       resetForm()
     }
   },

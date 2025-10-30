@@ -78,6 +78,9 @@ export const THAILAND_PROVINCES = [
   { label: 'อุตรดิตถ์', value: 'อุตรดิตถ์' },
   { label: 'อุทัยธานี', value: 'อุทัยธานี' },
   { label: 'อุบลราชธานี', value: 'อุบลราชธานี' }
-] as const
+]
 
-export type ProvinceOption = typeof THAILAND_PROVINCES[number]
+export type ProvinceOption = {
+  label: string
+  value: string
+}

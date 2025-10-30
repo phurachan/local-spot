@@ -336,11 +336,13 @@ watch(() => props.hotel, (hotel) => {
   errors.value = {}
 
   if (hotel) {
+    // Edit mode - populate form
     formData.value = { ...hotel }
     phoneInput.value = hotel.contactInfo?.phone?.join(', ') || ''
     amenitiesInput.value = hotel.amenities?.join(', ') || ''
     tagsInput.value = hotel.tags?.join(', ') || ''
   } else {
+    // Create mode - reset to defaults
     resetForm()
   }
 }, { immediate: true })
